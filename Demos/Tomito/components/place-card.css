@@ -1,0 +1,35 @@
+.place-card-container {
+  width: 230px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.place-card-container1 {
+  width: 254px;
+  display: flex;
+  padding: var(--dl-space-space-unit);
+  align-items: center;
+  flex-direction: column;
+}
+.place-card-text {
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  padding-bottom: var(--dl-space-space-halfunit);
+}
+.place-card-text1 {
+  font-size: 16px;
+  max-width: 250px;
+  align-self: flex-end;
+  margin-bottom: var(--dl-space-space-doubleunit);
+}
+@media(max-width: 767px) {
+  .place-card-container {
+    width: 200px;
+  }
+}
+@media(max-width: 479px) {
+  .place-card-container {
+    width: 300px;
+  }
+}

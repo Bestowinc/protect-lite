@@ -1,0 +1,39 @@
+.learn-online-security-feature-card {
+  width: 100%;
+  display: flex;
+  padding: 32px;
+  align-items: center;
+  flex-direction: column;
+}
+.learn-online-security-container {
+  flex: 0 0 auto;
+  width: auto;
+  height: 48px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.learn-online-security-icon {
+  fill: var(--dl-color-gray-white);
+  width: 48px;
+  height: 48px;
+}
+.learn-online-security-heading {
+  color: var(--dl-color-gray-white);
+  font-style: normal;
+  margin-top: 5px;
+  text-align: center;
+  font-weight: 500;
+  margin-left: var(--dl-space-space-unit);
+  margin-right: var(--dl-space-space-unit);
+  margin-bottom: 0px;
+}
+.learn-online-security-heading1 {
+  color: var(--dl-color-gray-white);
+  font-style: normal;
+  text-align: center;
+  font-weight: 500;
+}
+
+
+

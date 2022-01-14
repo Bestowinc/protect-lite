@@ -1,0 +1,11 @@
+.empty-summary-feature-card {
+  width: 100%;
+  height: 64px;
+  display: flex;
+  padding: 10px;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+
+
