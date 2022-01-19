@@ -10,10 +10,7 @@ jobs:
       domain:
         type: string
       bucket:
-        type: string  
-    environment:
-      DOMAIN: << parameters.domain >>
-      BUCKET: << parameters.bucket >>
+        type: string
     docker:
       - image: google/cloud-sdk:282.0.0-alpine
     steps:
@@ -22,7 +19,7 @@ jobs:
       - run: gcloud auth activate-service-account --key-file=<(echo "$GOOGLE_SERVICE_ACCOUNT_KEY")
       - attach_workspace:
           at: .
-      - run: gsutil -m rsync -r DEMOS/Tomito/ "gs://$(BUCKET)/"    
+      - run: gsutil -m rsync -r DEMOS/Tomito/ "gs://<< parameters.bucket >>"    
 
 
 
