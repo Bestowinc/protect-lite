@@ -19,7 +19,7 @@ jobs:
       - run: gcloud auth activate-service-account --key-file=<(echo "$GOOGLE_SERVICE_ACCOUNT_KEY")
       - attach_workspace:
           at: .
-      - run: gsutil -m rsync -r DEMOS/Tomito/ "gs://<< parameters.bucket >>"    
+      - run: gsutil -m rsync -r Demos/Tomito/ "gs://<< parameters.bucket >>"    
 
 
 
