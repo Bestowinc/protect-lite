@@ -11,7 +11,7 @@ jobs:
         type: string
     environment:
       DOMAIN: << parameters.domain >>
-      BUCKET: 
+      BUCKET: << parameters.bucket >>
     docker:
       - image: google/cloud-sdk:282.0.0-alpine
     steps:
@@ -20,7 +20,7 @@ jobs:
       - run: gcloud auth activate-service-account --key-file=<(echo "$GOOGLE_SERVICE_ACCOUNT_KEY")
       - attach_workspace:
           at: .
-      - run: gsutil -m rsync -r build/ "gs://$(Bucket)/"    
+      - run: gsutil -m rsync -r DEMOS/Tomito/ "gs://$(BUCKET)/"    
 
 
 
@@ -30,9 +30,19 @@ workflows:
   default:
     jobs:
       - deploy_gcp:
-          name: deploy-gcp-qa-demo
-          domain: protect-lite.qa.bestow.com
+          name: deploy-gcp-demo-qa
+          domain: protect-lite.qa.bestowlabs.com
+          bucket: protect-lite.qa.bestowlabs.com
           context: gcp-policy-platform-qa
           filters:
             branches:
               only: develop
+
+      - deploy_gcp:
+          name: deploy-gcp-demo-prod
+          domain: protect-lite.bestowlabs.com
+          bucket: protect-lite.bestowlabs.com
+          context: gcp-policy-platform-qa
+          filters:
+            branches:
+              only: master        
