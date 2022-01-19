@@ -1,0 +1,44 @@
+.life-insurance-ad-feature-card {
+  width: 650px;
+  height: 119px;
+  display: flex;
+  padding: 15px;
+  align-items: flex-start;
+  border-color: var(--dl-color-gray-900);
+  border-width: 1px;
+  flex-direction: column;
+  background-color: var(--dl-color-gray-white);
+}
+.life-insurance-ad-container {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+.life-insurance-ad-container1 {
+  flex: 0 0 auto;
+  width: 413px;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.life-insurance-ad-link {
+  color: #0645ad;
+  font-size: 20px;
+  text-decoration: none;
+}
+.life-insurance-ad-text {
+  color: var(--dl-color-gray-black);
+  font-size: 14px;
+  margin-top: 15px;
+}
+.life-insurance-ad-image {
+  width: 208px;
+  height: 82px;
+  align-self: center;
+  object-fit: cover;
+}
+.rootClassName {
+  width: 700px;
+}

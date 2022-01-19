@@ -1,0 +1,40 @@
+.markets-container {
+  width: 246px;
+  height: 71px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.markets-container1 {
+  width: 249px;
+  height: 72px;
+  display: flex;
+  padding: var(--dl-space-space-unit);
+  align-items: center;
+  flex-direction: column;
+}
+.markets-text {
+  font-size: 24px;
+  align-self: flex-start;
+  font-style: normal;
+  font-weight: 700;
+  padding-bottom: var(--dl-space-space-halfunit);
+}
+.rootClassName {
+  margin-top: 10px;
+  margin-left: 0px;
+}
+.rootClassName1 {
+  margin-top: 10px;
+  margin-left: 0px;
+}
+@media(max-width: 767px) {
+  .markets-container {
+    width: 200px;
+  }
+}
+@media(max-width: 479px) {
+  .markets-container {
+    width: 300px;
+  }
+}
