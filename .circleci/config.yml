@@ -5,22 +5,34 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  deploy-gcp:
+    parameters:
+      domain:
+        type: string
+    environment:
+      DOMAIN: << parameters.domain >>
+      BUCKET: 
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+      - image: google/cloud-sdk:282.0.0-alpine
     steps:
+      - run: apk add --no-cache git make openssh
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+      - run: gcloud auth activate-service-account --key-file=<(echo "$GOOGLE_SERVICE_ACCOUNT_KEY")
+      - attach_workspace:
+          at: .
+      - run: gsutil -m rsync -r build/ "gs://$(Bucket)/"    
 
-# Invoke jobs via workflows
+
+
+# Invoke jobs via w-gcoorkflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  default:
     jobs:
-      - say-hello
+      - deploy_gcp:
+          name: deploy-gcp-qa-demo
+          domain: protect-lite.qa.bestow.com
+          context: gcp-policy-platform-qa
+          filters:
+            branches:
+              only: develop
