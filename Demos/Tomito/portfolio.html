@@ -804,7 +804,9 @@
 
     <!-- Iframe Code -->
     <script>
-      const policyPortalUrl = "https://agent-quote.qa.bestow.com/e4e833b3";
+      // TODO: Use agent url once they are updated to use V3 apis.
+      // const bestowAppUrl = "https://agent-quote.qa.bestow.com/e4e833b3";
+      const bestowAppUrl = "https://enroll.qa.bestow.com/";
 
       const toggleGutter = () => {
         const gutter = document.getElementById("bestow-gutter");
@@ -855,7 +857,7 @@
           //}
         };
 
-      document.getElementById("get-quote").onclick = genOnClick(policyPortalUrl);
+      document.getElementById("get-quote").onclick = genOnClick(bestowAppUrl);
       document.getElementById("arrow").onclick = arrowOnClick();
     </script>
     <!-- End of Iframe Code -->
