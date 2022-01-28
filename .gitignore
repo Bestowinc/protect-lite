@@ -34,3 +34,6 @@ yarn-error.log*
 # Ignore Swagger generated service folders
 /src/services/padre
 /src/services/keymaster
+
+# Jetbrains
+.idea
