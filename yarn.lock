@@ -1619,6 +1619,17 @@
     "@parcel/node-resolver-core" "^2.2.1"
     "@parcel/plugin" "^2.2.1"
 
+"@parcel/resolver-glob@^2.2.1":
+  "integrity" "sha512-4moWygrgkci6v2+e4LCshtEvC7aAfWWoI38e5x4pN6sdtQ5uSlELWWzi2tZEHnWG4cvJqY1sOfxJZF/DnmFCBA=="
+  "resolved" "https://registry.npmjs.org/@parcel/resolver-glob/-/resolver-glob-2.2.1.tgz"
+  "version" "2.2.1"
+  dependencies:
+    "@parcel/diagnostic" "^2.2.1"
+    "@parcel/plugin" "^2.2.1"
+    "@parcel/utils" "^2.2.1"
+    "micromatch" "^4.0.2"
+    "nullthrows" "^1.1.1"
+
 "@parcel/runtime-browser-hmr@^2.2.1":
   "integrity" "sha512-/jqka4kOlzUwb2ygzM1LtAVq/rxGaFarcR6YIchIAbp3DUSV/1nelo5swCw8FirN9O7qRBdgkIuW+0JAa+Dbzg=="
   "resolved" "https://registry.npmjs.org/@parcel/runtime-browser-hmr/-/runtime-browser-hmr-2.2.1.tgz"
@@ -3295,6 +3306,20 @@
   dependencies:
     "debug" "^3.2.7"
     "resolve" "^1.20.0"
+
+"eslint-import-resolver-parcel@^1.10.6":
+  "integrity" "sha512-FOH61qNEG5Qp2KGKZSgHB29wtqPHzVeoaHLyC+R34LZ6R523tSAp0yRxQYvWOciIr/OH4SYUNL6UcJaBM6GLWA=="
+  "resolved" "https://registry.npmjs.org/eslint-import-resolver-parcel/-/eslint-import-resolver-parcel-1.10.6.tgz"
+  "version" "1.10.6"
+  dependencies:
+    "resolve" "^1.17.0"
+
+"eslint-import-resolver-parcel2@^1.0.1":
+  "integrity" "sha512-afBpWOgGAzV4u9PQtg5aOI2xewGOLmy1mKP36EV/O250jx5mXAAW5HR5wR+xN8Fo1sD8/phnRZFUymT173ETiQ=="
+  "resolved" "https://registry.npmjs.org/eslint-import-resolver-parcel2/-/eslint-import-resolver-parcel2-1.0.1.tgz"
+  "version" "1.0.1"
+  dependencies:
+    "resolve" "^1.19.0"
 
 "eslint-module-utils@^2.7.2":
   "integrity" "sha512-088JEC7O3lDZM9xGe0RerkOMd0EjFl+Yvd1jPWIkMT5u3H9+HC34mWWPnqPrN13gieT9pBOO+Qt07Nb/6TresQ=="
@@ -5920,7 +5945,7 @@
   "resolved" "https://registry.npmjs.org/resolve.exports/-/resolve.exports-1.1.0.tgz"
   "version" "1.1.0"
 
-"resolve@^1.14.2", "resolve@^1.20.0":
+"resolve@^1.14.2", "resolve@^1.17.0", "resolve@^1.19.0", "resolve@^1.20.0":
   "integrity" "sha512-Hhtrw0nLeSrFQ7phPp4OOcVjLPIeMnRlr5mcnVuMe7M/7eBn98A3hmFRLoFo3DLZkivSYwhRUJTyPyWAk56WLw=="
   "resolved" "https://registry.npmjs.org/resolve/-/resolve-1.22.0.tgz"
   "version" "1.22.0"

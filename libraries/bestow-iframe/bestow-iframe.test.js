@@ -20,10 +20,10 @@ window.Bestow.setup(`#${testElementID}`, testURL);
 
 console.log(document.documentElement.innerHTML)
 
-let gutterElement = document.getElementById(gutterElementID);
-let iframeElement = document.getElementById(iframeElementID);
-let closeElement = document.getElementById(closeElementID);
-let styleElement = document.getElementById(styleElementID)
+const gutterElement = document.getElementById(gutterElementID);
+const iframeElement = document.getElementById(iframeElementID);
+const closeElement = document.getElementById(closeElementID);
+const styleElement = document.getElementById(styleElementID)
 
 describe("elements exist", () => {
     test('gutter element exists', () => {

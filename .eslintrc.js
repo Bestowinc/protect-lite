@@ -15,4 +15,7 @@ module.exports = {
   rules: {
     'no-console': 'off'
   },
+  settings: {
+    'import/resolver': 'parcel2'
+  }
 };
