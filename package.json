@@ -6,13 +6,12 @@
     "lint": "eslint '**/libraries/**/*.{js,mjs}'",
     "test": "jest --coverage --env=jsdom --verbose=true",
     "demo": "parcel Demos/Tomito/index.html --open",
-    "build": "parcel build libraries/bestow-iframe/bestow-iframe.mjs --dist-dir ./build --no-cache"
+    "build": "parcel build libraries/bestow-iframe/bestow-iframe.mjs --dist-dir build --no-cache"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@parcel/babel-preset-env": "^2.2.1",
-    "@parcel/resolver-glob": "^2.2.1",
     "@parcel/transformer-inline-string": "^2.2.1",
     "babel-jest": "^27.4.6",
     "eslint": "^8.8.0",
