@@ -6,7 +6,7 @@
     "lint": "eslint '**/libraries/**/*.{js,mjs}'",
     "test": "jest --coverage --env=jsdom --verbose=true",
     "demo": "parcel Demos/Tomito/index.html --open",
-    "build": "parcel build libraries/bestow-iframe/bestow-iframe.mjs --dist-dir build --no-cache"
+    "build": "parcel build libraries/bestow-iframe/bestow-iframe.mjs --dist-dir ./build --no-cache"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
