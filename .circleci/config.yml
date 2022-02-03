@@ -2,9 +2,59 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+x-filter-all-branches-and-tags: &all-branches-and-tags
+  branches:
+    only: /.*/
+  tags:
+    only: /.*/
+
+x-filter-develop-only: &develop-only
+  branches:
+    only: develop
+
+x-filter-master-only: &master-only
+  branches:
+    only: master
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
+  build:
+    docker:
+      - image: circleci/node:16
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies1-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies1-
+      - run: yarn lint
+      - run: yarn build
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies1-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - build
+  unit-test:
+    resource_class: large
+    docker:
+      - image: circleci/node:16
+        environment:
+          NODE_OPTIONS: --max_old_space_size=8192
+    working_directory: ~/project
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies1-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies1-
+      - run: yarn test
   deploy_gcp:
     parameters:
       domain:
@@ -19,29 +69,29 @@ jobs:
       - run: gcloud auth activate-service-account --key-file=<(echo "$GOOGLE_SERVICE_ACCOUNT_KEY")
       - attach_workspace:
           at: .
-      - run: gsutil -m rsync -r Demos/Tomito/ "gs://<< parameters.bucket >>"    
-
-
+      - run: gsutil -m rsync -r Demos/Tomito/ "gs://<< parameters.bucket >>"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   default:
     jobs:
+      - build:
+          filters: *all-branches-and-tags
+
+      - unit-test:
+          filters: *all-branches-and-tags
+
       - deploy_gcp:
           name: deploy-gcp-demo-qa
           domain: protect-lite.qa.bestowlabs.com
           bucket: protect-lite.qa.bestowlabs.com
           context: gcp-policy-platform-qa
-          filters:
-            branches:
-              only: develop
+          filters: *develop-only
 
       - deploy_gcp:
           name: deploy-gcp-demo-prod
           domain: protect-lite.bestowlabs.com
           bucket: protect-lite.bestowlabs.com
           context: gcp-policy-platform-qa
-          filters:
-            branches:
-              only: master        
+          filters: *master-only
