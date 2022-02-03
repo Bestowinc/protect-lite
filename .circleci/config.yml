@@ -79,17 +79,16 @@ workflows:
     jobs:
       - build:
           filters: *all-branches-and-tags
-
+          requires:
+            - build
       - unit-test:
           filters: *all-branches-and-tags
-
       - deploy_gcp:
           name: deploy-gcp-demo-qa
           domain: protect-lite.qa.bestowlabs.com
           bucket: protect-lite.qa.bestowlabs.com
           context: gcp-policy-platform-qa
           filters: *develop-only
-
       - deploy_gcp:
           name: deploy-gcp-demo-prod
           domain: protect-lite.bestowlabs.com

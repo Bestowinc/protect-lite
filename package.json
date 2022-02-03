@@ -1,10 +1,12 @@
 {
-  "type": "module",
+  "name": "protect-lite",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
     "lint": "eslint '**/libraries/**/*.js'",
     "test": "jest --coverage --env=jsdom --verbose=true",
     "demo": "parcel Demos/Tomito/index.html --open",
-    "build": "parcel build libraries/bestow-iframe/bestow-iframe.js --dist-dir build"
+    "build": "parcel build libraries/bestow-iframe/bestow-iframe.mjs --dist-dir build --no-cache"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
@@ -17,12 +19,17 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
     "jest": "^27.4.7",
+    "jest-transform-stub": "^2.0.0",
     "parcel": "^2.2.1"
   },
   "jest": {
     "verbose": true,
     "transform": {
-      "^.+\\.js$": "babel-jest"
+      "^.+\\.(js|mjs)$": "babel-jest",
+      ".+\\.(css|scss|png|jpg|svg)$": "jest-transform-stub"
+    },
+    "moduleNameMapper": {
+      "^.+.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub"
     }
   }
 }

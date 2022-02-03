@@ -1,4 +1,4 @@
-require('./bestow-iframe');
+require('./bestow-iframe.mjs');
 
 const describeIf = condition => condition ? describe : describe.skip;
 
