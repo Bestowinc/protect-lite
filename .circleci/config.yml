@@ -36,8 +36,6 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies1-{{ checksum "package.json" }}
-      - run: ls -a
-      - run: pwd
       - persist_to_workspace:
           root: .
           paths:
