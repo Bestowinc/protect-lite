@@ -32,7 +32,6 @@ function setupBestow(elementSelector, url) {
     }
 
     hostElem.onclick = openGutter(url);
-    console.log(hostElem);
 
     const styleSheet = document.createElement("style");
     styleSheet.textContent = styling;

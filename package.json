@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
     "@parcel/babel-preset-env": "^2.2.1",
     "@parcel/transformer-inline-string": "^2.2.1",
@@ -31,6 +32,14 @@
     },
     "moduleNameMapper": {
       "^.+.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub"
-    }
+    },
+    "moduleFileExtensions": [
+      "js",
+      "mjs"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "libraries"
+    ]
   }
 }
