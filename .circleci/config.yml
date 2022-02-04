@@ -68,6 +68,20 @@ jobs:
           root: .
           paths:
             - build/demo
+  deploy-libs:
+    parameters:
+      domain:
+        type: string
+      bucket:
+        type: string
+    docker:
+      - image: google/cloud-sdk:282.0.0-alpine
+    steps:
+      - run: apk add --no-cache git make openssh
+      - run: gcloud auth activate-service-account --key-file=<(echo "$GOOGLE_SERVICE_ACCOUNT_KEY")
+      - attach_workspace:
+          at: .
+      - run: gsutil -m rsync -r --delete build/demo/libs/ "gs://<< parameters.bucket >>/libs"
   deploy-demo:
     parameters:
       domain:
@@ -81,7 +95,7 @@ jobs:
       - run: gcloud auth activate-service-account --key-file=<(echo "$GOOGLE_SERVICE_ACCOUNT_KEY")
       - attach_workspace:
           at: .
-      - run: gsutil -m rsync -r build/demo/tomito/ "gs://<< parameters.bucket >>"
+      - run: gsutil -m rsync -r --delete --exclude libs/ build/demo/tomito/ "gs://<< parameters.bucket >>"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -102,16 +116,32 @@ workflows:
           filters: *all-branches-and-tags
           requires:
             - unit-test-libs
-      - deploy-demo:
-          name: deploy-gcp-demo-qa
+      - deploy-libs:
+          name: deploy-libs-qa
           domain: protect-lite.qa.bestowlabs.com
           bucket: protect-lite.qa.bestowlabs.com
           context: gcp-policy-platform-qa
           requires:
             - build-demo
-          filters: *develop-only
+          filters: *all-branches-and-tags
+      - deploy-libs:
+          name: deploy-libs-prod
+          domain: protect-lite.bestowlabs.com
+          bucket: protect-lite.bestowlabs.com
+          context: gcp-policy-platform-qa
+          requires:
+            - build-demo
+          filters: *master-only
       - deploy-demo:
-          name: deploy-gcp-demo-prod
+          name: deploy-demo-qa
+          domain: protect-lite.qa.bestowlabs.com
+          bucket: protect-lite.qa.bestowlabs.com
+          context: gcp-policy-platform-qa
+          requires:
+            - build-demo
+          filters: *all-branches-and-tags
+      - deploy-demo:
+          name: deploy-demo-prod
           domain: protect-lite.bestowlabs.com
           bucket: protect-lite.bestowlabs.com
           context: gcp-policy-platform-qa
