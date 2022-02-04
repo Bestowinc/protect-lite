@@ -66,4 +66,3 @@ function setupBestow(elementSelector, url) {
 }
 
 window.Bestow = { setup: setupBestow };
-console.log("prepped");
