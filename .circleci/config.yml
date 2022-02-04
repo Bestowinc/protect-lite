@@ -30,13 +30,13 @@ jobs:
   prep:
     docker:
       - image: circleci/node:16
-      steps:
-        <<: *checkout-and-restore-dependencies
-        - run: yarn install
-        - save_cache:
-            paths:
-              - node_modules
-            key: v1-dependencies1-{{ checksum "package.json" }}
+    steps:
+      <<: *checkout-and-restore-dependencies
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies1-{{ checksum "package.json" }}
   build-libs:
     docker:
       - image: circleci/node:16
