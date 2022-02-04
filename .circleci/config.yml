@@ -95,7 +95,7 @@ jobs:
       - run: gcloud auth activate-service-account --key-file=<(echo "$GOOGLE_SERVICE_ACCOUNT_KEY")
       - attach_workspace:
           at: .
-      - run: gsutil -m rsync -r --delete --exclude libs/ build/demo/tomito/ "gs://<< parameters.bucket >>"
+      - run: gsutil -m rsync -r --delete --exclude 'libs' build/demo/tomito/ "gs://<< parameters.bucket >>"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -122,7 +122,7 @@ workflows:
           bucket: protect-lite.qa.bestowlabs.com
           context: gcp-policy-platform-qa
           requires:
-            - build-demo
+            - build-libs
           filters: *all-branches-and-tags
       - deploy-libs:
           name: deploy-libs-prod
@@ -130,7 +130,7 @@ workflows:
           bucket: protect-lite.bestowlabs.com
           context: gcp-policy-platform-qa
           requires:
-            - build-demo
+            - build-libs
           filters: *master-only
       - deploy-demo:
           name: deploy-demo-qa
