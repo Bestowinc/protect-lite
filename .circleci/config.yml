@@ -30,8 +30,8 @@ jobs:
     docker:
       - image: circleci/node:16
     steps:
-      - *restore-dependencies
       - checkout
+      - *restore-dependencies
       - run: yarn install
       - save_cache:
           paths:
@@ -41,8 +41,8 @@ jobs:
     docker:
       - image: circleci/node:16
     steps:
-      - *restore-dependencies
       - checkout
+      - *restore-dependencies
       - run: yarn lint-libs
       - run: yarn build-lib-iframe # Build the iframe library.
       - persist_to_workspace:
@@ -54,15 +54,15 @@ jobs:
     docker:
       - image: circleci/node:16
     steps:
-      - *restore-dependencies
       - checkout
+      - *restore-dependencies
       - run: yarn test-libs
   build-demo:
     docker:
       - image: circleci/node:16
     steps:
-      - *restore-dependencies
       - checkout
+      - *restore-dependencies
       - run: yarn build-demo # Build the demo site.
       - persist_to_workspace:
           root: .
