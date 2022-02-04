@@ -99,6 +99,17 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     />
     <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="../../libs/iframe/bestow-iframe.mjs"></script>
+    <script>
+      // TODO: Use agent url once they are updated to use V3 apis.
+      // const bestowAppUrl = "https://agent-quote.qa.bestow.com/e4e833b3";
+      const bestowAppUrl = "https://enroll.qa.bestow.com/";
+
+      document.addEventListener('DOMContentLoaded', () => {
+        console.log("running");
+        window.Bestow.setup("#get-quote", bestowAppUrl);
+      });
+    </script>
   </head>
   <body>
     <div>
@@ -349,8 +360,7 @@
                           />
                           <a
                             id="get-quote"
-                            href="https://example.com"
-                            target="_blank"
+                            href="#"
                             rel="noreferrer noopener"
                             class="life-insurance-ad-link1"
                           >
@@ -793,73 +803,8 @@
               </div>
             </div>
           </div>
-          <div id="bestow-gutter" class="gutter closed">
-            <div id="arrow" style="display:none"></div>
-            <!-- <iframe src="https://enroll.qa.bestow.com/" frameborder="0"></iframe> -->
-            <iframe id="bestow-frame" frameborder="0" scrolling="yes" allow="payment"></iframe>
-	     </div>
         </div>
       </div>
     </div>
-
-    <!-- Iframe Code -->
-    <script>
-      // TODO: Use agent url once they are updated to use V3 apis.
-      // const bestowAppUrl = "https://agent-quote.qa.bestow.com/e4e833b3";
-      const bestowAppUrl = "https://enroll.qa.bestow.com/";
-
-      const toggleGutter = () => {
-        const gutter = document.getElementById("bestow-gutter");
-        const classes = gutter.classList.toggle("open");
-        const arrow = document.getElementById("arrow");
-        arrow.classList.toggle("arrow-closed");
-      };
-
-      const genOnClick = (url) =>
-        function (e) {
-          const frame = document.getElementById("bestow-frame");
-          const gutter = document.getElementById("bestow-gutter");
-          const arrow = document.getElementById("arrow");
-
-          arrow.style.display = "block";
-          gutter.style.display = "block";
-
-          if (frame.getAttribute("src") === url) {
-            toggleGutter();
-          } 
-          else {
-            frame.setAttribute("src", url);
-            const classes = gutter.classList.add("open");
-            arrow.classList.add("arrow-closed");
-          }
-
-          return false;
-        };
-
-      const arrowOnClick = (url) =>
-        function (e) {
-          const frame = document.getElementById("bestow-frame");
-          const gutter = document.getElementById("bestow-gutter");
-          const arrow = document.getElementById("arrow");
-
-          /* Disable slideout visuals */
-          arrow.style.display = "none";
-          gutter.style.display = "none";
-
-          /*if (url === undefined) {
-            url = appUrl
-            frame.setAttribute("src", url);
-            const classes = gutter.classList.add("open");
-            arrow.classList.add("arrow-closed");
-          }
-          else {*/
-          toggleGutter();
-          //}
-        };
-
-      document.getElementById("get-quote").onclick = genOnClick(bestowAppUrl);
-      document.getElementById("arrow").onclick = arrowOnClick();
-    </script>
-    <!-- End of Iframe Code -->
   </body>
 </html>

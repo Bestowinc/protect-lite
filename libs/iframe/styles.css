@@ -11,6 +11,7 @@
     width: 20%;
     min-width: 400px;
     border-left: 5px #370511ff solid;
+    box-sizing: content-box;
 }
 .gutter > iframe {
     height: 100%;
@@ -18,7 +19,7 @@
     border: 0;
 }
 .close {
-    background-color: rgba(56, 5, 17, 0.05);
+    background-color: white;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -28,6 +29,7 @@
     border: #370511ff 4px solid;
     position: fixed;
     margin: 5px -49px;
+    box-sizing: inherit;
 }
 .close-span {
     display: table-cell;
@@ -35,8 +37,9 @@
     height: 42px;
     width: 40px;
     text-align: center;
-    font-size: 2em;
+    font: 2em sans-serif;
     cursor: pointer;
+    box-sizing: inherit;
 }
 .close-span:hover {
     background-color: rgba(56, 5, 17, 0.05);

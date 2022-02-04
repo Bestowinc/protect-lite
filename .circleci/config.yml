@@ -19,7 +19,7 @@ x-filter-master-only: &master-only
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  build:
+  build-libs:
     docker:
       - image: circleci/node:16
     steps:
@@ -30,8 +30,8 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies1-
       - run: yarn install
-      - run: yarn lint
-      - run: yarn build
+      - run: yarn lint-libs
+      - run: yarn build-lib-iframe # Build the iframe library.
       - save_cache:
           paths:
             - node_modules
@@ -39,8 +39,8 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - build
-  unit-test:
+            - build/libs
+  unit-test-libs:
     resource_class: large
     docker:
       - image: circleci/node:16
@@ -55,8 +55,28 @@ jobs:
             - v1-dependencies1-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies1-
-      - run: yarn test
-  deploy_gcp:
+      - run: yarn test-libs
+  build-demo:
+    docker:
+      - image: circleci/node:16
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies1-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies1-
+      - run: yarn install
+      - run: yarn build-demo # Build the demo site.
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies1-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - build/demo
+  deploy-demo:
     parameters:
       domain:
         type: string
@@ -70,28 +90,34 @@ jobs:
       - run: gcloud auth activate-service-account --key-file=<(echo "$GOOGLE_SERVICE_ACCOUNT_KEY")
       - attach_workspace:
           at: .
-      - run: gsutil -m rsync -r Demos/Tomito/ "gs://<< parameters.bucket >>"
+      - run: gsutil -m rsync -r build/demo/tomito/ "gs://<< parameters.bucket >>"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   default:
     jobs:
-      - build:
+      - build-libs:
           filters: *all-branches-and-tags
-      - unit-test:
+      - unit-test-libs:
           filters: *all-branches-and-tags
           requires:
-            - build
-      - deploy_gcp:
+            - build-libs
+      - build-demo:
+          filters: *all-branches-and-tags
+      - deploy-demo:
           name: deploy-gcp-demo-qa
           domain: protect-lite.qa.bestowlabs.com
           bucket: protect-lite.qa.bestowlabs.com
           context: gcp-policy-platform-qa
+          requires:
+            - build-demo
           filters: *develop-only
-      - deploy_gcp:
+      - deploy-demo:
           name: deploy-gcp-demo-prod
           domain: protect-lite.bestowlabs.com
           bucket: protect-lite.bestowlabs.com
           context: gcp-policy-platform-qa
+          requires:
+            - build-demo
           filters: *master-only
