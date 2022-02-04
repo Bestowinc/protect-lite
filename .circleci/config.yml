@@ -123,7 +123,7 @@ workflows:
           context: gcp-policy-platform-qa
           requires:
             - build-libs
-          filters: *all-branches-and-tags
+          filters: *develop-only
       - deploy-libs:
           name: deploy-libs-prod
           domain: protect-lite.bestowlabs.com
@@ -139,7 +139,7 @@ workflows:
           context: gcp-policy-platform-qa
           requires:
             - build-demo
-          filters: *all-branches-and-tags
+          filters: *develop-only
       - deploy-demo:
           name: deploy-demo-prod
           domain: protect-lite.bestowlabs.com
