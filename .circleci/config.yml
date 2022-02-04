@@ -17,12 +17,13 @@ x-filter-master-only: &master-only
     only: master
 
 checkout-and-load: &checkout-and-restore-dependencies
-  - checkout
-  - restore_cache:
-      keys:
-        - v1-dependencies1-{{ checksum "package.json" }}
-        # fallback to using the latest cache if no exact match is found
-        - v1-dependencies1-
+  steps:
+    - checkout
+    - restore_cache:
+        keys:
+          - v1-dependencies1-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies1-
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -30,8 +31,8 @@ jobs:
   prep:
     docker:
       - image: circleci/node:16
+    <<: *checkout-and-restore-dependencies
     steps:
-      - <<: *checkout-and-restore-dependencies
       - run: yarn install
       - save_cache:
           paths:
@@ -40,8 +41,8 @@ jobs:
   build-libs:
     docker:
       - image: circleci/node:16
+    <<: *checkout-and-restore-dependencies
     steps:
-      - <<: *checkout-and-restore-dependencies
       - run: yarn lint-libs
       - run: yarn build-lib-iframe # Build the iframe library.
       - persist_to_workspace:
@@ -52,17 +53,14 @@ jobs:
     resource_class: large
     docker:
       - image: circleci/node:16
-        environment:
-          NODE_OPTIONS: --max_old_space_size=8192
-    working_directory: ~/project
+    <<: *checkout-and-restore-dependencies
     steps:
-      - <<: *checkout-and-restore-dependencies
       - run: yarn test-libs
   build-demo:
     docker:
       - image: circleci/node:16
+    <<: *checkout-and-restore-dependencies
     steps:
-      - <<: *checkout-and-restore-dependencies
       - run: yarn build-demo # Build the demo site.
       - persist_to_workspace:
           root: .
