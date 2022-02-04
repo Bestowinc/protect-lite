@@ -16,26 +16,34 @@ x-filter-master-only: &master-only
   branches:
     only: master
 
+checkout-and-load: &checkout-and-restore-dependencies
+  - checkout
+  - restore_cache:
+      keys:
+        - v1-dependencies1-{{ checksum "package.json" }}
+        # fallback to using the latest cache if no exact match is found
+        - v1-dependencies1-
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
+  prep:
+    docker:
+      - image: circleci/node:16
+      steps:
+        <<: *checkout-and-restore-dependencies
+        - run: yarn install
+        - save_cache:
+            paths:
+              - node_modules
+            key: v1-dependencies1-{{ checksum "package.json" }}
   build-libs:
     docker:
       - image: circleci/node:16
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies1-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies1-
-      - run: yarn install
+      <<: *checkout-and-restore-dependencies
       - run: yarn lint-libs
       - run: yarn build-lib-iframe # Build the iframe library.
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies1-{{ checksum "package.json" }}
       - persist_to_workspace:
           root: .
           paths:
@@ -48,30 +56,14 @@ jobs:
           NODE_OPTIONS: --max_old_space_size=8192
     working_directory: ~/project
     steps:
-      - checkout
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies1-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies1-
+      <<: *checkout-and-restore-dependencies
       - run: yarn test-libs
   build-demo:
     docker:
       - image: circleci/node:16
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies1-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies1-
-      - run: yarn install
+      <<: *checkout-and-restore-dependencies
       - run: yarn build-demo # Build the demo site.
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies1-{{ checksum "package.json" }}
       - persist_to_workspace:
           root: .
           paths:
@@ -86,7 +78,6 @@ jobs:
       - image: google/cloud-sdk:282.0.0-alpine
     steps:
       - run: apk add --no-cache git make openssh
-      - checkout
       - run: gcloud auth activate-service-account --key-file=<(echo "$GOOGLE_SERVICE_ACCOUNT_KEY")
       - attach_workspace:
           at: .
@@ -97,14 +88,20 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-libs:
+      - prep:
           filters: *all-branches-and-tags
       - unit-test-libs:
           filters: *all-branches-and-tags
           requires:
-            - build-libs
+            - prep
+      - build-libs:
+          filters: *all-branches-and-tags
+          requires:
+            - unit-test-libs
       - build-demo:
           filters: *all-branches-and-tags
+          requires:
+            - unit-test-libs
       - deploy-demo:
           name: deploy-gcp-demo-qa
           domain: protect-lite.qa.bestowlabs.com
