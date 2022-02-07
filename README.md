@@ -15,10 +15,10 @@ This is a very basic proof of concept created to show that Protect Lite was poss
 
 ### Tomito
 
-The Tomito demo website was created for partners to see how Protect Lite works. A playground to see how the 
-Bestow application can be embedded with a dummy parent site.
+The Tomito demo website was created for partners to see how Protect Lite works. A playground to show how the 
+Bestow application can be embedded into a dummy parent site.
 
-It utilizes javascript libraries (See [Libraries](#libraries)) to show easy configuration.
+It utilizes javascript libraries (See [Libraries](#libraries)) to show easy integration.
 
 The demo site is built with [Parcel](https://parceljs.org/).
 
@@ -51,9 +51,10 @@ The libraries are...
 
 ### iFrame
 
-This library creates the necessary html elements and styling for the Bestow application to operate within an iFrame.
+This library creates the necessary html elements and styling for the Bestow application to operate within an iFrame. 
+All elements are created at the bottom of the existing `body`.
 
-Partners can integate the library into their website like this...
+Partners can integrate the library into their existing website like this...
 
 ```html
 <head>
