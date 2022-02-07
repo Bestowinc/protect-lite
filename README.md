@@ -27,7 +27,7 @@ The demo site is built with [Parcel](https://parceljs.org/).
 | Environment | URL                                    |
 |-------------|----------------------------------------|
 | QA          | https://protect-lite.qa.bestowlabs.com |
-| Prod        | https://protect-lite.bestowlabs.com    |
+| Prod        | TBD                                    |
 
 #### Running Locally
 
@@ -63,7 +63,7 @@ Partners can integate the library into their website like this...
       const bestowAppUrl = "https://enroll.qa.bestow.com/";
     
       document.addEventListener('DOMContentLoaded', () => {
-        window.Bestow.setup("#get-quote", bestowAppUrl);
+        window.Bestow.setup("get-quote", bestowAppUrl);
       });
   </script>
 </head>
@@ -86,4 +86,4 @@ Below details the files hosted for the iFrame javascript library.
 | Environment | Files                                                                                                                                             |
 |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
 | QA          | https://protect-lite.qa.bestowlabs.com/libs/iframe/bestow-iframe.js <br/> https://protect-lite.qa.bestowlabs.com/libs/iframe/bestow-iframe.js.map |
-| Prod        | https://protect-lite.bestowlabs.com/libs/iframe/bestow-iframe.js <br/> https://protect-lite.bestowlabs.com/libs/iframe/bestow-iframe.js.map       |
+| Prod        | TBD                                                                                                                                               |

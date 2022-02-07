@@ -24,6 +24,9 @@ const closeGutter = () => () => {
 };
 
 function setupBestow(elementSelector, url) {
+  if (!elementSelector.startsWith('#')){
+    elementSelector = '#' + elementSelector;
+  }
   const hostElem = document.querySelector(elementSelector);
 
   if (!hostElem) {

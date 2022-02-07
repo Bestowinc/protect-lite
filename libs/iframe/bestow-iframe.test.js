@@ -18,7 +18,7 @@ document.body.innerHTML += `
 
 let setupError;
 try {
-  window.Bestow.setup(`#${testElementID}`, testURL);
+  window.Bestow.setup(`${testElementID}`, testURL);
 } catch (e) {
   setupError = e;
 }
@@ -27,7 +27,7 @@ describe('test setup', () => {
   test('error when supplied element does not exist', () => {
     let err;
     try {
-      window.Bestow.setup(`garbage`, testURL);
+      window.Bestow.setup(`#garbage`, testURL);
     } catch (e) {
       err = e;
     }
