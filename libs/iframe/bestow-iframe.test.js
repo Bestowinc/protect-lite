@@ -116,6 +116,10 @@ describeIf(iframeExists)('iframe tests', () => {
     const srcAttribute = iframeElement.getAttribute('src');
     expect(srcAttribute).toBe(testURL);
   });
+  test('iframe element has correct values for allow attribute', () => {
+    const allowAttribute = iframeElement.getAttribute('allow');
+    expect(allowAttribute).toBe('payment');
+  });
 });
 
 describeIf(closeExists)('close tests', () => {

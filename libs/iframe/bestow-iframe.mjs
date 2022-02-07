@@ -56,7 +56,7 @@ function setupBestow(elementSelector, url) {
 
   const frameElem = document.createElement('iframe');
   frameElem.id = 'bestow-frame';
-  frameElem.allow = 'payment';
+  frameElem.setAttribute('allow', 'payment');
   frameElem.src = url;
   gutterElem.appendChild(frameElem);
   document.body.appendChild(gutterElem);
