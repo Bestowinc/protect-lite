@@ -10,7 +10,7 @@ customers off their platform. This can be achieved by embedding bestow directly 
 In order to run/develop locally, npm or yarn must be installed. 
 
 Then run the following command from the project root directory to install all required packages.
-* `yarn install` or `npm install`
+* `npm install` or `yarn install`
 
 ## Demos
 
