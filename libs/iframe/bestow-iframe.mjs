@@ -24,10 +24,12 @@ const closeGutter = () => () => {
 };
 
 function setupBestow(elementSelector, url) {
-  if (!elementSelector.startsWith('#')){
-    elementSelector = '#' + elementSelector;
+  let elementID = elementSelector;
+
+  if (!elementID.startsWith('#')){
+    elementID = `#${elementID}`;
   }
-  const hostElem = document.querySelector(elementSelector);
+  const hostElem = document.querySelector(elementID);
 
   if (!hostElem) {
     throw new Error(`Supplied element could not be found`);
