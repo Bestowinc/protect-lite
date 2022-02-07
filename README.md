@@ -5,6 +5,13 @@ This repository is home of all things Protect Lite.
 Protect Lite allows partners to give customers access to Bestow’s term life offering, without ever routing 
 customers off their platform. This can be achieved by embedding bestow directly into the partner's website.
 
+## Setup
+
+In order to run/develop locally, npm or yarn must be installed. 
+
+Then run the following command from the project root directory to install all required packages.
+* `yarn install` or `npm install`
+
 ## Demos
 
 Several demos were created for the purposes of showing how the Bestow application can be embedded.
@@ -74,10 +81,10 @@ This downloads and executes the library javascript when the page is loaded.
 
 The `setup` function takes the following parameters.
 
-| Param           | Description                                                                                          |
-|-----------------|------------------------------------------------------------------------------------------------------|
-| elementSelector | The id of the html element that will be bound to an `onclick` event for opening the iFrame.          |
-| url             | The agent url to be loaded in the iframe (`src` attribute). Throws an error if element is not found. |
+| Param           | Description                                                                                              |
+|-----------------|----------------------------------------------------------------------------------------------------------|
+| elementSelector | The id of the html element that will be bound to an `onclick` event for opening the iFrame.              |
+| url             | The agent url to be loaded in the iframe (`src` attribute). Throws an error if the element is not found. |
 
 
 #### Files
