@@ -27,7 +27,7 @@ function setupBestow(elementSelector, url) {
   let elementID = elementSelector;
 
   if (!elementID.startsWith('#')) {
-    elementID = `#${elementID}`;
+    elementID = `${elementID}`;
   }
   const hostElem = document.querySelector(elementID);
 
