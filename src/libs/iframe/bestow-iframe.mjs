@@ -20,14 +20,14 @@ const closeGutter = () => () => {
 
   /* Disable slide out visuals */
   closeElem.style.display = 'none';
-  gutter.style.display = "none";
+  gutter.style.display = 'none';
 };
 
 function setupBestow(elementSelector, url) {
   let elementID = elementSelector;
 
   if (!elementID.startsWith('#')) {
-    elementID = "#${elementID}";
+    elementID = `#${elementID}`;
   }
   const hostElem = document.querySelector(elementID);
 

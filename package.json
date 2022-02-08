@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "prepare": "husky install",
     "format": "prettier --write '**/src/**/*.{js,mjs}'",
     "lint": "eslint '**/src/**/*.{js,mjs}'",
     "lint:fix": "eslint --fix '**/src/libs/**/*.{js,mjs}'",
@@ -26,6 +27,7 @@
     "husky": "^7.0.4",
     "jest": "^27.4.7",
     "jest-transform-stub": "^2.0.0",
+    "lint-staged": ">=10",
     "parcel": "^2.2.1",
     "prettier": "2.5.1",
     "rimraf": "^3.0.2"
