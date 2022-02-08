@@ -147,7 +147,7 @@ workflows:
           filters: *pushes-and-prs-only
           requires:
             - unit-tests
-          env: qa
+          env: development
       - build-libs:
           name: build-libs-qa
           filters: *develop-only
