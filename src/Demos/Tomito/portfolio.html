@@ -101,8 +101,6 @@
     <link rel="stylesheet" href='style.css' />
     <script type="module" src='{{ IFRAME_SCRIPT_URL || "../../libs/iframe/bestow-iframe.mjs" }}'></script>
     <script locals>
-      // TODO: Use agent url once they are updated to use V3 apis.
-      // const bestowAppUrl = "https://agent-quote.qa.bestow.com/e4e833b3";
       const bestowAppUrl = '{{ AGENT_URL }}' || 'https://enroll.qa.bestow.com/';
 
       document.addEventListener('DOMContentLoaded', () => {
