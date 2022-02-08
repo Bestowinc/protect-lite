@@ -16,6 +16,12 @@ x-filter-master-only: &master-only
   branches:
     only: master
 
+x-filter-feature-only: &pushes-and-prs-only
+  branches:
+    ignore:
+      - master
+      - develop
+
 restore-dependencies: &restore-dependencies
   restore_cache:
     keys:
@@ -32,23 +38,11 @@ jobs:
     steps:
       - checkout
       - *restore-dependencies
-      - run: yarn install
+      - run: npm run install
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies1-{{ checksum "package.json" }}
-  build-libs:
-    docker:
-      - image: circleci/node:16
-    steps:
-      - checkout
-      - *restore-dependencies
-      - run: yarn lint
-      - run: yarn build-lib-iframe # Build the iframe library.
-      - persist_to_workspace:
-          root: .
-          paths:
-            - build/libs
   unit-tests:
     resource_class: large
     docker:
@@ -56,14 +50,40 @@ jobs:
     steps:
       - checkout
       - *restore-dependencies
-      - run: yarn test
-  build-demo:
+      - run: npm run test
+  build-libs:
+    parameters:
+      env:
+        type: string
+        default: development
     docker:
       - image: circleci/node:16
     steps:
       - checkout
       - *restore-dependencies
-      - run: yarn build-demo # Build the demo site.
+      - run: npm run lint
+      - run:
+          command: npm run build-lib-iframe # Build the iframe library.
+          environment:
+            - NODE_ENV: << parameters.env >>
+      - persist_to_workspace:
+          root: .
+          paths:
+            - build/libs
+  build-demo:
+    parameters:
+      env:
+        type: string
+        default: development
+    docker:
+      - image: circleci/node:16
+    steps:
+      - checkout
+      - *restore-dependencies
+      - run:
+          command: npm run build-demo # Build the demo site.
+          environment:
+            - NODE_ENV: << parameters.env >>
       - persist_to_workspace:
           root: .
           paths:
@@ -109,13 +129,41 @@ workflows:
           requires:
             - prep
       - build-libs:
-          filters: *all-branches-and-tags
+          name: build-libs-local
+          filters: *pushes-and-prs-only
           requires:
             - unit-tests
+          env: development
+      - build-libs:
+          name: build-libs-qa
+          filters: *develop-only
+          requires:
+            - unit-tests
+          env: qa
+      - build-libs:
+          name: build-libs-prod
+          filters: *master-only
+          requires:
+            - unit-tests
+          env: production
       - build-demo:
-          filters: *all-branches-and-tags
+          name: build-demo-local
+          filters: *pushes-and-prs-only
           requires:
             - unit-tests
+          env: development
+      - build-demo:
+          name: build-demo-qa
+          filters: *develop-only
+          requires:
+            - unit-tests
+          env: qa
+      - build-demo:
+          name: build-demo-prod
+          filters: *master-only
+          requires:
+            - unit-tests
+          env: production
       - deploy-libs:
           name: deploy-libs-qa
           domain: protect-lite.qa.bestowlabs.com

@@ -7,20 +7,21 @@ customers off their platform. This can be achieved by embedding bestow directly 
 
 ## Setup
 
-In order to run/develop locally, npm or yarn must be installed. 
+In order to run/develop locally, npm must be installed. 
 
 Then run the following command from the project root directory to install all required packages.
-* `npm install` or `yarn install`
+* `npm install`
 
 ## Tools Used
 
-| Tool                                         | Purpose                                                                                       |
-|----------------------------------------------|-----------------------------------------------------------------------------------------------|
-| [Parcel](https://parceljs.org/)              | Building the libraries and demo. (Compiled with [Babel](https://babeljs.io) under the covers) |
-| [Jest](https://jestjs.io/)                   | Unit testing javascript code. Ran in CircleCi pipeline and as a pre-push git hook.            |
-| [ESLint](https://eslint.org/)                | Linting javascript code. Ran as a pre-commit git hook.                                        |
-| [Prettier](https://prettier.io/)             | Code formatter. Ran as a pre-commit git hook.                                                 |
-| [Husky](https://typicode.github.io/husky/#/) | Configure git hooks.                                                                          |
+| Tool                                            | Purpose                                                                                       |
+|-------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| [Parcel](https://parceljs.org/)                 | Building the libraries and demo. (Compiled with [Babel](https://babeljs.io) under the covers) |
+| [Jest](https://jestjs.io/)                      | Unit testing javascript code. Ran in CircleCi pipeline and as a pre-push git hook.            |
+| [ESLint](https://eslint.org/)                   | Linting javascript code. Ran as a pre-commit git hook.                                        |
+| [Prettier](https://prettier.io/)                | Code formatter. Ran as a pre-commit git hook.                                                 |
+| [Husky](https://typicode.github.io/husky/#/)    | Configure git hooks.                                                                          |
+| [PostHTML](https://typicode.github.io/husky/#/) | Transform HTML based on node environment.                                                     |
 
 ## Demos
 
@@ -46,9 +47,19 @@ The demo site is built with [Parcel](https://parceljs.org/).
 | QA          | https://protect-lite.qa.bestowlabs.com |
 | Prod        | TBD                                    |
 
+PostHTML is utilized to inject variables into HTML based on the node environment at build time. This allows html to be 
+transformed with values based node environments. e.g. Agent urls, bestow environment urls, etc. 
+
+The environment utilized is controlled by setting the `NODE_ENV` environment variable at build time.
+
+For example, `NODE_ENV=qa npm run build-demo` will inject variables from the `.env.qa` file into the demos html.
+
+See [Parcel environment variables](https://en.parceljs.org/env.html), 
+[PostHTML expressions](https://github.com/posthtml/posthtml-expressions)
+
 #### Running Locally
 
-* Run `yarn demo-local`
+* Run `npm run run-demo`
 * Open http://localhost:4000
 * Enter a fake username/password and click the `Login` button.
 * Under the Bestow banner, click the `Get a Quote` link to open application in an iFrame.
