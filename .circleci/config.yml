@@ -170,7 +170,7 @@ workflows:
           bucket: protect-lite.qa.bestowlabs.com
           context: gcp-policy-platform-qa
           requires:
-            - build-libs
+            - build-libs-qa
           filters: *develop-only
       - deploy-libs:
           name: deploy-libs-prod
@@ -178,7 +178,7 @@ workflows:
           bucket: protect-lite.bestowlabs.com
           context: gcp-policy-platform-qa
           requires:
-            - build-libs
+            - build-libs-prod
           filters: *master-only
       - deploy-demo:
           name: deploy-demo-qa
@@ -186,7 +186,7 @@ workflows:
           bucket: protect-lite.qa.bestowlabs.com
           context: gcp-policy-platform-qa
           requires:
-            - build-demo
+            - build-demo-qa
           filters: *develop-only
       - deploy-demo:
           name: deploy-demo-prod
@@ -194,5 +194,5 @@ workflows:
           bucket: protect-lite.bestowlabs.com
           context: gcp-policy-platform-qa
           requires:
-            - build-demo
+            - build-demo-prod
           filters: *master-only
