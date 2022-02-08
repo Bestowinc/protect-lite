@@ -63,6 +63,7 @@ jobs:
       - *restore-dependencies
       - run: npm run lint
       - run:
+          name: build iframe library
           command: |
             echo "NODE_ENV=$NODE_ENV"
             npm run build-lib-iframe # Build the iframe library.
@@ -83,6 +84,7 @@ jobs:
       - checkout
       - *restore-dependencies
       - run:
+          name: build demo
           command: |
             echo "NODE_ENV=$NODE_ENV"
             npm run build-demo # Build the demo site.
@@ -137,7 +139,7 @@ workflows:
           filters: *pushes-and-prs-only
           requires:
             - unit-tests
-          env: development
+          env: qa
       - build-libs:
           name: build-libs-qa
           filters: *develop-only
