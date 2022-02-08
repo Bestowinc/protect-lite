@@ -14,14 +14,14 @@ Then run the following command from the project root directory to install all re
 
 ## Tools Used
 
-| Tool                                            | Purpose                                                                                       |
-|-------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| [Parcel](https://parceljs.org/)                 | Building the libraries and demo. (Compiled with [Babel](https://babeljs.io) under the covers) |
-| [Jest](https://jestjs.io/)                      | Unit testing javascript code. Ran in CircleCi pipeline and as a pre-push git hook.            |
-| [ESLint](https://eslint.org/)                   | Linting javascript code. Ran as a pre-commit git hook.                                        |
-| [Prettier](https://prettier.io/)                | Code formatter. Ran as a pre-commit git hook.                                                 |
-| [Husky](https://typicode.github.io/husky/#/)    | Configure git hooks.                                                                          |
-| [PostHTML](https://typicode.github.io/husky/#/) | Transform HTML based on node environment.                                                     |
+| Tool                                         | Purpose                                                                                       |
+|----------------------------------------------|-----------------------------------------------------------------------------------------------|
+| [Parcel](https://parceljs.org/)              | Building the libraries and demo. (Compiled with [Babel](https://babeljs.io) under the covers) |
+| [Jest](https://jestjs.io/)                   | Unit testing javascript code. Ran in CircleCi pipeline and as a pre-push git hook.            |
+| [ESLint](https://eslint.org/)                | Linting javascript code. Ran as a pre-commit git hook.                                        |
+| [Prettier](https://prettier.io/)             | Code formatter. Ran as a pre-commit git hook.                                                 |
+| [Husky](https://typicode.github.io/husky/#/) | Configure git hooks.                                                                          |
+| [PostHTML](https://posthtml.org/#/)          | Transform HTML based on node environment.                                                     |
 
 ## Demos
 
