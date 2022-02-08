@@ -63,7 +63,9 @@ jobs:
       - *restore-dependencies
       - run: npm run lint
       - run:
-          command: npm run build-lib-iframe # Build the iframe library.
+          command: |
+            echo "$NODE_ENV"
+            npm run build-lib-iframe # Build the iframe library.
           environment:
             - NODE_ENV: << parameters.env >>
       - persist_to_workspace:
@@ -81,7 +83,9 @@ jobs:
       - checkout
       - *restore-dependencies
       - run:
-          command: npm run build-demo # Build the demo site.
+          command: |
+            echo "$NODE_ENV"
+            npm run build-demo # Build the demo site.
           environment:
             - NODE_ENV: << parameters.env >>
       - persist_to_workspace:
