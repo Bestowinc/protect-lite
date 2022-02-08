@@ -12,6 +12,16 @@ In order to run/develop locally, npm or yarn must be installed.
 Then run the following command from the project root directory to install all required packages.
 * `npm install` or `yarn install`
 
+## Tools Used
+
+| Tool                                         | Purpose                                                                                       |
+|----------------------------------------------|-----------------------------------------------------------------------------------------------|
+| [Parcel](https://parceljs.org/)              | Building the libraries and demo. (Compiled with [Babel](https://babeljs.io) under the covers) |
+| [Jest](https://jestjs.io/)                   | Unit testing javascript code. Ran in CircleCi pipeline and as a pre-push git hook.            |
+| [ESLint](https://eslint.org/)                | Linting javascript code. Ran as a pre-commit git hook.                                        |
+| [Prettier](https://prettier.io/)             | Code formatter. Ran as a pre-commit git hook.                                                 |
+| [Husky](https://typicode.github.io/husky/#/) | Configure git hooks.                                                                          |
+
 ## Demos
 
 Several demos were created for the purposes of showing how the Bestow application can be embedded.

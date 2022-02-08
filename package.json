@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "lint-libs": "eslint 'libs/**/*.{js,mjs}'",
-    "test-libs": "jest --coverage --env=jsdom --verbose=true libs",
-    "build-lib-iframe": "rimraf build/libs/iframe && parcel build libs/iframe/bestow-iframe.mjs --dist-dir build/libs/iframe --no-cache",
-    "build-demo": "rimraf build/demo/tomito && parcel build Demos/Tomito/index.html --no-cache --dist-dir build/demo/tomito",
-    "demo-local": "rimraf build/demo/tomito && parcel serve Demos/Tomito/index.html --port 4000 --dist-dir build/demo/tomito --no-cache"
+    "prepare": "husky install",
+    "format": "prettier --write '**/src/**/*.{js,mjs}'",
+    "lint": "eslint '**/src/**/*.{js,mjs}'",
+    "lint:fix": "eslint --fix '**/src/libs/**/*.{js,mjs}'",
+    "test": "jest --coverage --env=jsdom --verbose=true src",
+    "build-lib-iframe": "rimraf build/libs/iframe && parcel build src/libs/iframe/bestow-iframe.mjs --dist-dir build/libs/iframe --no-cache",
+    "build-demo": "rimraf build/demo/tomito && parcel build src/Demos/Tomito/index.html --no-cache --dist-dir build/demo/tomito",
+    "run-demo": "rimraf build/demo/tomito && parcel serve src/Demos/Tomito/index.html --port 4000 --dist-dir build/demo/tomito --no-cache"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
@@ -21,9 +24,12 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-parcel2": "^1.0.1",
     "eslint-plugin-import": "^2.25.4",
+    "husky": "^7.0.4",
     "jest": "^27.4.7",
     "jest-transform-stub": "^2.0.0",
+    "lint-staged": ">=10",
     "parcel": "^2.2.1",
+    "prettier": "2.5.1",
     "rimraf": "^3.0.2"
   },
   "jest": {
@@ -42,6 +48,12 @@
     "moduleDirectories": [
       "node_modules",
       "libraries"
+    ]
+  },
+  "lint-staged": {
+    "**/*.{js,mjs,jsx,ts,tsx}": [
+      "yarn lint:fix",
+      "yarn format"
     ]
   }
 }

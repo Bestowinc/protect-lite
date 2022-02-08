@@ -43,20 +43,20 @@ jobs:
     steps:
       - checkout
       - *restore-dependencies
-      - run: yarn lint-libs
+      - run: yarn lint
       - run: yarn build-lib-iframe # Build the iframe library.
       - persist_to_workspace:
           root: .
           paths:
             - build/libs
-  unit-test-libs:
+  unit-tests:
     resource_class: large
     docker:
       - image: circleci/node:16
     steps:
       - checkout
       - *restore-dependencies
-      - run: yarn test-libs
+      - run: yarn test
   build-demo:
     docker:
       - image: circleci/node:16
@@ -104,18 +104,18 @@ workflows:
     jobs:
       - prep:
           filters: *all-branches-and-tags
-      - unit-test-libs:
+      - unit-tests:
           filters: *all-branches-and-tags
           requires:
             - prep
       - build-libs:
           filters: *all-branches-and-tags
           requires:
-            - unit-test-libs
+            - unit-tests
       - build-demo:
           filters: *all-branches-and-tags
           requires:
-            - unit-test-libs
+            - unit-tests
       - deploy-libs:
           name: deploy-libs-qa
           domain: protect-lite.qa.bestowlabs.com
