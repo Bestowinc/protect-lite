@@ -32,10 +32,6 @@ yarn-error.log*
 # Optional eslint cache
 .eslintcache
 
-# Ignore Swagger generated service folders
-/src/services/padre
-/src/services/keymaster
-
 # Jetbrains
 .idea
 
