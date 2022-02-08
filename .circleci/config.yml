@@ -38,7 +38,7 @@ jobs:
     steps:
       - checkout
       - *restore-dependencies
-      - run: npm run install
+      - run: npm install
       - save_cache:
           paths:
             - node_modules
