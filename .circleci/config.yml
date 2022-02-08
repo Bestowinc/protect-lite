@@ -64,7 +64,7 @@ jobs:
       - run: npm run lint
       - run:
           command: |
-            echo "$NODE_ENV"
+            echo "NODE_ENV=$NODE_ENV"
             npm run build-lib-iframe # Build the iframe library.
           environment:
             - NODE_ENV: << parameters.env >>
@@ -84,7 +84,7 @@ jobs:
       - *restore-dependencies
       - run:
           command: |
-            echo "$NODE_ENV"
+            echo "NODE_ENV=$NODE_ENV"
             npm run build-demo # Build the demo site.
           environment:
             - NODE_ENV: << parameters.env >>
