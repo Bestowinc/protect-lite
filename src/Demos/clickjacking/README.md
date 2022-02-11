@@ -2,7 +2,7 @@
 
 This demo shows how the Bestow login page can be clickjacked and a way to prevent it.
 
-It captures the users email and password unknowingly before they click
+It captures the users email and password unknowingly when they click
 the login button.
 
 In order to prevent a page from being clickjacked, you can utilize the
