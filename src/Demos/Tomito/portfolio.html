@@ -101,9 +101,9 @@
     <link rel="stylesheet" href='style.css' />
     <script type="module" src='{{ IFRAME_SCRIPT_URL || "../../libs/iframe/bestow-iframe.mjs" }}'></script>
     <script locals>
-      function openBestow() {
+      function openBestow(elementSelector) {
         const bestowAppUrl = '{{ AGENT_URL }}' || 'https://enroll.qa.bestow.com/';
-        window.Bestow.setup("get-quote", bestowAppUrl, true);
+        window.Bestow.setup(elementSelector, bestowAppUrl, true);
       }
     </script>
   </head>
@@ -356,7 +356,7 @@
                           <a
                             id="get-quote"
                             href="#"
-                            onclick='openBestow()'
+                            onclick='openBestow(this.id)'
                             rel="noreferrer noopener"
                             class="life-insurance-ad-link1"
                           >
