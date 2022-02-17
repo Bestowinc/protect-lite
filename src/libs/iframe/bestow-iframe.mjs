@@ -23,7 +23,7 @@ const closeGutter = () => () => {
   gutter.style.display = 'none';
 };
 
-function setupBestow(elementSelector, url) {
+function setupBestow(elementSelector, url, open) {
   let elementID = elementSelector;
 
   if (!elementID.startsWith('#')) {
@@ -65,6 +65,10 @@ function setupBestow(elementSelector, url) {
   frameElem.src = url;
   gutterElem.appendChild(frameElem);
   document.body.appendChild(gutterElem);
+
+  if (open) {
+    openGutter(url)();
+  }
 }
 
 window.Bestow = { setup: setupBestow };
