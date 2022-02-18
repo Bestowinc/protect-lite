@@ -12,14 +12,14 @@ x-filter-develop-only: &develop-only
   branches:
     only: develop
 
-x-filter-master-only: &master-only
+x-filter-main-only: &main-only
   branches:
-    only: master
+    only: main
 
 x-filter-feature-only: &pushes-and-prs-only
   branches:
     ignore:
-      - master
+      - main
       - develop
 
 restore-dependencies: &restore-dependencies
@@ -156,7 +156,7 @@ workflows:
           env: qa
       - build-libs:
           name: build-libs-prod
-          filters: *master-only
+          filters: *main-only
           requires:
             - unit-tests
           env: production
@@ -174,7 +174,7 @@ workflows:
           env: qa
       - build-demo:
           name: build-demo-prod
-          filters: *master-only
+          filters: *main-only
           requires:
             - unit-tests
           env: production
@@ -193,7 +193,7 @@ workflows:
           context: gcp-policy-platform-qa
           requires:
             - build-libs-prod
-          filters: *master-only
+          filters: *main-only
       - deploy-demo:
           name: deploy-demo-qa
           domain: protect-lite.qa.bestowlabs.com
@@ -209,4 +209,4 @@ workflows:
           context: gcp-policy-platform-qa
           requires:
             - build-demo-prod
-          filters: *master-only
+          filters: *main-only
