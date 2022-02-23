@@ -62,7 +62,7 @@ function setupBestow(elementSelector, url, open) {
   frameElem.setAttribute('allow', 'payment');
   frameElem.setAttribute(
     'sandbox',
-    'allow-scripts allow-same-origin allow-forms allow-popups',
+    'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads',
   );
   frameElem.src = url;
   gutterElem.appendChild(frameElem);

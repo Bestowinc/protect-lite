@@ -123,7 +123,8 @@ describeIf(iframeExists)('iframe tests', () => {
   test('iframe element has correct sandbox attribute', () => {
     const srcAttribute = iframeElement.getAttribute('sandbox');
     expect(srcAttribute).toBe(
-      'allow-scripts allow-same-origin allow-forms allow-popups',
+      'allow-scripts allow-same-origin allow-forms ' +
+        'allow-popups allow-downloads',
     );
   });
 });
