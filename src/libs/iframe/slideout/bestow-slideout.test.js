@@ -1,4 +1,5 @@
-require('./bestow-iframe.mjs');
+/* eslint-disable */
+import './bestow-slideout.js';
 
 const describeIf = condition => (condition ? describe : describe.skip);
 
@@ -18,7 +19,7 @@ document.body.innerHTML += `
 
 let setupError;
 try {
-  window.Bestow.setup(`${testElementID}`, testURL);
+  window.BestowSlideout.setup(`${testElementID}`, testURL);
 } catch (e) {
   setupError = e;
 }
@@ -27,7 +28,7 @@ describe('test setup', () => {
   test('error when supplied element does not exist', () => {
     let err;
     try {
-      window.Bestow.setup(`#garbage`, testURL);
+      window.BestowSlideout.setup(`#garbage`, testURL);
     } catch (e) {
       err = e;
     }

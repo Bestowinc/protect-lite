@@ -29,10 +29,6 @@
         overflow-x: hidden; /* Hide horizontal Scrollbar */
       }
 
-      #bestow-gutter {
-        /* border-left: 5px #370511ff solid; */
-      }
-
       .gutter {
         position: fixed;
         height: 100%;
@@ -99,13 +95,18 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     />
     <link rel="stylesheet" href='style.css' />
-    <script type="module" src='{{ IFRAME_SCRIPT_URL || "../../libs/iframe/bestow-iframe.mjs" }}'></script>
+    <script type="module" src='{{ SLIDEOUT_SCRIPT_URL }}'></script>
+    <script type="module" src='{{ ACCORDION_SCRIPT_URL }}'></script>
     <script locals>
       const bestowAppUrl = '{{ AGENT_URL }}' || 'https://enroll.qa.bestow.com/';
 
       document.addEventListener('DOMContentLoaded', () => {
-        window.Bestow.setup("get-quote", bestowAppUrl);
+        window.BestowSlideout.setup("get-quote", bestowAppUrl);
       });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        window.BestowAccordion.setup("life-insurance-accordion-content", "lifeins_ad_plus_icon", bestowAppUrl);
+      });      
     </script>
   </head>
   <body>
@@ -363,8 +364,20 @@
                             <span>Get a Quote</span>
                           </a>
                         </div>
+                        <div class="life-insurance-ad-container3">
+                          <svg
+                            viewBox="0 0 1024 1024"
+                            id="lifeins_ad_plus_icon"
+                            class="life-insurance-ad-icon"
+                          >
+                            <path
+                              d="M213.333 85.333c-35.328 0-67.413 14.379-90.496 37.504s-37.504 55.168-37.504 90.496v597.333c0 35.328 14.379 67.413 37.504 90.496s55.168 37.504 90.496 37.504h597.333c35.328 0 67.413-14.379 90.496-37.504s37.504-55.168 37.504-90.496v-597.333c0-35.328-14.379-67.413-37.504-90.496s-55.168-37.504-90.496-37.504zM213.333 170.667h597.333c11.776 0 22.4 4.736 30.165 12.501s12.501 18.389 12.501 30.165v597.333c0 11.776-4.736 22.4-12.501 30.165s-18.389 12.501-30.165 12.501h-597.333c-11.776 0-22.4-4.736-30.165-12.501s-12.501-18.389-12.501-30.165v-597.333c0-11.776 4.736-22.4 12.501-30.165s18.389-12.501 30.165-12.501zM341.333 554.667h128v128c0 23.552 19.115 42.667 42.667 42.667s42.667-19.115 42.667-42.667v-128h128c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-128v-128c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v128h-128c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
+                            ></path>
+                          </svg>
+                        </div>
                       </div>
                     </div>
+                    <div id="life-insurance-accordion-content" class="portfolio-life-insurance-accordion-content"></div>
                     <div class="balance-history-feature-card rootClassName">
                       <div class="balance-history-container">
                         <div class="balance-history-container1">

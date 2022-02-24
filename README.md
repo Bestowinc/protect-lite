@@ -87,7 +87,7 @@ Partners can integrate the library into their existing website like this...
 ```html
 <head>
   <title>Partner Site</title>
-  <script type="module" src='https://protect-lite.qa.bestowlabs.com/libs/iframe/bestow-iframe.js'></script>\
+  <script type="module" src='https://protect-lite.qa.bestowlabs.com/libs/iframe/slideout/bestow-slideout.js'></script>\
   <script>
       const bestowAppUrl = "https://enroll.qa.bestow.com/";
     

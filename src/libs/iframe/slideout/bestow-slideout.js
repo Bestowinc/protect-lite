@@ -67,4 +67,4 @@ function setupBestow(elementSelector, url) {
   document.body.appendChild(gutterElem);
 }
 
-window.Bestow = { setup: setupBestow };
+window.BestowSlideout = { setup: setupBestow };
