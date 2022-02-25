@@ -2,12 +2,10 @@
 // See https://parceljs.org/features/bundle-inlining/
 import styling from 'bundle-text:./styles.css';
 
-const openGutter = url => () => {
-  const frame = document.getElementById('bestow-frame');
+const openGutter = () => () => {
   const gutter = document.getElementById('bestow-gutter');
   const closeElem = document.getElementById('bestow-close');
 
-  frame.setAttribute('src', url);
   closeElem.style.display = 'block';
   gutter.style.display = 'block';
 
@@ -23,7 +21,7 @@ const closeGutter = () => () => {
   gutter.style.display = 'none';
 };
 
-function setupBestow(elementSelector, url) {
+function setupBestow(elementSelector, url, open) {
   let elementID = elementSelector;
 
   if (!elementID.startsWith('#')) {
@@ -62,9 +60,17 @@ function setupBestow(elementSelector, url) {
   const frameElem = document.createElement('iframe');
   frameElem.id = 'bestow-frame';
   frameElem.setAttribute('allow', 'payment');
+  frameElem.setAttribute(
+    'sandbox',
+    'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads',
+  );
   frameElem.src = url;
   gutterElem.appendChild(frameElem);
   document.body.appendChild(gutterElem);
+
+  if (open) {
+    openGutter()();
+  }
 }
 
 window.BestowSlideout = { setup: setupBestow };

@@ -100,9 +100,9 @@
     <script locals>
       const bestowAppUrl = '{{ AGENT_URL }}' || 'https://enroll.qa.bestow.com/';
 
-      document.addEventListener('DOMContentLoaded', () => {
-        window.BestowSlideout.setup("get-quote", bestowAppUrl);
-      });
+      function openBestow(elementSelector) {
+        window.BestowSlideout.setup(elementSelector, bestowAppUrl, true);
+      }
 
       document.addEventListener('DOMContentLoaded', () => {
         window.BestowAccordion.setup("life-insurance-accordion-content", "lifeins_ad_plus_icon", bestowAppUrl);
@@ -358,6 +358,7 @@
                           <a
                             id="get-quote"
                             href="#"
+                            onclick='openBestow(this.id)'
                             rel="noreferrer noopener"
                             class="life-insurance-ad-link1"
                           >

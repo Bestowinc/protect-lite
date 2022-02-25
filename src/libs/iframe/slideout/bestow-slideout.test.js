@@ -58,19 +58,15 @@ describe('elements exist', () => {
   test('supplied test element exists', () => {
     expect(suppliedExists).toBeTruthy();
   });
-
   test('gutter element exists', () => {
     expect(gutterExists).toBeTruthy();
   });
-
   test('iframe element exists', () => {
     expect(iframeExists).toBeTruthy();
   });
-
   test('close element exists', () => {
     expect(closeExists).toBeTruthy();
   });
-
   test('style element exists', () => {
     expect(styleExists).toBeTruthy();
   });
@@ -92,10 +88,14 @@ describeIf(gutterExists)('gutter tests', () => {
   test('gutter element is not displayed on load', () => {
     expect(gutterElement.style.display).toBe('none');
   });
-
   test('gutter element is displayed when supplied element is clicked', () => {
     suppliedTestElement.click();
     expect(gutterElement.style.display).toBe('block');
+  });
+  test('setup is not ran again on subsequent clicks of the supplied element', () => {
+    const setupSpy = jest.spyOn(window.Bestow, 'setup');
+    suppliedTestElement.click();
+    expect(setupSpy).not.toBeCalled();
   });
   test('gutter element is hidden when closed', () => {
     closeElement.click();
@@ -120,6 +120,13 @@ describeIf(iframeExists)('iframe tests', () => {
   test('iframe element has correct values for allow attribute', () => {
     const allowAttribute = iframeElement.getAttribute('allow');
     expect(allowAttribute).toBe('payment');
+  });
+  test('iframe element has correct sandbox attribute', () => {
+    const srcAttribute = iframeElement.getAttribute('sandbox');
+    expect(srcAttribute).toBe(
+      'allow-scripts allow-same-origin allow-forms ' +
+        'allow-popups allow-downloads',
+    );
   });
 });
 
