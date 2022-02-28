@@ -8,7 +8,9 @@
     "lint": "eslint \"src/**/*.{js,mjs}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,mjs}\"",
     "test": "jest --coverage --env=jsdom --verbose=true src",
-    "build-lib-iframe": "rimraf build/libs/iframe && parcel build src/libs/iframe/slideout/bestow-slideout.js --dist-dir build/libs/iframe --no-cache",
+    "build-libs": "rimraf build/libs/iframe && npm run build-lib:slideout && npm run build-lib:accordion",
+    "build-lib:slideout": "rimraf build/libs/iframe/slideout && parcel build src/libs/iframe/slideout/bestow-slideout.js --dist-dir build/libs/iframe/slideout --no-cache",
+    "build-lib:accordion": "rimraf build/libs/iframe/accordion && parcel build src/libs/iframe/accordion/bestow-accordion.js --dist-dir build/libs/iframe/accordion --no-cache",
     "build-demo": "rimraf build/demo/tomito && parcel build src/Demos/Tomito/index.html --no-cache --dist-dir build/demo/tomito",
     "run-demo": "rimraf build/demo/tomito && parcel serve src/Demos/Tomito/index.html --port 4000 --dist-dir build/demo/tomito --no-cache"
   },
