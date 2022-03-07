@@ -73,4 +73,4 @@ function setupBestow(elementSelector, url, open) {
   }
 }
 
-window.Bestow = { setup: setupBestow };
+window.BestowSlideout = { setup: setupBestow };

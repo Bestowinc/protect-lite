@@ -70,7 +70,7 @@ jobs:
           name: Build iframe library
           command: |
             echo "NODE_ENV=$NODE_ENV"
-            npm run build-lib-iframe # Build the iframe library.
+            npm run build-libs # Build the iframe libraries.
           environment:
             - NODE_ENV: << parameters.env >>
       - persist_to_workspace:

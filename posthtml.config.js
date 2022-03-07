@@ -26,7 +26,8 @@ module.exports = {
   plugins: {
     "posthtml-expressions": {
       locals: {
-        IFRAME_SCRIPT_URL: process.env.IFRAME_SCRIPT_URL,
+        ACCORDION_SCRIPT_URL: process.env.ACCORDION_SCRIPT_URL,
+        SLIDEOUT_SCRIPT_URL: process.env.SLIDEOUT_SCRIPT_URL,
         AGENT_URL: process.env.AGENT_URL
       }
     }
