@@ -84,7 +84,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - build/libs
+            - build/static
   build-demo:
     parameters:
       env:
