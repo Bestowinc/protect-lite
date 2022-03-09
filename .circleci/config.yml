@@ -16,10 +16,6 @@ x-filter-staging-only: &staging-only
   branches:
     only: staging
 
-x-filter-uat-only: &uat-only
-  branches:
-    only: uat    
-
 x-filter-main-only: &main-only
   branches:
     only: main
@@ -170,7 +166,7 @@ workflows:
           env: staging
       - build-libs:
           name: build-static-uat
-          filters: *uat-only
+          filters: *staging-only
           requires:
             - unit-tests
           env: uat                    
