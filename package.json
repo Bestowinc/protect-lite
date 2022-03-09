@@ -8,7 +8,7 @@
     "lint": "eslint \"src/**/*.{js,mjs}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,mjs}\"",
     "test": "jest --coverage --env=jsdom --verbose=true src",
-    "build-lib-iframe": "rimraf build/libs/iframe && parcel build src/libs/iframe/slideout/bestow-slideout.js --dist-dir build/libs/iframe --no-cache",
+    "build-static-iframe-v1": "rimraf build/static/v1/iframe && parcel build src/static/v1/iframe/slideout/bestow-slideout.js --dist-dir build/static/v1/iframe --no-cache",
     "build-demo": "rimraf build/demo/tomito && parcel build src/Demos/Tomito/index.html --no-cache --dist-dir build/demo/tomito",
     "run-demo": "rimraf build/demo/tomito && parcel serve src/Demos/Tomito/index.html --port 4000 --dist-dir build/demo/tomito --no-cache"
   },
