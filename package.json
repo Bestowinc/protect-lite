@@ -8,7 +8,13 @@
     "lint": "eslint \"src/**/*.{js,mjs}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,mjs}\"",
     "test": "jest --coverage --env=jsdom --verbose=true src",
-    "build-libs": "node ./scripts/build-libs-v1.js",
+    "build-libs": "rimraf build/libs/iframe && npm run build-lib:slideout && npm run build-lib:accordion",
+    "build-lib:slideout": "npm run build-lib:slideout:latest && npm run build-lib:slideout:versioned",
+    "build-lib:slideout:latest": "BUILD_VERSION=latest parcel build src/libs/iframe/slideout/bestow-slideout.js --dist-dir build/libs/iframe/slideout --no-cache",
+    "build-lib:slideout:versioned": "BUILD_VERSION=$BUILD_VERSION_V1 parcel build src/libs/iframe/slideout/bestow-slideout.js --dist-dir build/libs/iframe/slideout --no-cache",
+    "build-lib:accordion": "npm run build-lib:accordion:latest && npm run build-lib:accordion:versioned",
+    "build-lib:accordion:latest": "BUILD_VERSION=latest parcel build src/libs/iframe/accordion/bestow-accordion.js --dist-dir build/libs/iframe/accordion --no-cache",
+    "build-lib:accordion:versioned": "BUILD_VERSION=$BUILD_VERSION_V1 parcel build src/libs/iframe/accordion/bestow-accordion.js --dist-dir build/libs/iframe/accordion --no-cache",
     "build-demo": "rimraf build/demo/tomito && parcel build src/Demos/Tomito/index.html --no-cache --dist-dir build/demo/tomito",
     "run-demo": "rimraf build/demo/tomito && parcel serve src/Demos/Tomito/index.html --port 4000 --dist-dir build/demo/tomito --no-cache"
   },
@@ -30,6 +36,7 @@
     "jest-transform-stub": "^2.0.0",
     "lint-staged": ">=10",
     "parcel": "^2.2.1",
+    "parcel-namer-functional": "^0.1.2",
     "posthtml-expressions": "^1.9.0",
     "prettier": "2.5.1",
     "rimraf": "^3.0.2"
@@ -57,5 +64,12 @@
       "npm run lint:fix",
       "npm run format"
     ]
-  }
+  },
+  "parcel-namer-functional": [
+    {
+      "type": "require",
+      "file": "scripts/build-versioner.js",
+      "function": "buildRenamer"
+    }
+  ]
 }
