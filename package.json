@@ -8,15 +8,15 @@
     "lint": "eslint \"src/**/*.{js,mjs}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,mjs}\"",
     "test": "jest --coverage --env=jsdom --verbose=true src",
-    "build-static-v1": "rimraf build/static/v1/iframe && npm run build-static-v1:slideout && npm run build-static-v1:accordion",
+    "build-static-v1": "rimraf build/$NODE_ENV/static/v1/iframe && npm run build-static-v1:slideout && npm run build-static-v1:accordion",
     "build-static-v1:slideout": "npm run build-static-v1:slideout:latest && npm run build-static-v1:slideout:versioned",
-    "build-static-v1:slideout:latest": "BUILD_VERSION=latest parcel build src/static/v1/iframe/slideout/bestow-slideout.js --dist-dir build/static/v1/iframe/slideout --no-cache",
-    "build-static-v1:slideout:versioned": "BUILD_VERSION=$BUILD_VERSION_V1 parcel build src/static/v1/iframe/slideout/bestow-slideout.js --dist-dir build/static/v1/iframe/slideout --no-cache",
+    "build-static-v1:slideout:latest": "BUILD_VERSION=latest parcel build src/static/v1/iframe/slideout/bestow-slideout.js --dist-dir build/$NODE_ENV/static/v1/iframe/slideout --no-cache",
+    "build-static-v1:slideout:versioned": "BUILD_VERSION=$BUILD_VERSION_V1 parcel build src/static/v1/iframe/slideout/bestow-slideout.js --dist-dir build/$NODE_ENV/static/v1/iframe/slideout --no-cache",
     "build-static-v1:accordion": "npm run build-static-v1:accordion:latest && npm run build-static-v1:accordion:versioned",
-    "build-static-v1:accordion:latest": "BUILD_VERSION=latest parcel build src/static/v1/iframe/accordion/bestow-accordion.js --dist-dir build/static/v1/iframe/accordion --no-cache",
-    "build-static-v1:accordion:versioned": "BUILD_VERSION=$BUILD_VERSION_V1 parcel build src/static/v1/iframe/accordion/bestow-accordion.js --dist-dir build/static/v1/iframe/accordion --no-cache",
-    "build-demo": "rimraf build/demo/tomito && parcel build src/Demos/Tomito/index.html --no-cache --dist-dir build/demo/tomito",
-    "run-demo": "rimraf build/demo/tomito && parcel serve src/Demos/Tomito/index.html --port 4000 --dist-dir build/demo/tomito --no-cache"
+    "build-static-v1:accordion:latest": "BUILD_VERSION=latest parcel build src/static/v1/iframe/accordion/bestow-accordion.js --dist-dir build/$NODE_ENV/static/v1/iframe/accordion --no-cache",
+    "build-static-v1:accordion:versioned": "BUILD_VERSION=$BUILD_VERSION_V1 parcel build src/static/v1/iframe/accordion/bestow-accordion.js --dist-dir build/$NODE_ENV/static/v1/iframe/accordion --no-cache",
+    "build-demo": "rimraf build/demo && parcel build src/Demos/Tomito/index.html --no-cache --dist-dir build/$NODE_ENV/demo/tomito",
+    "run-demo": "rimraf build/demo/tomito && parcel serve src/Demos/Tomito/index.html --port 4000 --dist-dir build/$NODE_EN/demo/tomito --no-cache"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
