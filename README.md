@@ -42,10 +42,12 @@ The demo site is built with [Parcel](https://parceljs.org/).
 
 #### Environments
 
-| Environment | URL                                    |
-|-------------|----------------------------------------|
-| QA          | https://protect-lite.qa.bestowlabs.com |
-| Prod        | TBD                                    |
+| Environment | URL                                         |
+|-------------|---------------------------------------------|
+| QA          | https://protect-lite.qa.bestowlabs.com      |
+| STAGING     | https://protect-lite.staging.bestowlabs.com |
+| UAT         | https://protect-lite.uat.bestowlabs.com     |
+| Prod        | https://protect-lite.bestow.com             |
 
 PostHTML is utilized to inject variables into HTML based on the node environment at build time. This allows html to be 
 transformed with values based node environments. e.g. Agent urls, bestow environment urls, etc. 
@@ -87,7 +89,7 @@ Partners can integrate the library into their existing website like this...
 ```html
 <head>
   <title>Partner Site</title>
-  <script type="module" src='https://protect-lite.qa.bestowlabs.com/libs/iframe/slideout/bestow-slideout.js'></script>\
+  <script type="module" src='https://protect-lite.qa.bestowlabs.com/static/v1/iframe/slideout/bestow-slideout.js'></script>\
   <script>
       const bestowAppUrl = "https://enroll.qa.bestow.com/";
     
@@ -110,9 +112,11 @@ The `setup` function takes the following parameters.
 
 #### Files
 
-Below details the files hosted for the iFrame javascript library.
+Below details the files hosted for the v1 iFrame javascript library.
 
-| Environment | Files                                                                                                                                             |
-|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| QA          | https://protect-lite.qa.bestowlabs.com/libs/iframe/bestow-iframe.js <br/> https://protect-lite.qa.bestowlabs.com/libs/iframe/bestow-iframe.js.map |
-| Prod        | TBD                                                                                                                                               |
+| Environment | Files                                                                                                                        |
+|-------------|------------------------------------------------------------------------------------------------------------------------------|
+| QA          | https://protect-lite.qa.bestowlabs.com/static/v1/iframe/ <br/> https://protect-lite.qa.bestowlabs.com/static/v1/iframe/      |
+| STAGING     | https://protect-lite.staging.bestowlabs.com/static/v1/iframe/ <br/> https://protect-lite.qa.bestowlabs.com/static/v1/iframe/ |
+| UAT         | https://protect-lite.uat.bestowlabs.com/static/v1/iframe/ <br/> https://protect-lite.qa.bestowlabs.com/static/v1/iframe/     |
+| Prod        | https://protect-lite.bestow.com/static/v1/iframe/ <br/> https://protect-lite.bestow.com/static/iframe/                       |
