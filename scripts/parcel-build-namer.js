@@ -12,9 +12,9 @@ module.exports = {
     // options -> @see Parcel's options object
 
     // Append the build version if specified
-    if ( bundle.type === 'js' && process.env.BUILD_VERSION) {
+    if ( bundle.type === 'js' && process.env.BUILD_VERSION_V1) {
       const parsed = path.parse(fileName)
-      return `${parsed.name}-${process.env.BUILD_VERSION}${parsed.ext}`
+      return `${parsed.name}-${process.env.BUILD_VERSION_V1}${parsed.ext}`
     }
 
     return null // -> Will use next parcel namer from .parcelrc

@@ -38,6 +38,3 @@ yarn-error.log*
 # Parcel
 .cache/
 .parcel-cache/
-
-# Build
-tmp/
