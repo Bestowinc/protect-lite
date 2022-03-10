@@ -74,7 +74,7 @@ jobs:
           name: Build iframe library
           command: |
             echo "NODE_ENV=$NODE_ENV"
-            npm run build-static-iframe-v1 # Build the v1 iframe library.
+            npm run build-static-files-v1 # Build the v1 js files.
           environment:
             - NODE_ENV: << parameters.env >>
       - persist_to_workspace:
