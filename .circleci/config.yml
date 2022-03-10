@@ -196,7 +196,7 @@ workflows:
           env: staging
       - build-demo:
           name: build-demo-uat
-          filters: *uat-only
+          filters: *staging-only
           requires:
             - unit-tests
           env: uat                    
@@ -220,7 +220,7 @@ workflows:
           bucket: protect-lite.staging.bestowlabs.com
           context: gcp-policy-platform-qa
           requires:
-            - build-static-qa
+            - build-static-staging
           filters: *staging-only
       - deploy-libs:
           name: deploy-static-uat
@@ -229,7 +229,7 @@ workflows:
           context: gcp-policy-platform-qa
           requires:
             - build-static-uat
-          filters: *uat-only                    
+          filters: *staging-only                    
       - deploy-libs:
           name: deploy-static-prod
           domain: protect-lite.bestowlabs.com
@@ -252,7 +252,7 @@ workflows:
           bucket: protect-lite.staging.bestowlabs.com
           context: gcp-policy-platform-staging
           requires:
-            - build-demo-qa
+            - build-demo-staging
           filters: *staging-only
       - deploy-demo:
           name: deploy-demo-uat
@@ -261,7 +261,7 @@ workflows:
           context: gcp-policy-platform-uat
           requires:
             - build-demo-uat
-          filters: *uat-only                    
+          filters: *staging-only                    
       - deploy-demo:
           name: deploy-demo-prod
           domain: protect-lite.bestowlabs.com
