@@ -12,6 +12,10 @@ x-filter-develop-only: &develop-only
   branches:
     only: develop
 
+x-filter-staging-only: &staging-only
+  branches:
+    only: staging
+
 x-filter-main-only: &main-only
   branches:
     only: main
@@ -70,13 +74,13 @@ jobs:
           name: Build iframe library
           command: |
             echo "NODE_ENV=$NODE_ENV"
-            npm run build-libs # Build the iframe libraries.
+            npm run build-static-files-v1 # Build the v1 js files.
           environment:
             - NODE_ENV: << parameters.env >>
       - persist_to_workspace:
           root: .
           paths:
-            - build/libs
+            - build/static
   build-demo:
     parameters:
       env:
@@ -112,8 +116,8 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Deploy libs
-          command: gsutil -m rsync -r -d build/libs/ "gs://<< parameters.bucket >>/libs"
+          name: Deploy static files
+          command: gsutil -m rsync -r -d build/static/ "gs://<< parameters.bucket >>/static"
   deploy-demo:
     parameters:
       domain:
@@ -129,7 +133,7 @@ jobs:
           at: .
       - run:
           name: Deploy demo
-          command: gsutil -m rsync -r -d -x 'libs' build/demo/tomito/ "gs://<< parameters.bucket >>"
+          command: gsutil -m rsync -r -d -x 'static' build/demo/tomito/ "gs://<< parameters.bucket >>"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -143,19 +147,31 @@ workflows:
           requires:
             - prep
       - build-libs:
-          name: build-libs-local
+          name: build-static-local
           filters: *pushes-and-prs-only
           requires:
             - unit-tests
           env: development
       - build-libs:
-          name: build-libs-qa
+          name: build-static-qa
           filters: *develop-only
           requires:
             - unit-tests
           env: qa
       - build-libs:
-          name: build-libs-prod
+          name: build-static-staging
+          filters: *staging-only
+          requires:
+            - unit-tests
+          env: staging
+      - build-libs:
+          name: build-static-uat
+          filters: *staging-only
+          requires:
+            - unit-tests
+          env: uat                    
+      - build-libs:
+          name: build-static-prod
           filters: *main-only
           requires:
             - unit-tests
@@ -173,26 +189,54 @@ workflows:
             - unit-tests
           env: qa
       - build-demo:
+          name: build-demo-staging
+          filters: *staging-only
+          requires:
+            - unit-tests
+          env: staging
+      - build-demo:
+          name: build-demo-uat
+          filters: *staging-only
+          requires:
+            - unit-tests
+          env: uat                    
+      - build-demo:
           name: build-demo-prod
           filters: *main-only
           requires:
             - unit-tests
           env: production
       - deploy-libs:
-          name: deploy-libs-qa
+          name: deploy-static-qa
           domain: protect-lite.qa.bestowlabs.com
           bucket: protect-lite.qa.bestowlabs.com
           context: gcp-policy-platform-qa
           requires:
-            - build-libs-qa
+            - build-static-qa
           filters: *develop-only
       - deploy-libs:
-          name: deploy-libs-prod
+          name: deploy-static-staging
+          domain: protect-lite.staging.bestowlabs.com
+          bucket: protect-lite.staging.bestowlabs.com
+          context: gcp-policy-platform-qa
+          requires:
+            - build-static-staging
+          filters: *staging-only
+      - deploy-libs:
+          name: deploy-static-uat
+          domain: protect-lite.uat.bestowlabs.com
+          bucket: protect-lite.uat.bestowlabs.com
+          context: gcp-policy-platform-qa
+          requires:
+            - build-static-uat
+          filters: *staging-only                    
+      - deploy-libs:
+          name: deploy-static-prod
           domain: protect-lite.bestowlabs.com
           bucket: protect-lite.bestowlabs.com
           context: gcp-policy-platform-qa
           requires:
-            - build-libs-prod
+            - build-static-prod
           filters: *main-only
       - deploy-demo:
           name: deploy-demo-qa
@@ -202,6 +246,22 @@ workflows:
           requires:
             - build-demo-qa
           filters: *develop-only
+      - deploy-demo:
+          name: deploy-demo-staging
+          domain: protect-lite.staging.bestowlabs.com
+          bucket: protect-lite.staging.bestowlabs.com
+          context: gcp-policy-platform-staging
+          requires:
+            - build-demo-staging
+          filters: *staging-only
+      - deploy-demo:
+          name: deploy-demo-uat
+          domain: protect-lite.uat.bestowlabs.com
+          bucket: protect-lite.uat.bestowlabs.com
+          context: gcp-policy-platform-uat
+          requires:
+            - build-demo-uat
+          filters: *staging-only                    
       - deploy-demo:
           name: deploy-demo-prod
           domain: protect-lite.bestowlabs.com

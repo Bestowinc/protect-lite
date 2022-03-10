@@ -28,61 +28,6 @@
         background-color: var(--dl-color-gray-white);
         overflow-x: hidden; /* Hide horizontal Scrollbar */
       }
-
-      .gutter {
-        position: fixed;
-        height: 100%;
-        right: 0;
-        top: 0;
-        background-color: white;
-        transition: width 200ms linear;
-        width: 0px;
-        z-index: 1;
-        overflow: hidden;
-        transition: 0.5s;
-      }
-
-      .gutter.open {
-        width: 20%;
-        min-width: 400px;
-        border-left: 5px #370511ff solid;
-      }
-
-      .gutter > iframe {
-        height: 100%;
-        width: 100%;
-      }
-
-      #arrow {
-        background-image: url("public/assets/x_icon.png");
-        background-color: rgba(56, 5, 17, 0.05);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        position: relative;
-        width: 40px;
-        height: 40px;
-        border-radius: 5px;
-        border: #370511ff 4px solid;
-        position: fixed;
-        margin: 5px -41px; 
-      }
-
-      #arrow:hover {
-        background-color: rgba(56, 5, 17, 0.05);;
-      }
-
-      .hide {
-        width: 0%;
-      }
-
-      .arrow-closed {
-        -webkit-transform: rotate(180deg);
-        -moz-transform: rotate(180deg);
-        -ms-transform: rotate(180deg);
-        -o-transform: rotate(180deg);
-        transform: rotate(180deg);
-      }
     </style>
     <link
       rel="shortcut icon"
