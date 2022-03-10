@@ -14,7 +14,7 @@ x-filter-all-branches-and-tags: &all-branches-and-tags
 
 x-filter-develop-only: &develop-only
   branches:
-    only: feature/PARTNERS-1002_buildVersioning
+    only: develop
 
 x-filter-staging-only: &staging-only
   branches:
@@ -27,7 +27,6 @@ x-filter-main-only: &main-only
 x-filter-feature-only: &pushes-and-prs-only
   branches:
     ignore:
-      - feature/PARTNERS-1002_buildVersioning
       - main
       - staging
       - develop
