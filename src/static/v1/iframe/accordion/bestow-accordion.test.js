@@ -1,5 +1,5 @@
 /* eslint-disable */
-import './bestow-accordion.js';
+require('./bestow-accordion.js');
 
 const describeIf = condition => (condition ? describe : describe.skip);
 

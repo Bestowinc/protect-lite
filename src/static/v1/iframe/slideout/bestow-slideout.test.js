@@ -1,5 +1,5 @@
 /* eslint-disable */
-import './bestow-slideout.js';
+require('./bestow-slideout.js');
 
 const describeIf = condition => (condition ? describe : describe.skip);
 
