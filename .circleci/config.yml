@@ -286,8 +286,8 @@ workflows:
           env: production
       - deploy-libs:
           name: deploy-static-prod
-          domain: protect-lite.bestowlabs.com
-          bucket: protect-lite.bestowlabs.com
+          domain: protect-lite.bestow.com
+          bucket: protect-lite.bestow.com
           env: production
           context: gcp-policy-platform-prod
           requires:
@@ -295,8 +295,8 @@ workflows:
           filters: *main-only
       - deploy-demo:
           name: deploy-demo-prod
-          domain: protect-lite.bestowlabs.com
-          bucket: protect-lite.bestowlabs.com
+          domain: protect-lite.bestow.com
+          bucket: protect-lite.bestow.com
           context: gcp-policy-platform-prod
           env: production
           requires:
