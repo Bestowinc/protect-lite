@@ -1,0 +1,75 @@
+{
+  "name": "protect-lite",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install",
+    "format": "prettier --write \"src/**/*.{js,mjs}\"",
+    "lint": "eslint \"src/**/*.{js,mjs}\"",
+    "lint:fix": "eslint --fix \"src/**/*.{js,mjs}\"",
+    "test": "jest --coverage --env=jsdom --verbose=true src",
+    "build-static-v1": "rimraf build/$NODE_ENV/static/v1/iframe && npm run build-static-v1:slideout && npm run build-static-v1:accordion",
+    "build-static-v1:slideout": "npm run build-static-v1:slideout:latest && npm run build-static-v1:slideout:versioned",
+    "build-static-v1:slideout:latest": "BUILD_VERSION_V1=latest parcel build src/static/v1/iframe/slideout/bestow-slideout.js --dist-dir build/$NODE_ENV/static/v1/iframe/slideout --no-cache",
+    "build-static-v1:slideout:versioned": "BUILD_VERSION_V1=$BUILD_VERSION_V1 parcel build src/static/v1/iframe/slideout/bestow-slideout.js --dist-dir build/$NODE_ENV/static/v1/iframe/slideout --no-cache",
+    "build-static-v1:accordion": "npm run build-static-v1:accordion:latest && npm run build-static-v1:accordion:versioned",
+    "build-static-v1:accordion:latest": "BUILD_VERSION_V1=latest parcel build src/static/v1/iframe/accordion/bestow-accordion.js --dist-dir build/$NODE_ENV/static/v1/iframe/accordion --no-cache",
+    "build-static-v1:accordion:versioned": "BUILD_VERSION_V1=$BUILD_VERSION_V1 parcel build src/static/v1/iframe/accordion/bestow-accordion.js --dist-dir build/$NODE_ENV/static/v1/iframe/accordion --no-cache",
+    "build-demo": "rimraf build/demo && parcel build src/Demos/Tomito/index.html --no-cache --dist-dir build/$NODE_ENV/demo/tomito",
+    "run-demo": "rimraf build/demo/tomito && parcel serve src/Demos/Tomito/index.html --port 4000 --dist-dir build/$NODE_EN/demo/tomito --no-cache"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "@parcel/babel-preset-env": "^2.2.1",
+    "@parcel/transformer-inline-string": "^2.2.1",
+    "babel-jest": "^27.4.6",
+    "dotenv": "^16.0.0",
+    "eslint": "^8.8.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-parcel2": "^1.0.1",
+    "eslint-plugin-import": "^2.25.4",
+    "husky": "^7.0.4",
+    "jest": "^27.4.7",
+    "jest-transform-stub": "^2.0.0",
+    "lint-staged": ">=10",
+    "parcel": "^2.2.1",
+    "parcel-namer-functional": "^0.1.2",
+    "posthtml-expressions": "^1.9.0",
+    "prettier": "2.5.1",
+    "rimraf": "^3.0.2"
+  },
+  "jest": {
+    "verbose": true,
+    "transform": {
+      "^.+\\.(js|mjs)$": "babel-jest",
+      ".+\\.(css|scss|png|jpg|svg)$": "jest-transform-stub"
+    },
+    "moduleNameMapper": {
+      "^.+.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "mjs"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "libraries"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,mjs,jsx,ts,tsx}": [
+      "npm run lint:fix",
+      "npm run format"
+    ]
+  },
+  "parcel-namer-functional": [
+    {
+      "type": "require",
+      "file": "scripts/parcel-build-namer.js",
+      "function": "buildRenamer"
+    }
+  ]
+}
