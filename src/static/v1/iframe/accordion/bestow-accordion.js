@@ -1,6 +1,6 @@
 // Inline the contents of the css file as plain text.
 // See https://parceljs.org/features/bundle-inlining/
-import styling from 'bundle-text:./styles.css';
+const styling = require('bundle-text:./styles.css');
 
 let accordion;
 
