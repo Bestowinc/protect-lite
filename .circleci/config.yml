@@ -191,8 +191,8 @@ workflows:
           env: qa
       - deploy-libs:
           name: deploy-static-qa
-          domain: protect-lite.qa.bestowlabs.com
-          bucket: protect-lite.qa.bestowlabs.com
+          domain: protect-lite.qa.bestow.com
+          bucket: protect-lite.qa.bestow.com
           env: qa
           context: gcp-policy-platform-qa
           requires:
@@ -236,8 +236,8 @@ workflows:
           env: uat
       - deploy-libs:
           name: deploy-static-staging
-          domain: protect-lite.staging.bestowlabs.com
-          bucket: protect-lite.staging.bestowlabs.com
+          domain: protect-lite.staging.bestow.com
+          bucket: protect-lite.staging.bestow.com
           env: staging
           context: gcp-policy-platform-staging
           requires:
@@ -245,8 +245,8 @@ workflows:
           filters: *staging-only
       - deploy-libs:
           name: deploy-static-uat
-          domain: protect-lite.uat.bestowlabs.com
-          bucket: protect-lite.uat.bestowlabs.com
+          domain: protect-lite.uat.bestow.com
+          bucket: protect-lite.uat.bestow.com
           env: uat
           context: gcp-policy-platform-uat
           requires:
@@ -295,8 +295,8 @@ workflows:
           filters: *main-only
       - deploy-demo:
           name: deploy-demo-prod
-          domain: protect-lite.bestow.com
-          bucket: protect-lite.bestow.com
+          domain: protect-lite.bestowlabs.com
+          bucket: protect-lite.bestowlabs.com
           context: gcp-policy-platform-prod
           env: production
           requires:
