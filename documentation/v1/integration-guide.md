@@ -59,11 +59,13 @@ The setup is only ran on the first click of the target element. Subsequent click
 will just expand the slideout. This ensures content provided by Bestow is only loaded when needed and reduces 
 unnecessary network traffic.
 
-## Integration
+#### Integration
 
 The Slideout component is initialized by...
 1. Adding a `<script>` tag to an HTML document to load the javascript file.
 2. Binding the initial `onClick` event to call the setup function.
+
+<br/>
 
 The `window.BestowSlideout.setup` function in the javascript file requires the following parameters.
 
