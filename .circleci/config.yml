@@ -182,7 +182,7 @@ jobs:
             envsubst < "release-notes-template.md" > "release-notes.md"
             
             # Create the release in github. This will also create a git tag.
-            gh release create "v$BUILD_VERSION_V1" --notes-file "release-notes.md" --target main --generate-notes
+            gh release create "v$BUILD_VERSION_V1" --notes-file "release-notes.md" --target main
           environment:
             - BUILD_VERSION_V1: << parameters.build-version-v1 >>
             - DOMAIN: << parameters.domain >>
