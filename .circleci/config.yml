@@ -4,32 +4,40 @@ version: 2.1
 
 # The current build version. Must be bumped manually for new features.
 build-versions:
-  &build-version-v1 "1.0.0"
+  &build-version-v1 "1.0.1+test"
 
-x-filter-all-branches-and-tags: &all-branches-and-tags
+x-filter-all-branches: &all-branches
   branches:
     only: /.*/
   tags:
-    only: /.*/
+    ignore: /.*/
 
 x-filter-develop-only: &develop-only
   branches:
     only: develop
+  tags:
+    ignore: /.*/
 
 x-filter-staging-only: &staging-only
   branches:
     only: staging
+  tags:
+    ignore: /.*/
 
 x-filter-main-only: &main-only
   branches:
     only: main
+  tags:
+    ignore: /.*/
 
-x-filter-feature-only: &pushes-and-prs-only
+x-filter-non-deploy-only: &non-deploy-branches
   branches:
     ignore:
       - main
       - staging
       - develop
+  tags:
+    ignore: /.*/
 
 restore-dependencies: &restore-dependencies
   restore_cache:
@@ -148,6 +156,30 @@ jobs:
       - run:
           name: Deploy demo
           command: gsutil -m rsync -r -d -x 'static' build/<< parameters.env >>/demo/tomito/ "gs://<< parameters.bucket >>"
+  publish-github-release:
+    parameters:
+      domain:
+        type: string
+      build-version-v1:
+        type: string
+    docker:
+      - image: circleci/node:16
+    steps:
+      - checkout
+      - run:
+          name: "Install github cli and envsubst"
+          command: sudo apt-get update -qq && sudo apt-get install -qq -y gh gettext
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            # Build the additional release notes from the template. Substituting environment variables.
+            export RELEASE_NOTES=$(envsubst < "release-notes-template.md")
+            
+            # Create the release in github. This will also create a git tag.
+            gh release create "v$BUILD_VERSION_V1" --notes "$RELEASE_NOTES" --target main --generate-notes
+          environment:
+            - BUILD_VERSION_V1: << parameters.build-version-v1 >>
+            - DOMAIN: << parameters.domain >>
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -156,22 +188,22 @@ workflows:
     jobs:
       # All
       - prep:
-          filters: *all-branches-and-tags
+          filters: *all-branches
       - unit-tests:
-          filters: *all-branches-and-tags
+          filters: *all-branches
           requires:
             - prep
       # Feature
       - build-libs:
           name: build-static-local
-          filters: *pushes-and-prs-only
+          filters: *non-deploy-branches
           requires:
             - unit-tests
           env: development
           build-version-v1: *build-version-v1
       - build-demo:
           name: build-demo-local
-          filters: *pushes-and-prs-only
+          filters: *non-deploy-branches
           requires:
             - unit-tests
           env: development
@@ -302,3 +334,12 @@ workflows:
           requires:
             - build-demo-prod
           filters: *main-only
+      - publish-github-release:
+          name: publish-github-release-prod
+          context: github-rw
+          domain: protect-lite.bestow.com
+          build-version-v1: *build-version-v1
+          requires:
+            - deploy-static-prod
+            - deploy-demo-prod
+          filters: *non-deploy-branches
