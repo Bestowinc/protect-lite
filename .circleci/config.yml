@@ -339,7 +339,7 @@ workflows:
           context: github-rw
           domain: protect-lite.bestow.com
           build-version-v1: *build-version-v1
-          requires:
-            - deploy-static-prod
-            - deploy-demo-prod
+          #requires:
+          #  - deploy-static-prod
+          #  - deploy-demo-prod
           filters: *non-deploy-branches
