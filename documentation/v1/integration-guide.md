@@ -73,10 +73,16 @@ The `window.BestowSlideout.setup` function in the javascript file requires the f
 | url             | string  | The agent URL pointing to the Bestow application landing page.<br/>(iframe `src`) |
 | open            | boolean | Indicates if the slideout should be opened (expanded) following initialization    |
 
-The code below provides an example of how the slideout component can be integrated into a parent webpage.
+<br/>
+
+The code below provides an example of how the slideout component can be integrated into a parent webpage.  
+
+<br/>
 
 > NOTE: Using the `latest` version in a production environment is not recommended. It could lead to undesired
 > results as new features are released. Using a specific version is recommended to establish a deterministic experience.
+
+<br/>
 
 ```html
 <head>
