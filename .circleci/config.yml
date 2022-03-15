@@ -2,9 +2,6 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
-orbs:
-  gh: circleci/github-cli@2.1.0
-
 # The current build version. Must be bumped manually for new features.
 build-versions:
   &build-version-v1 "1.0.1+test"
@@ -166,23 +163,28 @@ jobs:
       build-version-v1:
         type: string
     docker:
-      - image: cimg/base:stable
+      - image: circleci/node:16
     steps:
       - checkout
-      - gh/install
       - run:
           name: "Install github cli and envsubst"
           command: |
+            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+              | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
+              https://cli.github.com/packages stable main" \
+              | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
             sudo apt-get update -qq
-            sudo apt-get install -qq -y gettext
+            sudo apt-get install -qq -y gh gettext
       - run:
           name: "Publish Release on GitHub"
           command: |
             # Build the additional release notes from the template. Substituting environment variables.
-            envsubst < "release-notes-template.md" > "release-notes.md"
+            export RELEASE_NOTES=$(envsubst < "release-notes-template.md")
             
             # Create the release in github. This will also create a git tag.
-            gh release create "v$BUILD_VERSION_V1" --notes-file "release-notes.md" --target main
+            gh release list
+            # gh release create "v$BUILD_VERSION_V1" --notes "$RELEASE_NOTES" --target main --generate-notes
           environment:
             - BUILD_VERSION_V1: << parameters.build-version-v1 >>
             - DOMAIN: << parameters.domain >>
