@@ -162,6 +162,10 @@ jobs:
         type: string
       build-version-v1:
         type: string
+      release-type:
+        type: enum
+        enum: ["release", "pre-release", "draft"]
+        default: "draft"
     docker:
       - image: circleci/node:16
     steps:
@@ -182,11 +186,25 @@ jobs:
             # Build the additional release notes from the template. Substituting environment variables.
             export RELEASE_NOTES=$(envsubst < "release-notes-template.md")
             
+            # Build the command option for the release type.
+            case $RELEASE_TYPE in
+            "release")
+            export RELEASE_TYPE_OPTION=""
+            ;;
+            "pre-release")
+            export RELEASE_TYPE_OPTION="--prerelease"
+            ;;
+            "draft")
+            export RELEASE_TYPE_OPTION="--draft"
+            ;;
+            esac
+            
             # Create the release in github. This will also create a git tag.
-            gh release create "v$BUILD_VERSION_V1" --notes "$RELEASE_NOTES" --target main --generate-notes
+            gh release create "v$BUILD_VERSION_V1" --notes "$RELEASE_NOTES" --target $CIRCLE_BRANCH --generate-notes $RELEASE_TYPE_OPTION
           environment:
             - BUILD_VERSION_V1: << parameters.build-version-v1 >>
             - DOMAIN: << parameters.domain >>
+            - RELEASE_TYPE: << parameters.release-type >>
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -346,6 +364,7 @@ workflows:
           context: github-rw
           domain: protect-lite.bestow.com
           build-version-v1: *build-version-v1
+          release-type: "release"
           #requires:
           #  - deploy-static-prod
           #  - deploy-demo-prod
