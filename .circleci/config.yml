@@ -6,38 +6,30 @@ version: 2.1
 build-versions:
   &build-version-v1 "1.0.0"
 
-x-filter-all-branches: &all-branches
+x-filter-all-branches-and-tags: &all-branches-and-tags
   branches:
     only: /.*/
   tags:
-    ignore: /.*/
+    only: /.*/
 
 x-filter-develop-only: &develop-only
   branches:
     only: develop
-  tags:
-    ignore: /.*/
 
 x-filter-staging-only: &staging-only
   branches:
     only: staging
-  tags:
-    ignore: /.*/
 
 x-filter-main-only: &main-only
   branches:
     only: main
-  tags:
-    ignore: /.*/
 
-x-filter-non-deploy-only: &non-deploy-branches
+x-filter-feature-only: &pushes-and-prs-only
   branches:
     ignore:
       - main
       - staging
       - develop
-  tags:
-    ignore: /.*/
 
 restore-dependencies: &restore-dependencies
   restore_cache:
@@ -156,55 +148,6 @@ jobs:
       - run:
           name: Deploy demo
           command: gsutil -m rsync -r -d -x 'static' build/<< parameters.env >>/demo/tomito/ "gs://<< parameters.bucket >>"
-  publish-github-release:
-    parameters:
-      domain:
-        type: string
-      build-version-v1:
-        type: string
-      release-type:
-        type: enum
-        enum: ["release", "pre-release", "draft"]
-        default: "draft"
-    docker:
-      - image: circleci/node:16
-    steps:
-      - checkout
-      - run:
-          name: "Install github cli and envsubst"
-          command: |
-            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-              | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-            echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
-              https://cli.github.com/packages stable main" \
-              | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-            sudo apt-get update -qq
-            sudo apt-get install -qq -y gh gettext
-      - run:
-          name: "Publish release on GitHub"
-          command: |
-            # Build the additional release notes from the template. Substituting environment variables.
-            export RELEASE_NOTES=$(envsubst < "release-notes-template.md")
-            
-            # Build the command option for the release type.
-            case $RELEASE_TYPE in
-            "release")
-            export RELEASE_TYPE_OPTION=""
-            ;;
-            "pre-release")
-            export RELEASE_TYPE_OPTION="--prerelease"
-            ;;
-            "draft")
-            export RELEASE_TYPE_OPTION="--draft"
-            ;;
-            esac
-            
-            # Create the release in github. This will also create a git tag.
-            gh release create "v$BUILD_VERSION_V1" --notes "$RELEASE_NOTES" --target $CIRCLE_BRANCH --generate-notes $RELEASE_TYPE_OPTION
-          environment:
-            - BUILD_VERSION_V1: << parameters.build-version-v1 >>
-            - DOMAIN: << parameters.domain >>
-            - RELEASE_TYPE: << parameters.release-type >>
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -213,22 +156,22 @@ workflows:
     jobs:
       # All
       - prep:
-          filters: *all-branches
+          filters: *all-branches-and-tags
       - unit-tests:
-          filters: *all-branches
+          filters: *all-branches-and-tags
           requires:
             - prep
       # Feature
       - build-libs:
           name: build-static-local
-          filters: *non-deploy-branches
+          filters: *pushes-and-prs-only
           requires:
             - unit-tests
           env: development
           build-version-v1: *build-version-v1
       - build-demo:
           name: build-demo-local
-          filters: *non-deploy-branches
+          filters: *pushes-and-prs-only
           requires:
             - unit-tests
           env: development
@@ -358,14 +301,4 @@ workflows:
           env: production
           requires:
             - build-demo-prod
-          filters: *main-only
-      - publish-github-release:
-          name: publish-github-release-prod
-          context: github-rw
-          domain: protect-lite.bestow.com
-          build-version-v1: *build-version-v1
-          release-type: "release"
-          requires:
-            - deploy-static-prod
-            - deploy-demo-prod
           filters: *main-only
