@@ -183,8 +183,7 @@ jobs:
             export RELEASE_NOTES=$(envsubst < "release-notes-template.md")
             
             # Create the release in github. This will also create a git tag.
-            gh release list
-            # gh release create "v$BUILD_VERSION_V1" --notes "$RELEASE_NOTES" --target main --generate-notes
+            gh release create "v$BUILD_VERSION_V1" --notes "$RELEASE_NOTES" --target main --generate-notes
           environment:
             - BUILD_VERSION_V1: << parameters.build-version-v1 >>
             - DOMAIN: << parameters.domain >>
