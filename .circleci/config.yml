@@ -4,7 +4,7 @@ version: 2.1
 
 # The current build version. Must be bumped manually for new features.
 build-versions:
-  &build-version-v1 "1.0.1+test"
+  &build-version-v1 "1.0.0"
 
 x-filter-all-branches: &all-branches
   branches:
@@ -365,7 +365,7 @@ workflows:
           domain: protect-lite.bestow.com
           build-version-v1: *build-version-v1
           release-type: "release"
-          #requires:
-          #  - deploy-static-prod
-          #  - deploy-demo-prod
-          filters: *non-deploy-branches
+          requires:
+            - deploy-static-prod
+            - deploy-demo-prod
+          filters: *main-only
