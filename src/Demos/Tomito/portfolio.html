@@ -42,11 +42,16 @@
     <link rel="stylesheet" href='style.css' />
     <script type="module" src='{{ SLIDEOUT_SCRIPT_URL }}'></script>
     <script type="module" src='{{ ACCORDION_SCRIPT_URL }}'></script>
+    <script type="module" src='{{ MODAL_SCRIPT_URL }}'></script>
     <script locals>
-      const bestowAppUrl = '{{ AGENT_URL }}' || 'https://enroll.qa.bestow.com/';
+      const bestowAppUrl = '{{ AGENT_URL }}';
 
-      function openBestow(elementSelector) {
+      function openBestowSlideout(elementSelector) {
         window.BestowSlideout.setup(elementSelector, bestowAppUrl, true);
+      }
+
+      function openBestowModal(elementSelector) {
+        window.BestowModal.setup(elementSelector, bestowAppUrl, true);   
       }
 
       document.addEventListener('DOMContentLoaded', () => {
@@ -303,7 +308,7 @@
                           <a
                             id="get-quote"
                             href="#"
-                            onclick='openBestow(this.id)'
+                            onclick='openBestowSlideout(this.id)'
                             rel="noreferrer noopener"
                             class="life-insurance-ad-link1"
                           >
@@ -662,8 +667,9 @@
                       Annuities
                     </a>
                     <a
-                      href="https://example.com"
-                      target="_blank"
+                      id="get-quote-modal"
+                      href="#"
+                      onclick='openBestowModal(this.id)'
                       rel="noreferrer noopener"
                       class="portfolio-link12"
                     >

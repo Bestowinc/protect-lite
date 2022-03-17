@@ -1,0 +1,48 @@
+.bestow-modal {
+    position: absolute;
+    height: 90%;
+    left: 40%;
+    top: 5%;
+    bottom: 5%;
+    margin: 0;
+    background-color: white;
+    z-index: 1;
+    overflow: hidden;
+    display: block;
+    width: 20%;
+    min-width: 400px;
+    border: 1px darkgray solid;
+    box-sizing: content-box;
+}
+.bestow-modal-nav {
+    height: 25px;
+    display: block;
+    background-color: rgba(44, 89, 104);
+}
+.bestow-modal > iframe {
+    height: 100%;
+    width: 100%;
+    border: 0;
+}
+.bestow-modal-close {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 15px;
+    height: 15px;
+    box-sizing: inherit;
+    float: right;
+}
+.bestow-modal-close-span {
+    display: table-cell;
+    vertical-align: right;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    font: 15px sans-serif;
+    font-weight: 800;
+    cursor: pointer;
+    box-sizing: inherit;
+    color: white;
+    float: right;
+}
