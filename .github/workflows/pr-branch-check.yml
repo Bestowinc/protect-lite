@@ -19,8 +19,8 @@ jobs:
     steps:
       -  name: Check if the pull request is mergeable to destination branch.
          run: |
-           SOURCE=${{ github.event.pull_request.head.ref }}
-           TARGET=${{ github.event.pull_request.base.ref }}
+           export SOURCE="${{ github.event.pull_request.head.ref }}"
+           export TARGET="${{ github.event.pull_request.base.ref }}"
            
            if [[ "$TARGET" == "main" && "$SOURCE" != "staging" ]]; then
             echo "Branch '$SOURCE' cannot be merged directly to 'main'!"
