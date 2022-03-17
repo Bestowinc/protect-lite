@@ -53,7 +53,7 @@ parent webpage. Clicking the close icon within the embedded component will close
 #### Demo
 
 A demonstration of the slideout component can be seen by visiting https://protect-lite.bestowlabs.com/portfolio.html 
-and clicking the "Get a Quote" link
+and clicking the `Get a Quote` link
 
 #### Setup Overview
 
@@ -197,8 +197,6 @@ The code below provides an example of how the accordion component can be integra
 </body>
 ```
 
-<br/>
-
 #### Minimum Requirements
 
 Below details the minimum requirements to ensure the accordion component provides an optimal user experience
@@ -210,6 +208,8 @@ throughout the Bestow application process.
 
 Additionally, if a mobile version of your website exists, check to make sure the Bestow content is fully scrollable
 and works well on all required devices.
+
+<br/>
 
 ### Modal
 
