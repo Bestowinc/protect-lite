@@ -1,0 +1,31 @@
+name: Target Branch Check
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - edited
+      - reopened
+    branches:
+      - main
+      - staging
+      - develop
+
+jobs:
+  merge_check:
+    name: Ensure merge target is allowed
+    runs-on: ubuntu-latest
+    steps:
+      -  name: Check if the pull request is mergeable to destination branch.
+         run: |
+           SOURCE=${{ github.event.pull_request.head.ref }}
+           TARGET=${{ github.event.pull_request.base.ref }}
+           
+           if [ "$TARGET" == "main" ] && [ "$SOURCE" != "staging" ]; then
+            echo "Branch '$SOURCE' cannot be merged directly to 'main'!"
+            exit 1
+           elif [ "$TARGET" == "staging" ] && [ "$SOURCE" != "develop" || "$SOURCE" != "main" ] ; then
+            echo "Branch '$SOURCE' cannot be merged directly to 'staging'!"
+            exit 1
+           fi;
