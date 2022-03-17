@@ -24,7 +24,7 @@ A demo website was created for partners to see how Protect Lite works. A playgro
 Bestow application can be embedded into a dummy parent site.
 
 It utilizes javascript setup files to demonstrate easy integration. (See 
-[Available Components](documentation/v1/integration-guide.md#available-components))
+[Components](documentation/v1/integration-guide.md#components))
 
 The demo site is built with [Parcel](https://parceljs.org/).
 

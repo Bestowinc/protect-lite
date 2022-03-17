@@ -1,7 +1,16 @@
 :warning: **This guide is a work in progress and subject to change.**
 
+# Integration Guide
+
 The Bestow application can be embedded inside your own hosted website. This document contains guidelines
 and examples of how this can be achieved.
+
+## Releases
+
+Visit the link below to view the various releases, including links to the javascript files for each of the 
+available components.
+
+https://github.com/Bestowinc/protect-lite/releases
 
 ## Prerequisites
 
@@ -20,7 +29,7 @@ but is not supported or guaranteed.
 * Safari
 * Microsoft Edge
 
-## Available Components
+## Components
 
 The ability to embed the Bestow application into your website comes in several flavors. They can be combined
 depending on the desired user experience.
@@ -29,11 +38,11 @@ Various javascript files (components) were created for this purpose. The goal of
 reduce the amount of integration and configuration needed by partners. Making it as seamless and easy as possible 
 and reducing your time to market. All components are written in plain vanilla javascript.
 
-Visit the link below to view the various releases, including links to each of the components deployed javascript files.
+* [Slideout](#slideout)
+* [Accordion](#accordion)
+* [Modal](#modal)
 
-https://github.com/Bestowinc/protect-lite/releases
-
-### 1. Slideout
+### Slideout
 
 This component embeds the Bestow application in an iframe on right-hand side of the screen.
 
@@ -119,7 +128,7 @@ and works well on all required devices.
 
 <br/>
 
-### 2. Accordion
+### Accordion
 
 This component provides the ability to iframe the Bestow application within a section of an HTML accordion.
 
@@ -201,3 +210,7 @@ throughout the Bestow application process.
 
 Additionally, if a mobile version of your website exists, check to make sure the Bestow content is fully scrollable
 and works well on all required devices.
+
+### Modal
+
+Coming soon
