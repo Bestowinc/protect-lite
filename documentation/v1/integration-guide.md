@@ -22,10 +22,14 @@ but is not supported or guaranteed.
 
 ## Available Components
 
-The ability to embed the Bestow application into your website comes in several flavors. They can be combined 
+The ability to embed the Bestow application into your website comes in several flavors. They can be combined
 depending on the desired user experience.
 
-You can view the various releases, including links to each of the components javascript files, by visiting...
+Various javascript files (components) were created for this purpose. The goal of these javascript files are to 
+reduce the amount of integration and configuration needed by partners. Making it as seamless and easy as possible 
+and reducing your time to market. All components are written in plain vanilla javascript.
+
+Visit the link below to view the various releases, including links to each of the components deployed javascript files.
 
 https://github.com/Bestowinc/protect-lite/releases
 
@@ -39,7 +43,7 @@ parent webpage. Clicking the close icon within the embedded component will close
 
 #### Demo
 
-A demonstration of the Slideout component can be seen by visiting https://protect-lite.bestowlabs.com/portfolio.html 
+A demonstration of the slideout component can be seen by visiting https://protect-lite.bestowlabs.com/portfolio.html 
 and clicking the "Get a Quote" link
 
 #### Setup Overview
@@ -61,7 +65,7 @@ unnecessary network traffic.
 
 #### Integration
 
-The Slideout component is initialized by...
+The slideout component is initialized by...
 1. Adding a `<script>` tag to an HTML document to load the javascript file.
 2. Binding the initial `onClick` event to call the setup function.
 
@@ -69,11 +73,11 @@ The Slideout component is initialized by...
 
 The `window.BestowSlideout.setup` function in the javascript file requires the following parameters.
 
-| Parameter       | Type    | Description                                                                       |
-|-----------------|---------|:----------------------------------------------------------------------------------|
-| elementSelector | string  | The id of the target element to bind `onClick` events to.                         |
-| url             | string  | The agent URL pointing to the Bestow application landing page.<br/>(iframe `src`) |
-| open            | boolean | Indicates if the slideout should be opened (expanded) following initialization    |
+| Parameter       | Type    | Description                                                                        |
+|-----------------|---------|:-----------------------------------------------------------------------------------|
+| elementSelector | string  | The id of the target element to bind `onClick` events to.                          |
+| url             | string  | The agent URL pointing to the Bestow application landing page. (e.g. iframe `src`) |
+| open            | boolean | Indicates if the slideout should be opened (expanded) following initialization     |
 
 <br/>
 
@@ -105,10 +109,95 @@ The code below provides an example of how the slideout component can be integrat
 
 #### Minimum Requirements
 
-Below details the minimum requirements to ensure the Slideout component provides an optimal user experience 
+Below details the minimum requirements to ensure the slideout component provides an optimal user experience 
 throughout the Bestow application process.
 
  * The HTML body MUST be set to a minimum width of 400px.
+
+Additionally, if a mobile version of your website exists, check to make sure the Bestow content is fully scrollable
+and works well on all required devices.
+
+<br/>
+
+### 2. Accordion
+
+This component provides the ability to iframe the Bestow application within a section of an HTML accordion.
+
+The embedded iframe is displayed (expanded) when a specific HTML element is clicked on the
+parent webpage. Clicking the close icon within the embedded component will collapse the iframe content. 
+
+#### Demo
+
+A demonstration of the accordion component can be seen by visiting https://protect-lite.bestowlabs.com/portfolio.html
+and clicking the "+" icon within the Bestow banner.
+
+#### Setup Overview
+
+The content for the accordion is created dynamically on a parent webpage by referencing a javascript file and calling a
+setup function. This setup function will...
+
+1. Build the HTML and CSS for the content of a specific accordion section.
+   - iframe that loads the supplied agent URL.
+   - When the accordion section is visible, its contents is expanded to 100% of the supplied parent `<div>` element.
+2. Bind the necessary click events
+   - Expand/collapse when a supplied target element is toggled.
+3. Appends the HTML to the supplied accordion section (`<div>` element id) of the parent webpage.
+
+#### Integration
+
+The accordion component is initialized by...
+1. Adding a `<script>` tag to an HTML document to load the javascript file.
+2. Binding an event listener to call the setup function on page load.
+
+<br/>
+
+The `window.BestowAccordion.setup` function in the javascript file requires the following parameters.
+
+| Parameter       | Type   | Description                                                                                  |
+|-----------------|--------|:---------------------------------------------------------------------------------------------|
+| contentDiv      | string | The id of the target `<div>` element that will contain the iframe content.                   |
+| elementSelector | string | The id of the target element to bind click events to for section toggling (expand/collapse). |
+| url             | string | The agent URL pointing to the Bestow application landing page. (e.g. iframe `src`)           |
+
+<br/>
+
+The code below provides an example of how the accordion component can be integrated into a parent webpage.
+
+<br/>
+
+> NOTE: Using the `latest` version in a production environment is not recommended. It could lead to undesired
+> results as new features are released. Using a specific version is recommended to establish a deterministic experience.
+
+<br/>
+
+```html
+<head>
+  <title>Accordion Example</title>
+  <script type="module" src='https://protect-lite.bestow.com/static/v1/iframe/accordion/bestow-accordion-latest.js'></script>
+  <script>
+    const bestowAppUrl = 'https://agent-quote.qa.bestow.com/e4e833b3';
+
+    document.addEventListener('DOMContentLoaded', () => {
+       window.BestowAccordion.setup("life-insurance-accordion-content", "life-insurance-button", bestowAppUrl);
+    });
+  </script>
+</head>
+<body>
+   <button id="life-insurance-button" class="life-insurance-button">Life Insurance</button>
+   <div id="life-insurance-accordion-content" class="life-insurance-accordion-content"></div>
+</body>
+```
+
+<br/>
+
+#### Minimum Requirements
+
+Below details the minimum requirements to ensure the accordion component provides an optimal user experience
+throughout the Bestow application process.
+
+* The `<div>` element containing the iframe content MUST be set with...
+  * A minimum width of 400px.
+  * A minimum height of 500px.
 
 Additionally, if a mobile version of your website exists, check to make sure the Bestow content is fully scrollable
 and works well on all required devices.
