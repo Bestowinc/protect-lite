@@ -119,8 +119,8 @@ The code below provides an example of how the slideout component can be integrat
 ### Position and Size
 
 * The slideout content will be positioned on the right-hand side of the screen when visible.
-* With screen widths larger than 640px, the modal width is set to 20% of the screen size with a minimum width of 400px.
-* With screen widths smaller than 640px, the modal width and height is set to 100%.
+* With screen widths larger than 640px, the slideout width is set to 20% of the screen size with a minimum width of 400px.
+* With screen widths smaller than 640px, the slideout width and height is set to 100%.
 
 ### Minimum Requirements
 
