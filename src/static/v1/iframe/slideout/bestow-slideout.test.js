@@ -90,7 +90,7 @@ describeIf(gutterExists)('gutter tests', () => {
   });
   test('gutter element is displayed when supplied element is clicked', () => {
     suppliedTestElement.click();
-    expect(gutterElement.style.display).toBe('crap');
+    expect(gutterElement.style.display).toBe('block');
   });
   test('setup is not ran again on subsequent clicks of the supplied element', () => {
     const setupSpy = jest.spyOn(window.BestowSlideout, 'setup');
