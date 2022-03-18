@@ -12,6 +12,13 @@ anytime as well as maintain insights to user behavior on the application itself 
 With the new iframe solution from Bestow, partners can take advantage of adding an instant-issue term life offering 
 to their platform in just a matter of days.
 
+## Releases
+
+Visit the link below to view current and previous releases, including links to the javascript files for each of the
+components in the integration guide.
+
+[Releases](https://github.com/Bestowinc/protect-lite/releases)
+
 ## Partner Integration
 
 Visit the link below to view technical guidance for partner integration.
@@ -24,15 +31,15 @@ A demo website was created for partners to see how Protect Lite works. A playgro
 Bestow application can be embedded into a dummy parent site.
 
 It utilizes javascript setup files to demonstrate easy integration. (See 
-[Components](documentation/v1/integration-guide.md#components))
+[Components](documentation/v1/integration-guide.md#components-overview))
 
 The demo site is built with [Parcel](https://parceljs.org/).
 
-#### Environments
+### Environments
 
 | Environment | URL                                         |
 |-------------|---------------------------------------------|
-| Production  | https://protect-lite.bestow.com             |
+| Production  | https://protect-lite.bestowlabs.com         |
 | Staging     | https://protect-lite.staging.bestowlabs.com |
 | UAT         | https://protect-lite.uat.bestowlabs.com     |
 | QA          | https://protect-lite.qa.bestowlabs.com      |
@@ -47,7 +54,7 @@ For example, `NODE_ENV=qa npm run build-demo` will inject variables from the `.e
 See [Parcel environment variables](https://en.parceljs.org/env.html),
 [PostHTML expressions](https://github.com/posthtml/posthtml-expressions)
 
-#### Running Locally
+### Running Locally
 
 * Run `npm run run-demo`
 * Open http://localhost:4000

@@ -10,7 +10,7 @@ and examples of how this can be achieved.
 Visit the link below to view current and previous releases, including links to the javascript files for each of the 
 components in this guide.
 
-https://github.com/Bestowinc/protect-lite/releases
+[Releases](https://github.com/Bestowinc/protect-lite/releases)
 
 ## Prerequisites
 
