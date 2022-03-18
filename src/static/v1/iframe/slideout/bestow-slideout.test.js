@@ -6,10 +6,10 @@ const describeIf = condition => (condition ? describe : describe.skip);
 const testURL = 'https://somegarbage.bestow.com';
 const testElementID = 'some_id';
 
-const iframeElementID = 'bestow-frame';
-const gutterElementID = 'bestow-gutter';
-const closeElementID = 'bestow-close';
-const styleElementID = 'bestow-styling';
+const iframeElementID = 'bestow-slideout-iframe';
+const gutterElementID = 'bestow-slideout-gutter';
+const closeElementID = 'bestow-slideout-close';
+const styleElementID = 'bestow-slideout-styling';
 
 document.body.innerHTML += `
     <a id="${testElementID}" href="#" rel="noreferrer noopener">
@@ -83,7 +83,7 @@ describeIf(gutterExists)('gutter tests', () => {
     expect(gutterElement.id).toBe(gutterElementID);
   });
   test('gutter element has correct class name', () => {
-    expect(gutterElement.className).toBe('gutter');
+    expect(gutterElement.className).toBe('bestow-slideout-gutter');
   });
   test('gutter element is not displayed on load', () => {
     expect(gutterElement.style.display).toBe('none');
@@ -141,24 +141,12 @@ describeIf(closeExists)('close tests', () => {
     expect(closeElement.id).toBe(closeElementID);
   });
   test('close element has correct class name', () => {
-    expect(closeElement.className).toBe('close');
-  });
-  test('close element is not displayed on load', () => {
-    expect(closeElement.style.display).toBe('none');
+    expect(closeElement.className).toBe('bestow-slideout-close');
   });
   test('close element has close icon', () => {
-    const closeIcon = closeElement.querySelector('.close-span');
+    const closeIcon = closeElement.querySelector('.bestow-slideout-close-span');
     expect(closeIcon).toBeTruthy();
     expect(closeIcon.textContent).toBe('X');
-  });
-
-  test('close element is displayed when supplied element is clicked', () => {
-    suppliedTestElement.click();
-    expect(closeElement.style.display).toBe('block');
-  });
-  test('close element is hidden on click', () => {
-    closeElement.click();
-    expect(closeElement.style.display).toBe('none');
   });
 });
 

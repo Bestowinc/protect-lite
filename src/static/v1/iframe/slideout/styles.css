@@ -1,4 +1,4 @@
-.gutter {
+.bestow-slideout-gutter {
     position: fixed;
     height: 100%;
     right: 0;
@@ -10,37 +10,39 @@
     display: block;
     width: 20%;
     min-width: 400px;
-    border-left: 5px #370511ff solid;
+    border: 1px darkgray solid;
     box-sizing: content-box;
 }
-.gutter > iframe {
+.bestow-slideout-nav {
+    height: 30px;
+    display: block;
+    background-color: rgba(44, 89, 104);
+}
+.bestow-slideout-gutter > iframe {
     height: 100%;
     width: 100%;
     border: 0;
 }
-.close {
-    background-color: white;
+.bestow-slideout-close {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
-    border: #370511ff 4px solid;
-    position: fixed;
-    margin: 5px -49px;
+    width: 20px;
+    height: 20px;
     box-sizing: inherit;
+    float: right;
 }
-.close-span {
+.bestow-slideout-close-span {
     display: table-cell;
-    vertical-align: middle;
-    height: 42px;
-    width: 40px;
+    vertical-align: right;
+    height: 25px;
+    width: 25px;
     text-align: center;
-    font: 2em sans-serif;
+    font: 19px sans-serif;
+    font-weight: 800;
     cursor: pointer;
     box-sizing: inherit;
-}
-.close-span:hover {
-    background-color: rgba(56, 5, 17, 0.05);
+    color: white;
+    float: right;
+    margin-right: 18px;
 }

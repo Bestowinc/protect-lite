@@ -3,21 +3,17 @@
 const styling = require('bundle-text:./styles.css');
 
 const openGutter = () => () => {
-  const gutter = document.getElementById('bestow-gutter');
-  const closeElem = document.getElementById('bestow-close');
+  const gutter = document.getElementById('bestow-slideout-gutter');
 
-  closeElem.style.display = 'block';
   gutter.style.display = 'block';
 
   return false;
 };
 
 const closeGutter = () => () => {
-  const gutter = document.getElementById('bestow-gutter');
-  const closeElem = document.getElementById('bestow-close');
+  const gutter = document.getElementById('bestow-slideout-gutter');
 
   /* Disable slide out visuals */
-  closeElem.style.display = 'none';
   gutter.style.display = 'none';
 };
 
@@ -37,34 +33,38 @@ function setupBestow(elementSelector, url, open) {
 
   const styleSheet = document.createElement('style');
   styleSheet.textContent = styling;
-  styleSheet.id = `bestow-styling`;
+  styleSheet.id = `bestow-slideout-styling`;
   document.body.appendChild(styleSheet);
 
   const gutterElem = document.createElement('div');
-  gutterElem.id = 'bestow-gutter';
-  gutterElem.classList.add('gutter');
+  gutterElem.id = 'bestow-slideout-gutter';
+  gutterElem.classList.add('bestow-slideout-gutter');
   gutterElem.style.display = 'none';
+
+  const navElem = document.createElement('div');
+  navElem.id = 'bestow-slideout-nav';
+  navElem.classList.add('bestow-slideout-nav');
 
   const closeSpan = document.createElement('span');
   closeSpan.textContent = 'X';
-  closeSpan.classList.add('close-span');
+  closeSpan.classList.add('bestow-slideout-close-span');
 
   const closeElem = document.createElement('div');
-  closeElem.id = 'bestow-close';
-  closeElem.classList.add('close');
-  closeElem.style.display = 'none';
+  closeElem.id = 'bestow-slideout-close';
+  closeElem.classList.add('bestow-slideout-close');
   closeElem.appendChild(closeSpan);
   closeElem.onclick = closeGutter();
   gutterElem.appendChild(closeElem);
 
   const frameElem = document.createElement('iframe');
-  frameElem.id = 'bestow-frame';
+  frameElem.id = 'bestow-slideout-iframe';
   frameElem.setAttribute('allow', 'payment');
   frameElem.setAttribute(
     'sandbox',
     'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads',
   );
   frameElem.src = url;
+  gutterElem.appendChild(navElem);
   gutterElem.appendChild(frameElem);
   document.body.appendChild(gutterElem);
 
