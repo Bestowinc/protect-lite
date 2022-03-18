@@ -25,7 +25,7 @@ jobs:
            if [[ "$TARGET" == "main" && "$SOURCE" != "staging" ]]; then
             echo "Branch '$SOURCE' cannot be merged directly to 'main'!"
             exit 1
-           elif [[ "$TARGET" == "staging" && ( "$SOURCE" != "develop" || "$SOURCE" != "main" ) ]]; then
+           elif [[ "$TARGET" == "staging" && "$SOURCE" != "develop" && "$SOURCE" != "main" ]]; then
             echo "Branch '$SOURCE' cannot be merged directly to 'staging'!"
             exit 1
            else
