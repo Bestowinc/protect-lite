@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>Mobile Test Page</title>
+    <link
+      rel="shortcut icon"
+      href='public/assets/tomato3.png'
+      type="icon/png"
+      sizes="32x32"
+    />
+    <link rel="stylesheet" href='mobile.css' />
+    <script type="module" src='{{ SLIDEOUT_SCRIPT_URL }}'></script>
+    <script type="module" src='{{ MODAL_SCRIPT_URL }}'></script>
+    <script locals>
+      const bestowAppUrl = '{{ AGENT_URL }}';
+
+      function openBestowSlideout(elementSelector) {
+        window.BestowSlideout.setup(elementSelector, bestowAppUrl, true);
+      }
+
+      function openBestowModal(elementSelector) {
+        window.BestowModal.setup(elementSelector, bestowAppUrl, true);   
+      }     
+    </script>
+  </head>
+  <body>
+    <div id="main" class="main">
+      <div id="nav" class="nav">
+        <span id="title" class="title">Mobile Friendly Page</span>
+      </div>
+      <div id="hero" class="hero">
+        <table>
+          <tr class="spacer">
+            <td>
+              <a id="slideout-demo" href="#" onclick='openBestowSlideout(this.id)' rel="noreferrer noopener">
+                <span id="slideout-span" class="table-span">Slideout Demo</span>
+              </a>
+            </td>
+          </tr>
+          <tr class="spacer">
+            <td>
+              <a id="modal-demo" href="#" onclick='openBestowModal(this.id)' rel="noreferrer noopener">
+                <span id="modal-span" class="table-span">Modal Demo</span>
+              </a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>  
