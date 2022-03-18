@@ -29,7 +29,7 @@ but is not supported or guaranteed.
 * Safari
 * Microsoft Edge
 
-## Components
+## Components Overview
 
 The ability to embed the Bestow application into your website comes in several flavors. They can be combined
 depending on the desired user experience.
@@ -42,7 +42,7 @@ and reducing your time to market. All components are written in plain vanilla ja
 * [Accordion](#accordion)
 * [Modal](#modal)
 
-### Slideout
+## Slideout
 
 This component embeds the Bestow application in an iframe on right-hand side of the screen.
 
@@ -50,12 +50,12 @@ The embedded iframe is expanded (sliding out from right to left) when a specific
 parent webpage. Clicking the close icon within the embedded component will close the iframe 
 (sliding from right to left).
 
-#### Demo
+### Demo
 
 A demonstration of the slideout component can be seen by visiting https://protect-lite.bestowlabs.com/portfolio.html 
 and clicking the `Get a Quote` link within the Bestow banner.
 
-#### Setup Overview
+### Setup Overview
 
 The slideout component is created dynamically on a parent webpage by referencing a javascript file and calling a
 setup function when a target element is first clicked. This setup function will...
@@ -72,7 +72,7 @@ The setup is only ran on the first click of the target element. Subsequent click
 will just expand the slideout. This ensures content provided by Bestow is only loaded when needed and reduces 
 unnecessary network traffic.
 
-#### Integration
+### Integration
 
 The slideout component is initialized by...
 1. Adding a `<script>` tag to an HTML document to load the javascript file.
@@ -94,7 +94,7 @@ The code below provides an example of how the slideout component can be integrat
 
 <br/>
 
-> :exclamation: Using the `latest` version in a production environment is not recommended. It could lead to undesired
+> :bangbang:  Using the `latest` version in a production environment is not recommended. It could lead to undesired
 > results as new features are released. Using a specific version is recommended to establish a deterministic experience.
 
 <br/>
@@ -116,13 +116,13 @@ The code below provides an example of how the slideout component can be integrat
 </body>
 ```
 
-#### Position and Size
+### Position and Size
 
 * The slideout content will be positioned on the right-hand side of the screen when visible.
 * With screen widths larger than 640px, the modal width is set to 20% of the screen size with a minimum width of 400px.
 * With screen widths smaller than 640px, the modal width and height is set to 100%.
 
-#### Minimum Requirements
+### Minimum Requirements
 
 Below details the minimum requirements to ensure the slideout component provides an optimal user experience 
 throughout the Bestow application process.
@@ -134,19 +134,19 @@ and works well on all required devices.
 
 <br/>
 
-### Accordion
+## Accordion
 
 This component provides the ability to iframe the Bestow application within a section of an HTML accordion.
 
 The embedded iframe is displayed (expanded) when a specific HTML element is clicked on the
 parent webpage. Clicking the close icon within the embedded component will collapse the iframe content. 
 
-#### Demo
+### Demo
 
 A demonstration of the accordion component can be seen by visiting https://protect-lite.bestowlabs.com/portfolio.html
 and clicking the "+" icon within the Bestow banner.
 
-#### Setup Overview
+### Setup Overview
 
 The content for the accordion is created dynamically on a parent webpage by referencing a javascript file and calling a
 setup function. This setup function will...
@@ -158,7 +158,7 @@ setup function. This setup function will...
    - Expand/collapse when a supplied target element is toggled.
 3. Append the HTML to the supplied accordion section (`<div>` element id) of the parent webpage.
 
-#### Integration
+### Integration
 
 The accordion component is initialized by...
 1. Adding a `<script>` tag to an HTML document to load the javascript file.
@@ -180,7 +180,7 @@ The code below provides an example of how the accordion component can be integra
 
 <br/>
 
-> :exclamation: Using the `latest` version in a production environment is not recommended. It could lead to undesired
+> :bangbang:  Using the `latest` version in a production environment is not recommended. It could lead to undesired
 > results as new features are released. Using a specific version is recommended to establish a deterministic experience.
 
 <br/>
@@ -203,12 +203,12 @@ The code below provides an example of how the accordion component can be integra
 </body>
 ```
 
-#### Position and Size
+### Position and Size
 
 * Content will be positioned within the supplied `<div>` element (using the element id).
 * Content will take up 100% of the parent element horizontally and vertically.
 
-#### Minimum Requirements
+### Minimum Requirements
 
 Below details the minimum requirements to ensure the accordion component provides an optimal user experience
 throughout the Bestow application process.
@@ -222,19 +222,19 @@ and works well on all required devices.
 
 <br/>
 
-### Modal
+## Modal
 
 This component embeds the Bestow application in an iframe in the center of the screen.
 
 The embedded iframe is expanded (popped up) when a specific HTML element is clicked on the
 parent webpage. Clicking the close icon within the embedded component will close the iframe.
 
-#### Demo
+### Demo
 
 A demonstration of the modal component can be seen by visiting https://protect-lite.bestowlabs.com/portfolio.html
 and clicking the `Life Insurance` link at the bottom of the page.
 
-#### Setup Overview
+### Setup Overview
 
 The modal component is created dynamically on a parent webpage by referencing a javascript file and calling a
 setup function when a target element is first clicked. This setup function will...
@@ -251,7 +251,7 @@ The setup is only ran on the first click of the target element. Subsequent click
 will just expand the modal. This ensures content provided by Bestow is only loaded when needed and reduces
 unnecessary network traffic.
 
-#### Integration
+### Integration
 
 The modal component is initialized by...
 1. Adding a `<script>` tag to an HTML document to load the javascript file.
@@ -273,7 +273,7 @@ The code below provides an example of how the modal component can be integrated 
 
 <br/>
 
-> :exclamation: Using the `latest` version in a production environment is not recommended. It could lead to undesired
+> :bangbang:  Using the `latest` version in a production environment is not recommended. It could lead to undesired
 > results as new features are released. Using a specific version is recommended to establish a deterministic experience.
 
 <br/>
@@ -295,13 +295,13 @@ The code below provides an example of how the modal component can be integrated 
 </body>
 ```
 
-#### Position and Size
+### Position and Size
 
 * Content will be positioned in the center of screen horizontally and vertically.
 * With screen widths larger than 640px, the modal width is set to 640px.
 * With screen widths smaller than 640px, the modal width and height is set to 100%.
 
-#### Minimum Requirements
+### Minimum Requirements
 
 Below details the minimum requirements to ensure the modal component provides an optimal user experience
 throughout the Bestow application process.
