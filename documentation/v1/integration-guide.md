@@ -298,8 +298,12 @@ The code below provides an example of how the modal component can be integrated 
 ### Position and Size
 
 * Content will be positioned in the center of screen horizontally and vertically.
-* With screen widths larger than 640px, the modal width is set to 640px.
-* With screen widths smaller than 640px, the modal width and height is set to 100%.
+* When screen sizes are larger than 800px, the modal...
+  * Minimum width is 600px.
+  * Width is a percentage of the entire screen.
+* When screen sizes are smaller than 400px, the modal...
+  * Minimum width is 350px.
+  * Width is set to 100%.
 
 ### Minimum Requirements
 
