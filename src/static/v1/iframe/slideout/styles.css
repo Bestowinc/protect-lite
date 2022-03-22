@@ -9,7 +9,7 @@
     overflow: hidden;
     display: block;
     width: 20%;
-    min-width: 400px;
+    min-width: 360px;
     border: 1px darkgray solid;
     box-sizing: content-box;
 }
