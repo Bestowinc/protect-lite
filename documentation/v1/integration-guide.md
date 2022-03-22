@@ -61,10 +61,10 @@ The slideout component is created dynamically on a parent webpage by referencing
 setup function when a target element is first clicked. This setup function will...
 
 1. Build the HTML and CSS for the slideout component.
-   - iframe that loads the supplied agent URL.
+   * iframe that loads the supplied agent URL.
 2. Bind the necessary click events
-    - Expand when a supplied target element is clicked.
-    - Collapse when the close icon is clicked.
+    * Expand when a supplied target element is clicked.
+    * Collapse when the close icon is clicked.
 3. Append the HTML to the body of the parent webpage.
 4. Open the slideout if needed.
 
@@ -119,8 +119,12 @@ The code below provides an example of how the slideout component can be integrat
 ### Position and Size
 
 * The slideout content will be positioned on the right-hand side of the screen when visible.
-* With screen widths larger than 640px, the slideout width is set to 20% of the screen size with a minimum width of 400px.
-* With screen widths smaller than 640px, the slideout width and height is set to 100%.
+* When screen sizes are 500px or smaller, the modal...
+    * Width is set to 100%.
+    * Minimum width is 360px.
+* When screen sizes are larger than 500px, the modal...
+    * Width is a percentage of the entire screen.
+    * Minimum width is 400px.
 
 ### Minimum Requirements
 
@@ -152,10 +156,10 @@ The content for the accordion is created dynamically on a parent webpage by refe
 setup function. This setup function will...
 
 1. Build the HTML and CSS for the content of a specific accordion section.
-   - iframe that loads the supplied agent URL.
-   - When the accordion section is visible, its contents is expanded to 100% of the supplied parent `<div>` element.
+   * iframe that loads the supplied agent URL.
+   * When the accordion section is visible, its contents is expanded to 100% of the supplied parent `<div>` element.
 2. Bind the necessary click events
-   - Expand/collapse when a supplied target element is toggled.
+   * Expand/collapse when a supplied target element is toggled.
 3. Append the HTML to the supplied accordion section (`<div>` element id) of the parent webpage.
 
 ### Integration
@@ -240,10 +244,10 @@ The modal component is created dynamically on a parent webpage by referencing a 
 setup function when a target element is first clicked. This setup function will...
 
 1. Build the HTML and CSS for the modal component.
-    - iframe that loads the supplied agent URL.
+    * iframe that loads the supplied agent URL.
 2. Bind the necessary click events
-    - Expand when a supplied target element is clicked.
-    - Collapse when the close icon is clicked.
+    * Expand when a supplied target element is clicked.
+    * Collapse when the close icon is clicked.
 3. Append the HTML to the body of the parent webpage.
 4. Open the modal if needed.
 
@@ -298,12 +302,12 @@ The code below provides an example of how the modal component can be integrated 
 ### Position and Size
 
 * Content will be positioned in the center of screen horizontally and vertically.
-* When screen sizes are larger than 800px, the modal...
-  * Minimum width is 600px.
-  * Width is a percentage of the entire screen.
-* When screen sizes are smaller than 400px, the modal...
-  * Minimum width is 350px.
+* When screen sizes are 400px or smaller, the modal...
   * Width is set to 100%.
+  * Minimum width is 360px.
+* When screen sizes are 800px or larger, the modal...
+  * Width is a percentage of the entire screen.
+  * Minimum width is 600px.
 
 ### Minimum Requirements
 
