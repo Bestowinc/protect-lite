@@ -47,7 +47,7 @@ The demo site is built with [Parcel](https://parceljs.org/).
 | QA          | https://protect-lite.qa.bestowlabs.com      |
 | STAGING     | https://protect-lite.staging.bestowlabs.com |
 | UAT         | https://protect-lite.uat.bestowlabs.com     |
-| Prod        | https://protect-lite.bestow.com             |
+| Prod        | https://protect-lite.bestowlabs.com             |
 
 PostHTML is utilized to inject variables into HTML based on the node environment at build time. This allows html to be 
 transformed with values based node environments. e.g. Agent urls, bestow environment urls, etc. 
@@ -116,7 +116,7 @@ Below details the files hosted for the v1 iFrame javascript library.
 
 | Environment | Files                                                                                                                        |
 |-------------|------------------------------------------------------------------------------------------------------------------------------|
-| QA          | https://protect-lite.qa.bestowlabs.com/static/v1/iframe/ <br/> https://protect-lite.qa.bestowlabs.com/static/v1/iframe/      |
-| STAGING     | https://protect-lite.staging.bestowlabs.com/static/v1/iframe/ <br/> https://protect-lite.qa.bestowlabs.com/static/v1/iframe/ |
-| UAT         | https://protect-lite.uat.bestowlabs.com/static/v1/iframe/ <br/> https://protect-lite.qa.bestowlabs.com/static/v1/iframe/     |
+| QA          | https://protect-lite.qa.bestow.com/static/v1/iframe/ <br/> https://protect-lite.qa.bestow.com/static/v1/iframe/      |
+| STAGING     | https://protect-lite.staging.bestow.com/static/v1/iframe/ <br/> https://protect-lite.qa.bestow.com/static/v1/iframe/ |
+| UAT         | https://protect-lite.uat.bestow.com/static/v1/iframe/ <br/> https://protect-lite.qa.bestow.com/static/v1/iframe/     |
 | Prod        | https://protect-lite.bestow.com/static/v1/iframe/ <br/> https://protect-lite.bestow.com/static/iframe/                       |

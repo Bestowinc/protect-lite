@@ -28,6 +28,7 @@ module.exports = {
       locals: {
         ACCORDION_SCRIPT_URL: process.env.ACCORDION_SCRIPT_URL,
         SLIDEOUT_SCRIPT_URL: process.env.SLIDEOUT_SCRIPT_URL,
+        MODAL_SCRIPT_URL: process.env.MODAL_SCRIPT_URL,
         AGENT_URL: process.env.AGENT_URL
       }
     }
