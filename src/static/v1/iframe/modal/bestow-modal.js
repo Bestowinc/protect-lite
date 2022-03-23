@@ -2,19 +2,19 @@
 // See https://parceljs.org/features/bundle-inlining/
 const styling = require('bundle-text:./styles.css');
 
-const openGutter = () => () => {
-  const gutter = document.getElementById('bestow-slideout-gutter');
+const openModal = () => () => {
+  const modal = document.getElementById('bestow-modal');
 
-  gutter.style.display = 'block';
+  modal.style.display = 'block';
 
   return false;
 };
 
-const closeGutter = () => () => {
-  const gutter = document.getElementById('bestow-slideout-gutter');
+const closeModal = () => () => {
+  const modal = document.getElementById('bestow-modal');
 
-  /* Disable slide out visuals */
-  gutter.style.display = 'none';
+  /* Disable visuals (ie: close) */
+  modal.style.display = 'none';
 };
 
 function setupBestow(elementSelector, url, open) {
@@ -29,48 +29,48 @@ function setupBestow(elementSelector, url, open) {
     throw new Error(`Supplied element could not be found`);
   }
 
-  hostElem.onclick = openGutter(url);
+  hostElem.onclick = openModal(url);
 
   const styleSheet = document.createElement('style');
   styleSheet.textContent = styling;
-  styleSheet.id = `bestow-slideout-styling`;
+  styleSheet.id = `bestow-modal-styling`;
   document.body.appendChild(styleSheet);
 
-  const gutterElem = document.createElement('div');
-  gutterElem.id = 'bestow-slideout-gutter';
-  gutterElem.classList.add('bestow-slideout-gutter');
-  gutterElem.style.display = 'none';
+  const modalElem = document.createElement('div');
+  modalElem.id = 'bestow-modal';
+  modalElem.classList.add('bestow-modal');
+  modalElem.style.display = 'none';
 
   const navElem = document.createElement('div');
-  navElem.id = 'bestow-slideout-nav';
-  navElem.classList.add('bestow-slideout-nav');
+  navElem.id = 'bestow-modal-nav';
+  navElem.classList.add('bestow-modal-nav');
 
   const closeSpan = document.createElement('span');
   closeSpan.textContent = 'X';
-  closeSpan.classList.add('bestow-slideout-close-span');
+  closeSpan.classList.add('bestow-modal-close-span');
 
   const closeElem = document.createElement('div');
-  closeElem.id = 'bestow-slideout-close';
-  closeElem.classList.add('bestow-slideout-close');
+  closeElem.id = 'bestow-modal-close';
+  closeElem.classList.add('bestow-modal-close');
   closeElem.appendChild(closeSpan);
-  closeElem.onclick = closeGutter();
-  gutterElem.appendChild(closeElem);
+  closeElem.onclick = closeModal();
+  navElem.appendChild(closeElem);
 
   const frameElem = document.createElement('iframe');
-  frameElem.id = 'bestow-slideout-iframe';
+  frameElem.id = 'bestow-modal-frame';
   frameElem.setAttribute('allow', 'payment');
   frameElem.setAttribute(
     'sandbox',
     'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads',
   );
   frameElem.src = url;
-  gutterElem.appendChild(navElem);
-  gutterElem.appendChild(frameElem);
-  document.body.appendChild(gutterElem);
+  modalElem.appendChild(navElem);
+  modalElem.appendChild(frameElem);
+  document.body.appendChild(modalElem);
 
   if (open) {
-    openGutter()();
+    openModal()();
   }
 }
 
-window.BestowSlideout = { setup: setupBestow };
+window.BestowModal = { setup: setupBestow };

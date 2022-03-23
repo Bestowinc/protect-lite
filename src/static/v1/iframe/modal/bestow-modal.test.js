@@ -1,15 +1,16 @@
 /* eslint-disable */
-require('./bestow-slideout.js');
+require('./bestow-modal.js');
 
 const describeIf = condition => (condition ? describe : describe.skip);
 
 const testURL = 'https://somegarbage.bestow.com';
 const testElementID = 'some_id';
 
-const iframeElementID = 'bestow-slideout-iframe';
-const gutterElementID = 'bestow-slideout-gutter';
-const closeElementID = 'bestow-slideout-close';
-const styleElementID = 'bestow-slideout-styling';
+const iframeElementID = 'bestow-modal-frame';
+const modalElementID = 'bestow-modal';
+const modalNavElementID = 'bestow-modal-nav';
+const closeElementID = 'bestow-modal-close';
+const styleElementID = 'bestow-modal-styling';
 
 document.body.innerHTML += `
     <a id="${testElementID}" href="#" rel="noreferrer noopener">
@@ -19,7 +20,7 @@ document.body.innerHTML += `
 
 let setupError;
 try {
-  window.BestowSlideout.setup(`${testElementID}`, testURL);
+  window.BestowModal.setup(`${testElementID}`, testURL);
 } catch (e) {
   setupError = e;
 }
@@ -28,7 +29,7 @@ describe('test setup', () => {
   test('error when supplied element does not exist', () => {
     let err;
     try {
-      window.BestowSlideout.setup(`#garbage`, testURL);
+      window.BestowModal.setup(`#garbage`, testURL);
     } catch (e) {
       err = e;
     }
@@ -43,13 +44,15 @@ describe('test setup', () => {
 console.log(document.documentElement.innerHTML);
 
 const suppliedTestElement = document.getElementById(testElementID);
-const gutterElement = document.getElementById(gutterElementID);
+const modalElement = document.getElementById(modalElementID);
+const modalNavElement = document.getElementById(modalNavElementID);
 const iframeElement = document.getElementById(iframeElementID);
 const closeElement = document.getElementById(closeElementID);
 const styleElement = document.getElementById(styleElementID);
 
 const suppliedExists = suppliedTestElement !== null;
-const gutterExists = gutterElement !== null;
+const modalExists = modalElement !== null;
+const modalNavExists = modalNavElement !== null;
 const iframeExists = iframeElement !== null;
 const closeExists = closeElement !== null;
 const styleExists = styleElement !== null;
@@ -58,8 +61,11 @@ describe('elements exist', () => {
   test('supplied test element exists', () => {
     expect(suppliedExists).toBeTruthy();
   });
-  test('gutter element exists', () => {
-    expect(gutterExists).toBeTruthy();
+  test('modal element exists', () => {
+    expect(modalExists).toBeTruthy();
+  });
+  test('modal nav element exists', () => {
+    expect(modalNavExists).toBeTruthy();
   });
   test('iframe element exists', () => {
     expect(iframeExists).toBeTruthy();
@@ -72,34 +78,34 @@ describe('elements exist', () => {
   });
 });
 
-describeIf(gutterExists)('gutter tests', () => {
+describeIf(modalExists)('modal tests', () => {
   afterAll(() => {
     if (closeExists) {
       closeElement.click();
     }
   });
 
-  test('gutter element has correct id', () => {
-    expect(gutterElement.id).toBe(gutterElementID);
+  test('modal element has correct id', () => {
+    expect(modalElement.id).toBe(modalElementID);
   });
-  test('gutter element has correct class name', () => {
-    expect(gutterElement.className).toBe('bestow-slideout-gutter');
+  test('modal element has correct class name', () => {
+    expect(modalElement.className).toBe('bestow-modal');
   });
-  test('gutter element is not displayed on load', () => {
-    expect(gutterElement.style.display).toBe('none');
+  test('modal element is not displayed on load', () => {
+    expect(modalElement.style.display).toBe('none');
   });
-  test('gutter element is displayed when supplied element is clicked', () => {
+  test('modal element is displayed when supplied element is clicked', () => {
     suppliedTestElement.click();
-    expect(gutterElement.style.display).toBe('block');
+    expect(modalElement.style.display).toBe('block');
   });
   test('setup is not ran again on subsequent clicks of the supplied element', () => {
-    const setupSpy = jest.spyOn(window.BestowSlideout, 'setup');
+    const setupSpy = jest.spyOn(window.BestowModal, 'setup');
     suppliedTestElement.click();
     expect(setupSpy).not.toBeCalled();
   });
-  test('gutter element is hidden when closed', () => {
+  test('modal element is hidden when closed', () => {
     closeElement.click();
-    expect(gutterElement.style.display).toBe('none');
+    expect(modalElement.style.display).toBe('none');
   });
 });
 
@@ -141,10 +147,10 @@ describeIf(closeExists)('close tests', () => {
     expect(closeElement.id).toBe(closeElementID);
   });
   test('close element has correct class name', () => {
-    expect(closeElement.className).toBe('bestow-slideout-close');
+    expect(closeElement.className).toBe('bestow-modal-close');
   });
   test('close element has close icon', () => {
-    const closeIcon = closeElement.querySelector('.bestow-slideout-close-span');
+    const closeIcon = closeElement.querySelector('.bestow-modal-close-span');
     expect(closeIcon).toBeTruthy();
     expect(closeIcon.textContent).toBe('X');
   });

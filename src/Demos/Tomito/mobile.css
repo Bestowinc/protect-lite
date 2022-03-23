@@ -1,0 +1,37 @@
+.nav {
+    background-color: #370511;
+    color: white;
+    height: 10%;
+    min-height: 60px;
+    text-align: center;
+    align-items: center;
+}
+.title {
+    font-size: 48px;
+    font-weight: 700;
+}
+.main {
+    width: 100%;
+    height: 100%;
+}
+.hero {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.hero > table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.hero {
+    text-align: center;
+}
+.table-span {
+    font-size: 42px;
+    text-decoration: none !important;
+    color: black;
+}
+.spacer {
+    padding: 10px;
+}
