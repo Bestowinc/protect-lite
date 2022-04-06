@@ -17,8 +17,15 @@ const closeModal = () => () => {
   modal.style.display = 'none';
 };
 
-function setupBestow(elementSelector, url, open) {
+function generateParamsUrl(url, params) {
+  return `${url}?${Object.keys(params)
+    .map(key => `${key}=${params[key]}`)
+    .join('&')}`;
+}
+
+function setupBestow(elementSelector, url, params, open) {
   let elementID = elementSelector;
+  let fullUrl;
 
   if (!elementID.startsWith('#')) {
     elementID = `#${elementID}`;
@@ -26,10 +33,28 @@ function setupBestow(elementSelector, url, open) {
   const hostElem = document.querySelector(elementID);
 
   if (!hostElem) {
-    throw new Error(`Supplied element could not be found`);
+    throw new Error(
+      'Supplied bestow-modal toggle selector could not be found. Please consult integration guide at: https://github.com/Bestowinc/protect-lite/blob/main/documentation/v1/integration-guide.md',
+    );
   }
 
   hostElem.onclick = openModal(url);
+
+  /*  
+    Check to see if params passed in is not null and is an object and if so
+    map param key/value pairs contained in params object to urlstring.
+  */
+  if (params != null) {
+    if (typeof params === 'object') {
+      fullUrl = generateParamsUrl(url, params);
+    } else {
+      throw new Error(
+        `Params variable passed into the bestow-modal is not a valid object. Please consult integration guide at: https://github.com/Bestowinc/protect-lite/blob/main/documentation/v1/integration-guide.md`,
+      );
+    }
+  } else {
+    fullUrl = url;
+  }
 
   const styleSheet = document.createElement('style');
   styleSheet.textContent = styling;
@@ -63,7 +88,7 @@ function setupBestow(elementSelector, url, open) {
     'sandbox',
     'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads',
   );
-  frameElem.src = url;
+  frameElem.src = fullUrl;
   modalElem.appendChild(navElem);
   modalElem.appendChild(frameElem);
   document.body.appendChild(modalElem);

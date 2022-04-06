@@ -12,8 +12,15 @@ function toggleAccordion() {
   }
 }
 
-function setupBestowAccordion(contentDiv, elementSelector, url) {
+function generateParamsUrl(url, params) {
+  return `${url}?${Object.keys(params)
+    .map(key => `${key}=${params[key]}`)
+    .join('&')}`;
+}
+
+function setupBestowAccordion(contentDiv, elementSelector, url, params) {
   let contentID = contentDiv;
+  let fullUrl;
 
   if (!contentID.startsWith('#')) {
     contentID = `#${contentID}`;
@@ -22,7 +29,9 @@ function setupBestowAccordion(contentDiv, elementSelector, url) {
   const contentElem = document.querySelector(contentID);
 
   if (!contentElem) {
-    throw new Error(`Supplied content div could not be found`);
+    throw new Error(
+      `Supplied content div for the bestow-accordion could not be found. Please consult integration guide at: https://github.com/Bestowinc/protect-lite/blob/main/documentation/v1/integration-guide.md`,
+    );
   }
 
   accordion = contentElem;
@@ -35,10 +44,28 @@ function setupBestowAccordion(contentDiv, elementSelector, url) {
   const clickElem = document.querySelector(elementID);
 
   if (!clickElem) {
-    throw new Error(`Supplied element could not be found`);
+    throw new Error(
+      'Supplied bestow-accordion toggle selector could not be found. Please consult integration guide at: https://github.com/Bestowinc/protect-lite/blob/main/documentation/v1/integration-guide.md',
+    );
   }
 
   clickElem.addEventListener('click', () => toggleAccordion());
+
+  /*  
+    Check to see if params passed in is not null and is an object and if so
+    map param key/value pairs contained in params object to urlstring.
+  */
+  if (params != null) {
+    if (typeof params === 'object') {
+      fullUrl = generateParamsUrl(url, params);
+    } else {
+      throw new Error(
+        'Params variable passed into the bestow-accordion is not a valid object. Please consult integration guide at: https://github.com/Bestowinc/protect-lite/blob/main/documentation/v1/integration-guide.md',
+      );
+    }
+  } else {
+    fullUrl = url;
+  }
 
   const styleSheet = document.createElement('style');
   styleSheet.textContent = styling;
@@ -48,7 +75,7 @@ function setupBestowAccordion(contentDiv, elementSelector, url) {
   const frameElem = document.createElement('iframe');
   frameElem.id = 'bestow-accordion-iframe';
   frameElem.setAttribute('allow', 'payment');
-  frameElem.src = url;
+  frameElem.src = fullUrl;
   accordion.appendChild(frameElem);
 
   if (!accordion.classList.contains('accordionClose')) {

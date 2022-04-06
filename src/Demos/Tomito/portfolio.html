@@ -46,16 +46,25 @@
     <script locals>
       const bestowAppUrl = '{{ AGENT_URL }}';
 
-      function openBestowSlideout(elementSelector) {
-        window.BestowSlideout.setup(elementSelector, bestowAppUrl, true);
+      const quoteParams = {
+        gender: `female`,
+        height: `69`,
+        weight: 120,
+        tobacco: `no`,
+        date_of_birth: `1998-01-01`,
+        zip: `77386`
+      };
+
+      function openBestowSlideout(elementSelector, params) {
+        window.BestowSlideout.setup(elementSelector, bestowAppUrl, params, true);
       }
 
-      function openBestowModal(elementSelector) {
+      function openBestowModal(elementSelector, params) {
         window.BestowModal.setup(elementSelector, bestowAppUrl, true);   
       }
 
       document.addEventListener('DOMContentLoaded', () => {
-        window.BestowAccordion.setup("life-insurance-accordion-content", "lifeins_ad_plus_icon", bestowAppUrl);
+        window.BestowAccordion.setup("life-insurance-accordion-content", "lifeins_ad_plus_icon", bestowAppUrl, quoteParams);
       });      
     </script>
   </head>
@@ -308,7 +317,7 @@
                           <a
                             id="get-quote"
                             href="#"
-                            onclick='openBestowSlideout(this.id)'
+                            onclick='openBestowSlideout(this.id, quoteParams)'
                             rel="noreferrer noopener"
                             class="life-insurance-ad-link1"
                           >
@@ -669,7 +678,7 @@
                     <a
                       id="get-quote-modal"
                       href="#"
-                      onclick='openBestowModal(this.id)'
+                      onclick='openBestowModal(this.id, quoteParams)'
                       rel="noreferrer noopener"
                       class="portfolio-link12"
                     >
