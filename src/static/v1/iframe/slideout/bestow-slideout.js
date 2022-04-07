@@ -23,7 +23,7 @@ function generateParamsUrl(url, params) {
     .join('&')}`;
 }
 
-function setupBestow(elementSelector, url, params, open) {
+function setupBestow(elementSelector, url, params, open, _anchorLeft = false) {
   let elementID = elementSelector;
   let fullUrl;
 
@@ -65,6 +65,10 @@ function setupBestow(elementSelector, url, params, open) {
   gutterElem.id = 'bestow-slideout-gutter';
   gutterElem.classList.add('bestow-slideout-gutter');
   gutterElem.style.display = 'none';
+
+  if (_anchorLeft) {
+    gutterElem.style.left = 0;
+  }
 
   const navElem = document.createElement('div');
   navElem.id = 'bestow-slideout-nav';
