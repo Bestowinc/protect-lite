@@ -135,8 +135,8 @@ The `window.BestowSlideout.setup` function in the javascript file requires the f
 |-----------------|---------|----------|:-----------------------------------------------------------------------------------|
 | elementSelector | string  | yes      | The id of the target element to bind `onClick` events to.                          |
 | url             | string  | yes      | The agent URL pointing to the Bestow application landing page. (e.g. iframe `src`) |
-| open            | boolean | no       | Indicates if the slideout should be opened (expanded) following initialization     |
 | params          | object  | no       | Parameters object specific to iframed [widget](#widgets)                           |
+| open            | boolean | no       | Indicates if the slideout should be opened (expanded) following initialization     |
 
 <br/>
 
@@ -338,8 +338,8 @@ The `window.BestowModal.setup` function in the javascript file requires the foll
 |-----------------|---------|----------|:-----------------------------------------------------------------------------------|
 | elementSelector | string  | yes      | The id of the target element to bind `onClick` events to.                          |
 | url             | string  | yes      | The agent URL pointing to the Bestow application landing page. (e.g. iframe `src`) |
-| open            | boolean | no       | Indicates if the slideout should be opened (expanded) following initialization     |
 | params          | object  | no       | Parameters object specific to iframed [widget](#widgets)                           |
+| open            | boolean | no       | Indicates if the modal should be opened (expanded) following initialization     |
 
 <br/>
 
