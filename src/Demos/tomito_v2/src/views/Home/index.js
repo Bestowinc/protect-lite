@@ -33,7 +33,7 @@ const Home = () => (
       id="main-container"
       className=" w-full pt-20 flex justify-center flex-col lg:flex-row px-4"
     >
-      <section className="flex flex-col lg:flex-row justify-center gap-12 lg:gap-4 md:text-left">
+      <section className="flex flex-col lg:flex-row justify-center gap-12 lg:gap-4 text-center md:text-left">
         <div
           id="main-left-column"
           className="flex flex-col md:flex-row justify-center w-full lg:w-2/5 gap-12 lg:border-r border-slate-200 "
@@ -212,8 +212,11 @@ const Home = () => (
       id="bottom-container"
       className="bg-[#370511] mt-10 flex justify-center"
     >
-      <section id="bottom-content" className="p-10 lg:p-20 space-y-10">
-        <h3 className="text-2xl md:text-5xl font-bold text-white">
+      <section
+        id="bottom-content"
+        className="p-10 lg:p-20 space-y-10 text-center"
+      >
+        <h3 className="text-2xl md:text-5xl font-bold text-white ">
           Customer Service and Security
         </h3>
         <p className="max-w-2xl lg:max-w-5xl md:text-1xl lg:text-2xl font-medium text-white">
