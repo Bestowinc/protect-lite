@@ -20,7 +20,7 @@ const Home = () => (
             <h3 className="text-5xl font-bold">Achieve more</h3>
             <p className="text-2xl">When you pay less</p>
             <button
-              class="px-6 font-semibold rounded-full bg-[#370511] text-white h-8"
+              className="px-6 font-semibold rounded-full bg-[#370511] text-white h-8"
               type="submit"
             >
               Open an Account
