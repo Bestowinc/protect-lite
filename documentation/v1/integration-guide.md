@@ -42,6 +42,55 @@ and reducing your time to market. All components are written in plain vanilla ja
 * [Accordion](#accordion)
 * [Modal](#modal)
 
+## Widgets
+
+<br/>
+
+### Quote
+
+**Creating a Quote**
+
+Every insurance policy begins with a quote. You can think of quotes as templates that eventually turn into policies if a user decides to buy. Quotes are used to indicate the terms of the policy and the price (premium) associated with it.
+
+When calculating policy prices, we take many attributes into consideration, such as the user's age, gender, height, weight and status. You’ll need to include this information when creating a quote through the API.
+
+**Url:** https://agent-quote.bestow.com/<agentId>
+
+**Parameters**
+
+| Parameter       | Required | Description                                                                        |
+|-----------------|----------|:-----------------------------------------------------------------------------------|
+| date_of_birth   | no       | Prefill `Birthdate` field. Total height in inches                                  |
+| gender          | no       | Prefill `Gender` field. "male" or "female"                                         |
+| height          | no       | Prefill `Height` field. Total height in inches                                     |
+| tobacco         | no       | Prefill `Tobacco` field. "yes" or "no"                                             |
+| weight          | no       | Prefill `Weight` field. Total weight in lbs                                        |
+| zip             | no       | Prefill `Zip Code` field. 5 digit zipcode value                                    |
+
+<br/>
+
+### Enrollment
+
+**Creating an Enrollment**
+
+Enrollment is the application process of purchasing a policy. An application is a collection of data about a customer that is used to determine whether we would like to sell them a life insurance policy. It is a request to be considered for an insurance policy. A customer ***applies*** for a policy. Just because they apply does not mean they will be issued a policy.
+
+Applications are created when a customer creates an account and ends upon an underwriting decision.
+
+**Url:** https://enroll.bestow.com/
+
+**Parameters**
+
+| Parameter       | Required | Description                                                                        |
+|-----------------|----------|:-----------------------------------------------------------------------------------|
+| date_of_birth   | no       | Prefill `Birthdate` field. Total height in inches                                  |
+| gender          | no       | Prefill `Gender` field. "male" or "female"                                         |
+| height          | no       | Prefill `Height` field. Total height in inches                                     |
+| tobacco         | no       | Prefill `Tobacco` field. "yes" or "no"                                             |
+| weight          | no       | Prefill `Weight` field. Total weight in lbs                                        |
+| zip             | no       | Prefill `Zip Code` field. 5 digit zipcode value                                    |
+| quoteid         | no       | Pass in previous quote id. *date_of_birth, gender, height, tobacco, weight and zip will be prefilled with previous information provided during quote.* |
+
 ## Slideout
 
 This component embeds the Bestow application in an iframe on right-hand side of the screen.
@@ -82,11 +131,12 @@ The slideout component is initialized by...
 
 The `window.BestowSlideout.setup` function in the javascript file requires the following parameters.
 
-| Parameter       | Type    | Description                                                                        |
-|-----------------|---------|:-----------------------------------------------------------------------------------|
-| elementSelector | string  | The id of the target element to bind `onClick` events to.                          |
-| url             | string  | The agent URL pointing to the Bestow application landing page. (e.g. iframe `src`) |
-| open            | boolean | Indicates if the slideout should be opened (expanded) following initialization     |
+| Parameter       | Type    | Required | Description                                                                        |
+|-----------------|---------|----------|:-----------------------------------------------------------------------------------|
+| elementSelector | string  | yes      | The id of the target element to bind `onClick` events to.                          |
+| url             | string  | yes      | The agent URL pointing to the Bestow application landing page. (e.g. iframe `src`) |
+| params          | object  | no       | Parameters object specific to iframed [widget](#widgets)                           |
+| open            | boolean | no       | Indicates if the slideout should be opened (expanded) following initialization     |
 
 <br/>
 
@@ -106,8 +156,17 @@ The code below provides an example of how the slideout component can be integrat
   <script>
     const bestowAppUrl = 'https://agent-quote.qa.bestow.com/e4e833b3';
 
+    const quoteParams = {
+      gender: 'female',
+      height: '69',
+      weight: 120,
+      tobacco: 'no',
+      date_of_birth: '1998-01-01',
+      zip: '77386'
+    };
+
     function openBestowSlideout(elementSelector) {
-      window.BestowSlideout.setup(elementSelector, bestowAppUrl, true);
+      window.BestowSlideout.setup(elementSelector, bestowAppUrl, quoteParams, true);
     }
   </script>
 </head>
@@ -172,11 +231,12 @@ The accordion component is initialized by...
 
 The `window.BestowAccordion.setup` function in the javascript file requires the following parameters.
 
-| Parameter       | Type   | Description                                                                                  |
-|-----------------|--------|:---------------------------------------------------------------------------------------------|
-| contentDiv      | string | The id of the target `<div>` element that will contain the iframe content.                   |
-| elementSelector | string | The id of the target element to bind click events to for section toggling (expand/collapse). |
-| url             | string | The agent URL pointing to the Bestow application landing page. (e.g. iframe `src`)           |
+| Parameter       | Type    | Required | Description                                                                        |
+|-----------------|---------|----------|:-----------------------------------------------------------------------------------|
+| contentDiv      | string  | yes      | The id of the target `<div>` element that will contain the iframe content.         |
+| elementSelector | string  | yes      | The id of the target element to bind `onClick` events to.                          |
+| url             | string  | yes      | The agent URL pointing to the Bestow application landing page. (e.g. iframe `src`) |
+| params          | object  | no       | Parameters object specific to iframed [widget](#widgets)                           |
 
 <br/>
 
@@ -196,8 +256,17 @@ The code below provides an example of how the accordion component can be integra
   <script>
     const bestowAppUrl = 'https://agent-quote.qa.bestow.com/e4e833b3';
 
+    const quoteParams = {
+      gender: 'female',
+      height: '69',
+      weight: 120,
+      tobacco: 'no',
+      date_of_birth: '1998-01-01',
+      zip: '77386'
+    };
+
     document.addEventListener('DOMContentLoaded', () => {
-       window.BestowAccordion.setup("life-insurance-accordion-content", "life-insurance-button", bestowAppUrl);
+       window.BestowAccordion.setup("life-insurance-accordion-content", "life-insurance-button", bestowAppUrl, quoteParams);
     });
   </script>
 </head>
@@ -265,11 +334,12 @@ The modal component is initialized by...
 
 The `window.BestowModal.setup` function in the javascript file requires the following parameters.
 
-| Parameter       | Type    | Description                                                                        |
-|-----------------|---------|:-----------------------------------------------------------------------------------|
-| elementSelector | string  | The id of the target element to bind `onClick` events to.                          |
-| url             | string  | The agent URL pointing to the Bestow application landing page. (e.g. iframe `src`) |
-| open            | boolean | Indicates if the modal should be opened (expanded) following initialization        |
+| Parameter       | Type    | Required | Description                                                                        |
+|-----------------|---------|----------|:-----------------------------------------------------------------------------------|
+| elementSelector | string  | yes      | The id of the target element to bind `onClick` events to.                          |
+| url             | string  | yes      | The agent URL pointing to the Bestow application landing page. (e.g. iframe `src`) |
+| params          | object  | no       | Parameters object specific to iframed [widget](#widgets)                           |
+| open            | boolean | no       | Indicates if the modal should be opened (expanded) following initialization     |
 
 <br/>
 
@@ -289,8 +359,17 @@ The code below provides an example of how the modal component can be integrated 
   <script>
     const bestowAppUrl = 'https://agent-quote.qa.bestow.com/e4e833b3';
 
+    const quoteParams = {
+      gender: 'female',
+      height: '69',
+      weight: 120,
+      tobacco: 'no',
+      date_of_birth: '1998-01-01',
+      zip: '77386'
+    };
+
     function openBestowModal(elementSelector) {
-       window.BestowModal.setup(elementSelector, bestowAppUrl, true);
+       window.BestowModal.setup(elementSelector, bestowAppUrl, quoteParams, true);
     }
   </script>
 </head>

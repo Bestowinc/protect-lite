@@ -4,6 +4,17 @@ require('./bestow-accordion.js');
 const describeIf = condition => (condition ? describe : describe.skip);
 
 const testURL = 'https://somegarbage.bestow.com';
+const testParams = {
+  gender: 'female',
+  height: '69',
+  weight: 120,
+  tobacco: 'no',
+  date_of_birth: '1998-01-01',
+  zip: '77386',
+};
+const fullTestURL = `${testURL}?${Object.keys(testParams)
+  .map(key => key + '=' + testParams[key])
+  .join('&')}`;
 const testElementID = 'some_id';
 const testDivID = 'some_div_id';
 
@@ -20,7 +31,7 @@ document.body.innerHTML += `
 
 let setupError;
 try {
-  window.BestowAccordion.setup(`${testDivID}`, `${testElementID}`, testURL);
+  window.BestowAccordion.setup(testDivID, testElementID, testURL, testParams);
 } catch (e) {
   setupError = e;
 }
@@ -29,25 +40,44 @@ describe('test setup', () => {
   test('error when supplied div does not exist', () => {
     let err;
     try {
-      window.BestowAccordion.setup(`#garbage1`, `#garbage2`, testURL);
+      window.BestowAccordion.setup(
+        '#garbage1',
+        '#garbage2',
+        testURL,
+        testParams,
+      );
     } catch (e) {
       err = e;
     }
     expect(err).toBeTruthy();
-    expect(err.message).toBe('Supplied content div could not be found');
+    expect(err.message).toBe(
+      'Supplied content div for the bestow-accordion could not be found. Please consult integration guide at: https://github.com/Bestowinc/protect-lite/blob/main/documentation/v1/integration-guide.md',
+    );
   });
-
   test('error when supplied element does not exist', () => {
     let err;
     try {
-      window.BestowAccordion.setup(`${testDivID}`, `#garbage`, testURL);
+      window.BestowAccordion.setup(testDivID, '#garbage', testURL, testParams);
     } catch (e) {
       err = e;
     }
     expect(err).toBeTruthy();
-    expect(err.message).toBe('Supplied element could not be found');
+    expect(err.message).toBe(
+      'Supplied bestow-accordion toggle selector could not be found. Please consult integration guide at: https://github.com/Bestowinc/protect-lite/blob/main/documentation/v1/integration-guide.md',
+    );
   });
-
+  test('error when supplied params is not an object', () => {
+    let err;
+    try {
+      window.BestowAccordion.setup(testDivID, testElementID, testURL, 'test');
+    } catch (e) {
+      err = e;
+    }
+    expect(err).toBeTruthy();
+    expect(err.message).toBe(
+      'Params variable passed into the bestow-accordion is not a valid object. Please consult integration guide at: https://github.com/Bestowinc/protect-lite/blob/main/documentation/v1/integration-guide.md',
+    );
+  });
   test('setup is successful', () => {
     expect(setupError).toBeFalsy();
   });
@@ -109,7 +139,7 @@ describeIf(iframeExists)('iframe tests', () => {
   });
   test('iframe element has correct src attribute', () => {
     const srcAttribute = iframeElement.getAttribute('src');
-    expect(srcAttribute).toBe(testURL);
+    expect(srcAttribute).toBe(fullTestURL);
   });
   test('iframe element has correct values for allow attribute', () => {
     const allowAttribute = iframeElement.getAttribute('allow');
