@@ -1,6 +1,6 @@
 {
   "name": "protect-lite",
-  "version": "1.0.0",
+  "version": "1.1.2",
   "private": true,
   "scripts": {
     "prepare": "husky install",
@@ -42,7 +42,8 @@
     "parcel-namer-functional": "^0.1.2",
     "posthtml-expressions": "^1.9.0",
     "prettier": "2.5.1",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "eslint-config-react-app": "^7.0.0"
   },
   "jest": {
     "verbose": true,
