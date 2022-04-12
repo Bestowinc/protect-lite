@@ -4,3 +4,4 @@
 |-----------|--------------------------------------------------------------------------------------|
 | Slideout  | https://${DOMAIN}/static/v1/iframe/slideout/bestow-slideout-${BUILD_VERSION_V1}.js   |
 | Accordion | https://${DOMAIN}/static/v1/iframe/accordion/bestow-accordion-${BUILD_VERSION_V1}.js |
+| Modal     | https://${DOMAIN}/static/v1/iframe/modal/bestow-modal-${BUILD_VERSION_V1}.js         |
