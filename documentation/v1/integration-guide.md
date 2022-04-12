@@ -137,6 +137,7 @@ The `window.BestowSlideout.setup` function in the javascript file requires the f
 | url             | string  | yes      | The agent URL pointing to the Bestow application landing page. (e.g. iframe `src`) |
 | params          | object  | no       | Parameters object specific to iframed [widget](#widgets)                           |
 | open            | boolean | no       | Indicates if the slideout should be opened (expanded) following initialization     |
+| anchorLeft      | boolean | no       | Indicates whether the slideout should be anchored to the left side of the screen   |
 
 <br/>
 
@@ -166,7 +167,7 @@ The code below provides an example of how the slideout component can be integrat
     };
 
     function openBestowSlideout(elementSelector) {
-      window.BestowSlideout.setup(elementSelector, bestowAppUrl, quoteParams, true);
+      window.BestowSlideout.setup(elementSelector, bestowAppUrl, quoteParams, true, false);
     }
   </script>
 </head>
@@ -339,7 +340,7 @@ The `window.BestowModal.setup` function in the javascript file requires the foll
 | elementSelector | string  | yes      | The id of the target element to bind `onClick` events to.                          |
 | url             | string  | yes      | The agent URL pointing to the Bestow application landing page. (e.g. iframe `src`) |
 | params          | object  | no       | Parameters object specific to iframed [widget](#widgets)                           |
-| open            | boolean | no       | Indicates if the modal should be opened (expanded) following initialization     |
+| open            | boolean | no       | Indicates if the modal should be opened (expanded) following initialization        |
 
 <br/>
 

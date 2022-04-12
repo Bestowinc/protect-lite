@@ -30,7 +30,7 @@ document.body.innerHTML += `
 
 let setupError;
 try {
-  window.BestowSlideout.setup(testElementID, testURL, testParams);
+  window.BestowSlideout.setup(testElementID, testURL, testParams, true, false);
 } catch (e) {
   setupError = e;
 }
@@ -39,7 +39,7 @@ describe('test setup', () => {
   test('error when supplied toggle selector does not exist', () => {
     let err;
     try {
-      window.BestowSlideout.setup(`#garbage`, testURL, testParams);
+      window.BestowSlideout.setup(`#garbage`, testURL, testParams, true, false);
     } catch (e) {
       err = e;
     }
@@ -110,8 +110,11 @@ describeIf(gutterExists)('gutter tests', () => {
   test('gutter element has correct class name', () => {
     expect(gutterElement.className).toBe('bestow-slideout-gutter');
   });
-  test('gutter element is not displayed on load', () => {
-    expect(gutterElement.style.display).toBe('none');
+  test('gutter element is displayed when open is true on setup', () => {
+    expect(gutterElement.style.display).toBe('block');
+  });
+  test('gutter element is anchored to the right', () => {
+    expect(gutterElement.style.left).toBe('');
   });
   test('gutter element is displayed when supplied element is clicked', () => {
     suppliedTestElement.click();
