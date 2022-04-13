@@ -3,12 +3,21 @@ import Footer from '../../components/Footer/Footer';
 import { useEffect } from 'react';
 
 const Portfolio = () => {
-  console.log(window)
+  const quoteParams = {
+    gender: `female`,
+    height: `69`,
+    weight: 120,
+    tobacco: `no`,
+    date_of_birth: `1998-01-01`,
+    zip: `77386`,
+  };
+
   useEffect(() => {
     window.BestowAccordion?.setup(
       'life-insurance-accordion-content',
       'life-insurance-button',
       process.env.REACT_APP_AGENT_URL,
+      quoteParams,
     );
   }, []);
 
@@ -16,6 +25,7 @@ const Portfolio = () => {
     window.BestowModal.setup(
       'get-quote-modal',
       process.env.REACT_APP_AGENT_URL,
+      quoteParams,
       true,
     );
   };
@@ -24,6 +34,7 @@ const Portfolio = () => {
     window.BestowSlideout.setup(
       'get-quote-slideout',
       process.env.REACT_APP_AGENT_URL,
+      quoteParams,
       true,
     );
   };
