@@ -341,7 +341,6 @@ The `window.BestowModal.setup` function in the javascript file requires the foll
 | url             | string  | yes      | The agent URL pointing to the Bestow application landing page. (e.g. iframe `src`) |
 | params          | object  | no       | Parameters object specific to iframed [widget](#widgets)                           |
 | open            | boolean | no       | Indicates if the modal should be opened (expanded) following initialization        |
-| size            | number  | no       | Percentage of screen that you want the modal to occupy. Range between 10-90. Default 90 |
 
 <br/>
 

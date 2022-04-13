@@ -5,6 +5,7 @@ module.exports = {
     jest: true
   },
   extends: [
+    "react-app",
     'airbnb-base',
     'prettier'
   ],
