@@ -244,7 +244,6 @@ workflows:
           context: gcp-policy-platform-qa
           requires:
             - build-demo-local
-          filters: *non-deploy-branches
       # Develop
       - build-libs:
           name: build-static-qa
