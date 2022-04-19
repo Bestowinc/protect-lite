@@ -159,7 +159,7 @@ jobs:
       - run: ls src/Demos/tomito_v2
       - run:
           name: Deploy demo
-          command: gsutil -m rsync -r -d -x src/Demos/tomito_v2/build "gs://<< parameters.bucket >>"
+          command: gsutil -m rsync -r -d src/Demos/tomito_v2/build "gs://<< parameters.bucket >>"
   publish-github-release:
     parameters:
       domain:
