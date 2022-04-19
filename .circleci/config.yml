@@ -156,10 +156,10 @@ jobs:
       - run: gcloud auth activate-service-account --key-file=<(echo "$GOOGLE_SERVICE_ACCOUNT_KEY")
       - attach_workspace:
           at: .
-      - run: ls src/Demos/tomito_v2/build
+      - run: ls src/Demos/tomito_v2
       - run:
           name: Deploy demo
-          command: gsutil -m rsync -r -d -x 'static' src/Demos/tomito_v2/build "gs://<< parameters.bucket >>"
+          command: gsutil -m rsync -r -d -x src/Demos/tomito_v2/build "gs://<< parameters.bucket >>"
   publish-github-release:
     parameters:
       domain:
