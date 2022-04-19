@@ -236,6 +236,15 @@ workflows:
           requires:
             - unit-tests
           env: development
+      - deploy-demo:
+          name: deploy-demo-local
+          domain: protect-lite.qa.bestowlabs.com
+          bucket: protect-lite.qa.bestowlabs.com
+          env: qa
+          context: gcp-policy-platform-qa
+          requires:
+            - build-demo-local
+          filters: *non-deploy-branches
       # Develop
       - build-libs:
           name: build-static-qa
