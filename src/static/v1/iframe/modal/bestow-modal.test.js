@@ -31,7 +31,7 @@ document.body.innerHTML += `
 
 let setupError;
 try {
-  window.BestowModal.setup(testElementID, testURL, testParams);
+  window.BestowModal.setup(testElementID, testURL, testParams, false, 90);
 } catch (e) {
   setupError = e;
 }
@@ -40,7 +40,7 @@ describe('test setup', () => {
   test('error when supplied toggle selector does not exist', () => {
     let err;
     try {
-      window.BestowModal.setup(`#garbage`, testURL, testParams);
+      window.BestowModal.setup(`#garbage`, testURL, testParams, false, 90);
     } catch (e) {
       err = e;
     }
@@ -52,7 +52,7 @@ describe('test setup', () => {
   test('error when supplied params is not an object', () => {
     let err;
     try {
-      window.BestowModal.setup(testElementID, testURL, `test`);
+      window.BestowModal.setup(testElementID, testURL, `test`, false, 90);
     } catch (e) {
       err = e;
     }
@@ -118,6 +118,15 @@ describeIf(modalExists)('modal tests', () => {
   });
   test('modal element is not displayed on load', () => {
     expect(modalElement.style.display).toBe('none');
+  });
+  test('modal element is correct height', () => {
+    expect(modalElement.style.height).toBe('90%');
+  });
+  test('modal element is correct left', () => {
+    expect(modalElement.style.left).toBe('5%');
+  });
+  test('modal element is correct right', () => {
+    expect(modalElement.style.right).toBe('5%');
   });
   test('modal element is displayed when supplied element is clicked', () => {
     suppliedTestElement.click();

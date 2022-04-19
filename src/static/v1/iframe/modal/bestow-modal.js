@@ -23,7 +23,7 @@ function generateParamsUrl(url, params) {
     .join('&')}`;
 }
 
-function setupBestow(elementSelector, url, params, open) {
+function setupBestow(elementSelector, url, params, open, size) {
   let elementID = elementSelector;
   let fullUrl;
 
@@ -65,6 +65,17 @@ function setupBestow(elementSelector, url, params, open) {
   modalElem.id = 'bestow-modal';
   modalElem.classList.add('bestow-modal');
   modalElem.style.display = 'none';
+
+  if (size) {
+    if (!Number.isFinite(size) || size < 10 || size > 100) {
+      throw new Error(
+        `Size variable passed into the bestow-modal needs to be a number between 10-100. Please consult integration guide at: https://github.com/Bestowinc/protect-lite/blob/main/documentation/v1/integration-guide.md`,
+      );
+    }
+    modalElem.style.height = `${size}%`;
+    modalElem.style.left = `${(100 - size) / 2}%`;
+    modalElem.style.right = `${(100 - size) / 2}%`;
+  }
 
   const navElem = document.createElement('div');
   navElem.id = 'bestow-modal-nav';
