@@ -119,7 +119,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - src/Demo/tomito_v2/build
+            - src/Demos/tomito_v2/build
             - '*'
   deploy-libs:
     parameters:
@@ -158,7 +158,7 @@ jobs:
           at: .
       - run:
           name: Deploy demo
-          command: gsutil -m rsync -r -d -x 'static' src/Demo/tomito_v2/build "gs://<< parameters.bucket >>"
+          command: gsutil -m rsync -r -d src/Demos/tomito_v2/build "gs://<< parameters.bucket >>"
   publish-github-release:
     parameters:
       domain:
