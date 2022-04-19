@@ -34,7 +34,7 @@ const TopNav = () => {
                     Why Tomito?
                   </a>
                   <button
-                    class="px-8 py-1 font-semibold rounded-full bg-[#370511] text-white"
+                    className="px-8 py-1 font-semibold rounded-full bg-[#370511] text-white"
                     type="submit"
                   >
                     Search
@@ -42,7 +42,7 @@ const TopNav = () => {
                 </div>
               </div>
             </div>
-            <div className="-mr-2 flex md:hidden">
+            <div className="flex md:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 type="button"
