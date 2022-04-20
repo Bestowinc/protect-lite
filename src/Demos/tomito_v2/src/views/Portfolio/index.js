@@ -1,16 +1,18 @@
 import TopNav from '../../components/TopNav/TopNav';
 import Footer from '../../components/Footer/Footer';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 const Portfolio = () => {
-  const quoteParams = {
-    gender: `female`,
-    height: `69`,
-    weight: 120,
-    tobacco: `no`,
-    date_of_birth: `1998-01-01`,
-    zip: `77386`,
-  };
+  const quoteParams = useMemo(() => {
+    return {
+      gender: `female`,
+      height: `69`,
+      weight: 120,
+      tobacco: `no`,
+      date_of_birth: `1998-01-01`,
+      zip: `77386`,
+    };
+  }, []);
 
   useEffect(() => {
     window.BestowAccordion?.setup(
@@ -19,7 +21,7 @@ const Portfolio = () => {
       process.env.REACT_APP_AGENT_URL,
       quoteParams,
     );
-  }, []);
+  }, [quoteParams]);
 
   const openBestowModal = () => {
     window.BestowModal.setup(
