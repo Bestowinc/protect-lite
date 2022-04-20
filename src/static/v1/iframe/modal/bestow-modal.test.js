@@ -17,7 +17,7 @@ const fullTestURL = `${testURL}?${Object.keys(testParams)
   .join('&')}`;
 const testElementID = 'some_id';
 
-const iframeElementID = 'bestow-modal-frame';
+const iframeElementID = 'bestow-modal-iframe';
 const modalElementID = 'bestow-modal';
 const modalNavElementID = 'bestow-modal-nav';
 const closeElementID = 'bestow-modal-close';
@@ -164,8 +164,7 @@ describeIf(iframeExists)('iframe tests', () => {
   test('iframe element has correct sandbox attribute', () => {
     const srcAttribute = iframeElement.getAttribute('sandbox');
     expect(srcAttribute).toBe(
-      'allow-scripts allow-same-origin allow-forms ' +
-        'allow-popups allow-downloads',
+      'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads',
     );
   });
 });
@@ -187,6 +186,23 @@ describeIf(closeExists)('close tests', () => {
     const closeIcon = closeElement.querySelector('.bestow-modal-close-span');
     expect(closeIcon).toBeTruthy();
     expect(closeIcon.textContent).toBe('X');
+  });
+});
+
+describe('dom elements reused tests', () => {
+  iframeElement.classList.add('reuse-test');
+  test('reuse setup is successful', () => {
+    let err;
+    try {
+      window.BestowModal.setup(testElementID, testURL, testParams, false, 90);
+    } catch (e) {
+      err = e;
+    }
+
+    expect(err).toBeFalsy();
+  });
+  test('iframe has been reused', () => {
+    expect(iframeElement.classList.contains('reuse-test')).toBeTruthy;
   });
 });
 
