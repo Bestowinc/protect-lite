@@ -56,6 +56,13 @@ function setupBestow(elementSelector, url, params, open, _anchorLeft = false) {
     fullUrl = url;
   }
 
+  /* check to see if bestow-slideout-iframe already exists, and if so then update src with fullUrl */
+  const existingIframe = document.querySelector('#bestow-slideout-iframe');
+  if (existingIframe) {
+    existingIframe.src = fullUrl;
+    return;
+  }
+
   const styleSheet = document.createElement('style');
   styleSheet.textContent = styling;
   styleSheet.id = `bestow-slideout-styling`;

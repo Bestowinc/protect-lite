@@ -67,6 +67,13 @@ function setupBestowAccordion(contentDiv, elementSelector, url, params) {
     fullUrl = url;
   }
 
+  /* check to see if bestow-accordion-iframe already exists, and if so then update src with fullUrl */
+  const existingIframe = document.querySelector('#bestow-accordion-iframe');
+  if (existingIframe) {
+    existingIframe.src = fullUrl;
+    return;
+  }
+
   const styleSheet = document.createElement('style');
   styleSheet.textContent = styling;
   styleSheet.id = 'bestow-accordion-styling';
@@ -75,6 +82,10 @@ function setupBestowAccordion(contentDiv, elementSelector, url, params) {
   const frameElem = document.createElement('iframe');
   frameElem.id = 'bestow-accordion-iframe';
   frameElem.setAttribute('allow', 'payment');
+  frameElem.setAttribute(
+    'sandbox',
+    'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads',
+  );
   frameElem.src = fullUrl;
   accordion.appendChild(frameElem);
 

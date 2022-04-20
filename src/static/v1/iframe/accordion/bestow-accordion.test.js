@@ -145,6 +145,34 @@ describeIf(iframeExists)('iframe tests', () => {
     const allowAttribute = iframeElement.getAttribute('allow');
     expect(allowAttribute).toBe('payment');
   });
+  test('iframe element has correct sandbox attribute', () => {
+    const srcAttribute = iframeElement.getAttribute('sandbox');
+    expect(srcAttribute).toBe(
+      'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads',
+    );
+  });
+});
+
+describe('dom elements reused tests', () => {
+  iframeElement.classList.add('reuse-test');
+  test('reuse setup is successful', () => {
+    let err;
+    try {
+      window.BestowAccordion.setup(
+        testDivID,
+        testElementID,
+        testURL,
+        testParams,
+      );
+    } catch (e) {
+      err = e;
+    }
+
+    expect(err).toBeFalsy();
+  });
+  test('iframe has been reused', () => {
+    expect(iframeElement.classList.contains('reuse-test')).toBeTruthy;
+  });
 });
 
 describeIf(styleExists)('style tests', () => {

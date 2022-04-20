@@ -51,7 +51,7 @@ describe('test setup', () => {
   test('error when supplied params is not an object', () => {
     let err;
     try {
-      window.BestowSlideout.setup(testElementID, testURL, `test`);
+      window.BestowSlideout.setup(testElementID, testURL, `test`, true, false);
     } catch (e) {
       err = e;
     }
@@ -152,8 +152,7 @@ describeIf(iframeExists)('iframe tests', () => {
   test('iframe element has correct sandbox attribute', () => {
     const srcAttribute = iframeElement.getAttribute('sandbox');
     expect(srcAttribute).toBe(
-      'allow-scripts allow-same-origin allow-forms ' +
-        'allow-popups allow-downloads',
+      'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads',
     );
   });
 });
@@ -175,6 +174,29 @@ describeIf(closeExists)('close tests', () => {
     const closeIcon = closeElement.querySelector('.bestow-slideout-close-span');
     expect(closeIcon).toBeTruthy();
     expect(closeIcon.textContent).toBe('X');
+  });
+});
+
+describe('dom elements reused tests', () => {
+  iframeElement.classList.add('reuse-test');
+  test('reuse setup is successful', () => {
+    let err;
+    try {
+      window.BestowSlideout.setup(
+        testElementID,
+        testURL,
+        testParams,
+        true,
+        false,
+      );
+    } catch (e) {
+      err = e;
+    }
+
+    expect(err).toBeFalsy();
+  });
+  test('iframe has been reused', () => {
+    expect(iframeElement.classList.contains('reuse-test')).toBeTruthy;
   });
 });
 

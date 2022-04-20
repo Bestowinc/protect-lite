@@ -56,6 +56,13 @@ function setupBestow(elementSelector, url, params, open, size) {
     fullUrl = url;
   }
 
+  /* check to see if bestow-modal-iframe already exists, and if so then update src with fullUrl */
+  const existingIframe = document.querySelector('#bestow-modal-iframe');
+  if (existingIframe) {
+    existingIframe.src = fullUrl;
+    return;
+  }
+
   const styleSheet = document.createElement('style');
   styleSheet.textContent = styling;
   styleSheet.id = `bestow-modal-styling`;
@@ -93,7 +100,7 @@ function setupBestow(elementSelector, url, params, open, size) {
   navElem.appendChild(closeElem);
 
   const frameElem = document.createElement('iframe');
-  frameElem.id = 'bestow-modal-frame';
+  frameElem.id = 'bestow-modal-iframe';
   frameElem.setAttribute('allow', 'payment');
   frameElem.setAttribute(
     'sandbox',
