@@ -23,7 +23,7 @@ function generateParamsUrl(url, params) {
     .join('&')}`;
 }
 
-function setupBestow(elementSelector, url, params, open) {
+function setupBestow(elementSelector, url, params, open, _anchorLeft = false) {
   let elementID = elementSelector;
   let fullUrl;
 
@@ -56,6 +56,13 @@ function setupBestow(elementSelector, url, params, open) {
     fullUrl = url;
   }
 
+  /* check to see if bestow-slideout-iframe already exists, and if so then update src with fullUrl */
+  const existingIframe = document.querySelector('#bestow-slideout-iframe');
+  if (existingIframe) {
+    existingIframe.src = fullUrl;
+    return;
+  }
+
   const styleSheet = document.createElement('style');
   styleSheet.textContent = styling;
   styleSheet.id = `bestow-slideout-styling`;
@@ -65,6 +72,10 @@ function setupBestow(elementSelector, url, params, open) {
   gutterElem.id = 'bestow-slideout-gutter';
   gutterElem.classList.add('bestow-slideout-gutter');
   gutterElem.style.display = 'none';
+
+  if (_anchorLeft) {
+    gutterElem.style.left = 0;
+  }
 
   const navElem = document.createElement('div');
   navElem.id = 'bestow-slideout-nav';

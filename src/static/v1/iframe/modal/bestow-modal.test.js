@@ -17,7 +17,7 @@ const fullTestURL = `${testURL}?${Object.keys(testParams)
   .join('&')}`;
 const testElementID = 'some_id';
 
-const iframeElementID = 'bestow-modal-frame';
+const iframeElementID = 'bestow-modal-iframe';
 const modalElementID = 'bestow-modal';
 const modalNavElementID = 'bestow-modal-nav';
 const closeElementID = 'bestow-modal-close';
@@ -31,7 +31,7 @@ document.body.innerHTML += `
 
 let setupError;
 try {
-  window.BestowModal.setup(testElementID, testURL, testParams);
+  window.BestowModal.setup(testElementID, testURL, testParams, false, 90);
 } catch (e) {
   setupError = e;
 }
@@ -40,7 +40,7 @@ describe('test setup', () => {
   test('error when supplied toggle selector does not exist', () => {
     let err;
     try {
-      window.BestowModal.setup(`#garbage`, testURL, testParams);
+      window.BestowModal.setup(`#garbage`, testURL, testParams, false, 90);
     } catch (e) {
       err = e;
     }
@@ -52,7 +52,7 @@ describe('test setup', () => {
   test('error when supplied params is not an object', () => {
     let err;
     try {
-      window.BestowModal.setup(testElementID, testURL, `test`);
+      window.BestowModal.setup(testElementID, testURL, `test`, false, 90);
     } catch (e) {
       err = e;
     }
@@ -119,6 +119,15 @@ describeIf(modalExists)('modal tests', () => {
   test('modal element is not displayed on load', () => {
     expect(modalElement.style.display).toBe('none');
   });
+  test('modal element is correct height', () => {
+    expect(modalElement.style.height).toBe('90%');
+  });
+  test('modal element is correct left', () => {
+    expect(modalElement.style.left).toBe('5%');
+  });
+  test('modal element is correct right', () => {
+    expect(modalElement.style.right).toBe('5%');
+  });
   test('modal element is displayed when supplied element is clicked', () => {
     suppliedTestElement.click();
     expect(modalElement.style.display).toBe('block');
@@ -155,8 +164,7 @@ describeIf(iframeExists)('iframe tests', () => {
   test('iframe element has correct sandbox attribute', () => {
     const srcAttribute = iframeElement.getAttribute('sandbox');
     expect(srcAttribute).toBe(
-      'allow-scripts allow-same-origin allow-forms ' +
-        'allow-popups allow-downloads',
+      'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads',
     );
   });
 });
@@ -178,6 +186,23 @@ describeIf(closeExists)('close tests', () => {
     const closeIcon = closeElement.querySelector('.bestow-modal-close-span');
     expect(closeIcon).toBeTruthy();
     expect(closeIcon.textContent).toBe('X');
+  });
+});
+
+describe('dom elements reused tests', () => {
+  iframeElement.classList.add('reuse-test');
+  test('reuse setup is successful', () => {
+    let err;
+    try {
+      window.BestowModal.setup(testElementID, testURL, testParams, false, 90);
+    } catch (e) {
+      err = e;
+    }
+
+    expect(err).toBeFalsy();
+  });
+  test('iframe has been reused', () => {
+    expect(iframeElement.classList.contains('reuse-test')).toBeTruthy;
   });
 });
 

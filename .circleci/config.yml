@@ -4,7 +4,7 @@ version: 2.1
 
 # The current build version. Must be bumped manually for new features.
 build-versions:
-  &build-version-v1 "1.1.1"
+  &build-version-v1 "1.1.3"
 
 x-filter-all-branches: &all-branches
   branches:
@@ -109,15 +109,18 @@ jobs:
       - *restore-dependencies
       - run:
           name: Build demo
+          path: src/Demos/tomito_v2/
           command: |
             echo "NODE_ENV=$NODE_ENV"
-            npm run build-demo # Build the demo site.
+            npm install
+            npm run build # Build the demo site.
           environment:
             - NODE_ENV: << parameters.env >>
       - persist_to_workspace:
           root: .
           paths:
-            - build/<< parameters.env >>/demo
+            - src/Demos/tomito_v2/build
+            - '*'
   deploy-libs:
     parameters:
       domain:
@@ -145,7 +148,7 @@ jobs:
         type: string
       env:
         type: string
-        default: development
+        default: development  
     docker:
       - image: google/cloud-sdk:282.0.0-alpine
     steps:
@@ -155,7 +158,7 @@ jobs:
           at: .
       - run:
           name: Deploy demo
-          command: gsutil -m rsync -r -d -x 'static' build/<< parameters.env >>/demo/tomito/ "gs://<< parameters.bucket >>"
+          command: gsutil -m rsync -r -d src/Demos/tomito_v2/build "gs://<< parameters.bucket >>"
   publish-github-release:
     parameters:
       domain:
