@@ -126,7 +126,6 @@ const Home = () => {
                   Please see perspective from the Securities and Exchange
                   Comission (SEC) on the risks of day trading.
                 </h5>
-                <a href="/"></a>
               </div>
             </section>
             <section className="flex flex-col">

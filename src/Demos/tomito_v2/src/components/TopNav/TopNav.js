@@ -2,11 +2,21 @@ import { useState, useContext } from 'react';
 import AccountWindow from '../AccountWindow/AccountWindow';
 import { UserContext } from '../Context/UserContext';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const TopNav = () => {
-  const { loggedIn, setLoggedStatus } = useContext(UserContext);
+  const { loggedIn } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   const [dropDownOpen, setDropDownOpen] = useState(false);
+  const [bannerOpen, setBannerOpen] = useState(false);
+
+  useEffect(() => {
+    if (bannerOpen) {
+      setTimeout(() => {
+        setBannerOpen(false);
+      }, 3000);
+    }
+  }, [bannerOpen]);
 
   const toggleDropDown = () => {
     setDropDownOpen(!dropDownOpen);
@@ -16,10 +26,58 @@ const TopNav = () => {
     setIsOpen(!isOpen);
     setDropDownOpen(false);
   };
-  console.log(loggedIn);
+
+  const handleSave = () => {
+    setDropDownOpen(false);
+    setBannerOpen(true);
+  };
 
   return (
     <div id="nav-container">
+      {bannerOpen && (
+        <div
+          className="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
+          id="sucess-banner"
+        >
+          <div className="flex justify-between items-center">
+            <div className="flex items-center">
+              <div className="py-1">
+                <svg
+                  className="fill-current h-6 w-6 text-teal-500 mr-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                </svg>
+              </div>
+              <div>
+                <p className="font-bold">Account information updated</p>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                setBannerOpen(false);
+              }}
+            >
+              <svg
+                className="block h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="black"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
       <nav>
         <div className="max-w-7xl mx-auto border-none w-full">
           <div className="flex justify-between md:justify-center h-28 md:pt-8">
@@ -61,13 +119,13 @@ const TopNav = () => {
                       <img
                         className="border-2 border-black border-black inline object-cover w-16 h-16 rounded-full"
                         src="/profile.jpeg"
-                        alt="Profile image"
+                        alt="Profile avatar"
                       />
                     ) : (
                       <img
                         className="border border-black inline object-cover w-16 h-16 rounded-full"
                         src="/placeholder.svg"
-                        alt="Profile image"
+                        alt="Profile avatar"
                       />
                     )}
                   </button>
@@ -87,13 +145,13 @@ const TopNav = () => {
                   <img
                     className="border-2 border-black border-black inline object-cover w-16 h-16 rounded-full"
                     src="/profile.jpeg"
-                    alt="Profile image"
+                    alt="Profile avatar"
                   />
                 ) : (
                   <img
                     className="border border-black inline object-cover w-16 h-16 rounded-full"
                     src="/placeholder.svg"
-                    alt="Profile image"
+                    alt="Profile avatar"
                   />
                 )}
               </button>
@@ -148,6 +206,7 @@ const TopNav = () => {
             <AccountWindow
               dropDownOpen={dropDownOpen}
               toggleDropDown={toggleDropDown}
+              handleSave={handleSave}
             />
           </div>
         </div>

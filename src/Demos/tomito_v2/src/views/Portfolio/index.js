@@ -1,22 +1,22 @@
 import TopNav from '../../components/TopNav/TopNav';
 import Footer from '../../components/Footer/Footer';
-import React, { useEffect, useContext, Suspense } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { UserContext } from '../../components/Context/UserContext';
-const AccodionContainer = React.lazy(() =>
-  import('../../components/AccordionContainer/AccordionContainer'),
-);
+import AccodionContainer from '../../components/AccordionContainer/AccordionContainer';
 
 const Portfolio = () => {
   const { currentUser, setLoggedStatus } = useContext(UserContext);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     setLoggedStatus(true);
+  }, [setLoggedStatus]);
+
+  useEffect(() => {
+    setLoading(false);
   }, []);
 
   const openBestowModal = () => {
-    var element = document.querySelector('#bestow-modal');
-    if (element) {
-      element.parentNode.removeChild(element);
-    }
     window.BestowModal.setup(
       'get-quote-modal',
       process.env.REACT_APP_AGENT_URL,
@@ -26,10 +26,6 @@ const Portfolio = () => {
   };
 
   const openBestowSlideout = () => {
-    var element = document.querySelector('#bestow-slideout-gutter');
-    if (element) {
-      element.parentNode.removeChild(element);
-    }
     window.BestowSlideout.setup(
       'get-quote-slideout',
       process.env.REACT_APP_AGENT_URL,
@@ -37,6 +33,15 @@ const Portfolio = () => {
       true,
     );
   };
+
+  useEffect(() => {
+    window.BestowAccordion?.setup(
+      'life-insurance-accordion-content',
+      'life-insurance-button',
+      process.env.REACT_APP_AGENT_URL,
+      currentUser,
+    );
+  }, [currentUser]);
 
   return (
     <div id="portfolio-wrapper">
@@ -144,11 +149,7 @@ const Portfolio = () => {
                   </svg>
                 </button>
               </div>
-              {/* {currentUser && ( */}
-              <Suspense fallback={<div>Loading...</div>}>
-                <AccodionContainer currentUser={currentUser} />
-              </Suspense>
-              {/* )} */}
+              <AccodionContainer currentUser={currentUser} loading={loading} />
             </div>
             <div
               id="right-card"

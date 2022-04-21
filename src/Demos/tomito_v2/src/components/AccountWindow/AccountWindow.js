@@ -2,10 +2,9 @@ import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserContext } from '../Context/UserContext';
 
-const AccountWindow = ({ dropDownOpen, toggleDropDown }) => {
+const AccountWindow = ({ dropDownOpen, toggleDropDown, handleSave }) => {
   const { register, handleSubmit, reset } = useForm();
-  const { currentUser, setUser } = useContext(UserContext);
-  console.log(currentUser);
+  const { setUser } = useContext(UserContext);
 
   const defaultValues = {
     gender: 'gender',
@@ -14,15 +13,6 @@ const AccountWindow = ({ dropDownOpen, toggleDropDown }) => {
     weight: '',
     zip: '',
     tobacco: '',
-  };
-
-  const openBestowSlideout = params => {
-    window.BestowSlideout.setup(
-      'get-quote-slideout',
-      process.env.REACT_APP_AGENT_URL,
-      params,
-      true,
-    );
   };
 
   return (
@@ -91,8 +81,43 @@ const AccountWindow = ({ dropDownOpen, toggleDropDown }) => {
             <option value="height" disabled selected>
               Height
             </option>
-            <option value="female">Female</option>
-            <option value="male">Male</option>
+            <option value="48">4'0"</option>
+            <option value="49">4'1"</option>
+            <option value="50">4'2"</option>
+            <option value="51">4'3"</option>
+            <option value="52">4'4"</option>
+            <option value="53">4'5"</option>
+            <option value="54">4'6"</option>
+            <option value="55">4'7"</option>
+            <option value="56">4'8"</option>
+            <option value="57">4'9"</option>
+            <option value="58">4'10"</option>
+            <option value="59">4'11"</option>
+            <option value="60">5'0"</option>
+            <option value="61">5'1"</option>
+            <option value="62">5'2"</option>
+            <option value="63">5'3"</option>
+            <option value="64">5'4"</option>
+            <option value="65">5'5"</option>
+            <option value="66">5'6"</option>
+            <option value="67">5'7"</option>
+            <option value="68">5'8"</option>
+            <option value="69">5'9"</option>
+            <option value="70">5'10"</option>
+            <option value="71">5'11"</option>
+            <option value="72">6'0"</option>
+            <option value="73">6'1"</option>
+            <option value="74">6'2"</option>
+            <option value="75">6'3"</option>
+            <option value="76">6'4"</option>
+            <option value="77">6'5"</option>
+            <option value="78">6'6"</option>
+            <option value="79">6'7"</option>
+            <option value="80">6'8"</option>
+            <option value="81">6'9"</option>
+            <option value="82">6'10"</option>
+            <option value="83">6'11"</option>
+            <option value="84">7'0"</option>
           </select>
         </div>
         <div>
@@ -127,7 +152,10 @@ const AccountWindow = ({ dropDownOpen, toggleDropDown }) => {
           </label>
         </div>
         <div className="flex justify-between gap-4 flex-col md:flex-row">
-          <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full lg:w-30 px-5 py-2.5 text-center">
+          <button
+            onClick={handleSave}
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full lg:w-30 px-5 py-2.5 text-center"
+          >
             Save
           </button>
           <button
@@ -140,15 +168,6 @@ const AccountWindow = ({ dropDownOpen, toggleDropDown }) => {
           </button>
         </div>
       </form>
-      <button
-        onClick={() => {
-          toggleDropDown();
-          openBestowSlideout(currentUser);
-        }}
-        className="text-white bg-purple-800 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
-      >
-        Get Life Insurance?
-      </button>
     </div>
   );
 };

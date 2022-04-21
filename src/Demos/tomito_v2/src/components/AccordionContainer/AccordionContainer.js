@@ -1,22 +1,14 @@
 import { useEffect } from 'react';
 
-const AccordionContainer = ({ currentUser }) => {
+const AccordionContainer = ({ currentUser, loading }) => {
   useEffect(() => {
-    var element = document.querySelector('#bestow-accordion-iframe');
-    var accordionClass = document.querySelector(
-      '#life-insurance-accordion-content',
-    );
-    if (element) {
-      element.parentNode.removeChild(element);
-      accordionClass.classList.remove('accordionClose');
-    }
-    window.BestowAccordion.setup(
+    window.BestowAccordion?.setup(
       'life-insurance-accordion-content',
       'life-insurance-button',
       process.env.REACT_APP_AGENT_URL,
       currentUser,
     );
-  }, [currentUser]);
+  }, [currentUser, loading]);
 
   return (
     <div
