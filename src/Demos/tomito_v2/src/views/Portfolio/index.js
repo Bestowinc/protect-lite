@@ -1,33 +1,26 @@
 import TopNav from '../../components/TopNav/TopNav';
 import Footer from '../../components/Footer/Footer';
-import { useEffect, useMemo } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
+import { UserContext } from '../../components/Context/UserContext';
+import AccodionContainer from '../../components/AccordionContainer/AccordionContainer';
 
 const Portfolio = () => {
-  const quoteParams = useMemo(() => {
-    return {
-      gender: `female`,
-      height: `69`,
-      weight: 120,
-      tobacco: `no`,
-      date_of_birth: `1998-01-01`,
-      zip: `77386`,
-    };
-  }, []);
+  const { currentUser, setLoggedStatus } = useContext(UserContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    window.BestowAccordion?.setup(
-      'life-insurance-accordion-content',
-      'life-insurance-button',
-      process.env.REACT_APP_AGENT_URL,
-      quoteParams,
-    );
-  }, [quoteParams]);
+    setLoggedStatus(true);
+  }, [setLoggedStatus]);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   const openBestowModal = () => {
     window.BestowModal.setup(
       'get-quote-modal',
       process.env.REACT_APP_AGENT_URL,
-      quoteParams,
+      currentUser,
       true,
     );
   };
@@ -36,10 +29,19 @@ const Portfolio = () => {
     window.BestowSlideout.setup(
       'get-quote-slideout',
       process.env.REACT_APP_AGENT_URL,
-      quoteParams,
+      currentUser,
       true,
     );
   };
+
+  useEffect(() => {
+    window.BestowAccordion?.setup(
+      'life-insurance-accordion-content',
+      'life-insurance-button',
+      process.env.REACT_APP_AGENT_URL,
+      currentUser,
+    );
+  }, [currentUser]);
 
   return (
     <div id="portfolio-wrapper">
@@ -53,7 +55,7 @@ const Portfolio = () => {
         id="main-container"
         className="w-full p-4 md:p-10 flex justify-center flex-col lg:flex-row bg-[#f5f2f3]"
       >
-        <main className="flex flex-col lg:flex-row justify-center gap-4 text-center md:text-left">
+        <main className="flex flex-col lg:flex-row justify-center gap-4 text-center md:text-left min-h-screen">
           <section
             id="main-left-column"
             className="flex flex-col w-full lg:w-3/5"
@@ -147,13 +149,7 @@ const Portfolio = () => {
                   </svg>
                 </button>
               </div>
-              {window.BestowAccordion && (
-                <div
-                  id="life-insurance-accordion-content"
-                  className="bg-white"
-                  style={{ height: '500px' }}
-                ></div>
-              )}
+              <AccodionContainer currentUser={currentUser} loading={loading} />
             </div>
             <div
               id="right-card"
