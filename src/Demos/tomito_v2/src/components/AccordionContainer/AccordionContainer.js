@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const AccordionContainer = ({ currentUser, loading }) => {
+const AccordionContainer = ({ currentUser, loaded }) => {
   useEffect(() => {
     window.BestowAccordion?.setup(
       'life-insurance-accordion-content',
@@ -8,7 +8,7 @@ const AccordionContainer = ({ currentUser, loading }) => {
       process.env.REACT_APP_AGENT_URL,
       currentUser,
     );
-  }, [currentUser, loading]);
+  }, [currentUser, loaded]);
 
   return (
     <div

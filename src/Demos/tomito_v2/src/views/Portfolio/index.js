@@ -3,18 +3,57 @@ import Footer from '../../components/Footer/Footer';
 import React, { useEffect, useContext, useState } from 'react';
 import { UserContext } from '../../components/Context/UserContext';
 import AccodionContainer from '../../components/AccordionContainer/AccordionContainer';
+import { useSearchParams } from 'react-router-dom';
 
 const Portfolio = () => {
-  const { currentUser, setLoggedStatus } = useContext(UserContext);
-  const [loading, setLoading] = useState(true);
+  const { currentUser, setLoggedStatus, version, setVersion } =
+    useContext(UserContext);
+  const [loaded, setLoaded] = useState(false);
+  const [searchParams] = useSearchParams();
+
+  //Dynamic versioning for testing purposes
+  useEffect(() => {
+    const param = searchParams.get('version');
+
+    if (param) {
+      setVersion(param);
+    } else {
+      setVersion('latest');
+    }
+  }, [version, setVersion, searchParams]);
+
+  useEffect(() => {
+    if (!version) return;
+
+    const accordionScript = document.createElement('script');
+    accordionScript.src = `https://protect-lite.qa.bestow.com/static/v1/iframe/accordion/bestow-accordion-${version}.js`;
+    accordionScript.onerror = () => {
+      return (accordionScript.src = `https://protect-lite.qa.bestow.com/static/v1/iframe/accordion/bestow-accordion-latest.js`);
+    };
+    accordionScript.async = true;
+    accordionScript.addEventListener('load', () => setLoaded(true));
+    document.body.appendChild(accordionScript);
+
+    const slideoutScript = document.createElement('script');
+    slideoutScript.src = `https://protect-lite.qa.bestow.com/static/v1/iframe/slideout/bestow-slideout-${version}.js`;
+    slideoutScript.onerror = () => {
+      return (slideoutScript.src = `https://protect-lite.qa.bestow.com/static/v1/iframe/slideout/bestow-slideout-latest.js`);
+    };
+    slideoutScript.async = true;
+    document.body.appendChild(slideoutScript);
+
+    const modalScript = document.createElement('script');
+    modalScript.src = `https://protect-lite.qa.bestow.com/static/v1/iframe/modal/bestow-modal-${version}.js`;
+    modalScript.onerror = () => {
+      return (modalScript.src = `https://protect-lite.qa.bestow.com/static/v1/iframe/modal/bestow-modal-latest.js`);
+    };
+    modalScript.async = true;
+    document.body.appendChild(modalScript);
+  }, [version]);
 
   useEffect(() => {
     setLoggedStatus(true);
   }, [setLoggedStatus]);
-
-  useEffect(() => {
-    setLoading(false);
-  }, []);
 
   const openBestowModal = () => {
     window.BestowModal.setup(
@@ -149,7 +188,9 @@ const Portfolio = () => {
                   </svg>
                 </button>
               </div>
-              <AccodionContainer currentUser={currentUser} loading={loading} />
+              {loaded && (
+                <AccodionContainer currentUser={currentUser} loaded={loaded} />
+              )}
             </div>
             <div
               id="right-card"

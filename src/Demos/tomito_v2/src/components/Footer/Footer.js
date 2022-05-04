@@ -3,7 +3,7 @@ const Footer = () => (
     id="footer-container"
     className="bg-black text-white flex justify-center flex-col lg:flex-row text-center md:text-left p-14"
   >
-    <seciton
+    <section
       id="footer-content"
       className="flex justify-between items-center text-white gap-8 md:gap-4 flex-col md:flex-row"
     >
@@ -97,7 +97,7 @@ const Footer = () => (
           </a>
         </ul>
       </div>
-    </seciton>
+    </section>
   </div>
 );
 
