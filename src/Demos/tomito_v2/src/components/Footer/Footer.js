@@ -68,7 +68,7 @@ const Footer = () => {
           <p>Follow us on</p>
           <ul className="pt-2 flex justify-between">
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/bestow_life/?hl=en"
               target="_blank"
               rel="noreferrer noopener"
             >
@@ -82,7 +82,7 @@ const Footer = () => {
               </li>
             </a>
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/bestowlifeinsurance/"
               target="_blank"
               rel="noreferrer noopener"
             >
@@ -96,7 +96,7 @@ const Footer = () => {
               </li>
             </a>
             <a
-              href="https://twitter.com"
+              href="https://twitter.com/bestow_inc?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
               target="_blank"
               rel="noreferrer noopener"
             >
