@@ -1,4 +1,4 @@
-.bestow-slideout-gutter {
+.bestow-slideout {
     position: fixed;
     height: 100%;
     right: 0;
@@ -6,80 +6,90 @@
     margin: 0;
     background-color: white;
     z-index: 1;
-    overflow: hidden;
     display: block;
     width: 20%;
     min-width: 360px;
     border: 1px darkgray solid;
     box-sizing: content-box;
 }
-
-@media screen and (max-width: 500px) {
-    .bestow-slideout-gutter {
-        width: 100%;
-    }
+.bestow-slideout-screen {
+    height: 100%;
+    width: 100%;
+    left: 0;
+    right: 0; 
+    top: 0;
+    bottom: 0;
+    Z-index: 1;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
 }
-
-@media screen and (min-width: 501px) {
-    .bestow-slideout-gutter {
-        width: 70%;
-    }
-}
-
-@media screen and (min-width: 800px) {
-    .bestow-slideout-gutter {
-        width: 50%;
-    }
-}
-
-@media screen and (min-width: 1000px) {
-    .bestow-slideout-gutter {
-        width: 40%;
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    .bestow-slideout-gutter {
-        width: 30%;
-    }
-}
-
-@media screen and (min-width: 2000px) {
-    .bestow-slideout-gutter {
-        width: 20%;
-    }
-}
-
 .bestow-slideout-nav {
-    height: 30px;
+    height: 42px;
     display: block;
-    background-color: rgba(44, 89, 104);
+    background-color: #FFFFFF; /* White */
+    padding: 5px;
 }
-.bestow-slideout-gutter > iframe {
+.bestow-slideout > iframe {
     height: 100%;
     width: 100%;
     border: 0;
 }
 .bestow-slideout-close {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 20px;
-    height: 20px;
-    box-sizing: inherit;
-    float: right;
+    width: 32px;
+    height: 32px;
+    background-color: #FFFFFF;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    position: relative;
+    float: left;
+    margin-left: -50px;
 }
-.bestow-slideout-close-span {
-    display: table-cell;
-    vertical-align: right;
-    height: 25px;
-    width: 25px;
-    text-align: center;
-    font: 19px sans-serif;
-    font-weight: 800;
-    cursor: pointer;
-    box-sizing: inherit;
-    color: white;
-    float: right;
-    margin-right: 18px;
+.bestow-slideout-close-forward-slash {
+    height: 18px;
+    width: 1.5px;
+    margin: 6px auto;
+    background-color: #0B3541; /* Bestow Navy */
+    transform: rotate(45deg);
+}
+.bestow-slideout-close-back-slash {
+    height: 18px;
+    width: 1.5px;
+    background-color: #0B3541; /* Bestow Navy */
+    transform: rotate(90deg);
+}
+
+@media screen and (max-width: 430px) {
+    .bestow-slideout {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 431px) {
+    .bestow-slideout {
+        width: 70%;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .bestow-slideout {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .bestow-slideout {
+        width: 40%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .bestow-slideout {
+        width: 30%;
+    }
+}
+
+@media screen and (min-width: 2000px) {
+    .bestow-slideout {
+        width: 20%;
+    }
 }

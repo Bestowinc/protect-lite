@@ -3,7 +3,7 @@
 const styling = require('bundle-text:./styles.css');
 
 const openModal = () => () => {
-  const modal = document.getElementById('bestow-modal');
+  const modal = document.getElementById('bestow-modal-screen');
 
   modal.style.display = 'block';
 
@@ -11,7 +11,7 @@ const openModal = () => () => {
 };
 
 const closeModal = () => () => {
-  const modal = document.getElementById('bestow-modal');
+  const modal = document.getElementById('bestow-modal-screen');
 
   /* Disable visuals (ie: close) */
   modal.style.display = 'none';
@@ -71,7 +71,6 @@ function setupBestow(elementSelector, url, params, open, size) {
   const modalElem = document.createElement('div');
   modalElem.id = 'bestow-modal';
   modalElem.classList.add('bestow-modal');
-  modalElem.style.display = 'none';
 
   if (size) {
     if (!Number.isFinite(size) || size < 10 || size > 100) {
@@ -84,20 +83,25 @@ function setupBestow(elementSelector, url, params, open, size) {
     modalElem.style.right = `${(100 - size) / 2}%`;
   }
 
-  const navElem = document.createElement('div');
-  navElem.id = 'bestow-modal-nav';
-  navElem.classList.add('bestow-modal-nav');
+  const screenElem = document.createElement('div');
+  screenElem.id = 'bestow-modal-screen';
+  screenElem.classList.add('bestow-modal-screen');
+  screenElem.style.display = 'none';
 
-  const closeSpan = document.createElement('span');
-  closeSpan.textContent = 'X';
-  closeSpan.classList.add('bestow-modal-close-span');
+  const backSlashElem = document.createElement('div');
+  backSlashElem.id = 'bestow-modal-close-back-slash';
+  backSlashElem.classList.add('bestow-modal-close-back-slash');
+
+  const forwardSlashElem = document.createElement('div');
+  forwardSlashElem.id = 'bestow-modal-close-forward-slash';
+  forwardSlashElem.classList.add('bestow-modal-close-forward-slash');
+  forwardSlashElem.appendChild(backSlashElem);
 
   const closeElem = document.createElement('div');
   closeElem.id = 'bestow-modal-close';
   closeElem.classList.add('bestow-modal-close');
-  closeElem.appendChild(closeSpan);
+  closeElem.appendChild(forwardSlashElem);
   closeElem.onclick = closeModal();
-  navElem.appendChild(closeElem);
 
   const frameElem = document.createElement('iframe');
   frameElem.id = 'bestow-modal-iframe';
@@ -107,9 +111,31 @@ function setupBestow(elementSelector, url, params, open, size) {
     'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads',
   );
   frameElem.src = fullUrl;
-  modalElem.appendChild(navElem);
+
+  // Check if screen width is less than 530 and if so add a Nav Bar
+  // and include the Close Element within it.
+  if (window.screen.width <= 530) {
+    // Create nav bar
+    const navElem = document.createElement('div');
+    navElem.id = 'bestow-modal-nav';
+    navElem.classList.add('bestow-modal-nav');
+
+    // Remove styling that makes the Close Element float to the right side
+    closeElem.style.marginRight = '0px';
+
+    // Attach Close Element to Nav Bar
+    navElem.appendChild(closeElem);
+
+    // Attach Nav Bar to Modal Element
+    modalElem.appendChild(navElem);
+  } else {
+    // Just attach the Close Element to Modal
+    modalElem.appendChild(closeElem);
+  }
+
   modalElem.appendChild(frameElem);
-  document.body.appendChild(modalElem);
+  screenElem.appendChild(modalElem);
+  document.body.appendChild(screenElem);
 
   if (open) {
     openModal()();
