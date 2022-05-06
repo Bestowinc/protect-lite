@@ -104,7 +104,12 @@ const TopNav = () => {
                     Investment Products
                   </a>
 
-                  <a href="/" className="px-3 py-2 rounded-md font-medium">
+                  <a
+                    href="https://github.com/Bestowinc/protect-lite/blob/main/documentation/v1/integration-guide.md"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-3 py-2 rounded-md font-medium"
+                  >
                     Why Tomito?
                   </a>
                   <button
@@ -229,7 +234,12 @@ const TopNav = () => {
                 Investment Products
               </a>
 
-              <a href="/" className="block px-3 py-2 rounded-md font-medium">
+              <a
+                href="https://github.com/Bestowinc/protect-lite/blob/main/documentation/v1/integration-guide.md"
+                target="_blank"
+                rel="noreferrer"
+                className="block px-3 py-2 rounded-md font-medium"
+              >
                 Why Tomito?
               </a>
             </div>

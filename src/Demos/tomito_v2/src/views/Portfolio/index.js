@@ -3,27 +3,57 @@ import Footer from '../../components/Footer/Footer';
 import React, { useEffect, useContext, useState } from 'react';
 import { UserContext } from '../../components/Context/UserContext';
 import AccodionContainer from '../../components/AccordionContainer/AccordionContainer';
+import { useSearchParams } from 'react-router-dom';
 
 const Portfolio = () => {
-  const { currentUser, setLoggedStatus } = useContext(UserContext);
-  const [loading, setLoading] = useState(true);
+  const { currentUser, setLoggedStatus, version, setVersion } =
+    useContext(UserContext);
+  const [loaded, setLoaded] = useState(false);
+  const [searchParams] = useSearchParams();
+
+  //Dynamic versioning for testing purposes
+  useEffect(() => {
+    const param = searchParams.get('version');
+
+    if (param) {
+      setVersion(param);
+    } else {
+      setVersion('latest');
+    }
+  }, [version, setVersion, searchParams]);
+
+  useEffect(() => {
+    if (!version) return;
+
+    const accordionScript = document.createElement('script');
+    accordionScript.src = `https://protect-lite.qa.bestow.com/static/v1/iframe/accordion/bestow-accordion-${version}.js`;
+    accordionScript.onerror = () => {
+      return (accordionScript.src = `https://protect-lite.qa.bestow.com/static/v1/iframe/accordion/bestow-accordion-latest.js`);
+    };
+    accordionScript.async = true;
+    accordionScript.addEventListener('load', () => setLoaded(true));
+    document.body.appendChild(accordionScript);
+
+    const slideoutScript = document.createElement('script');
+    slideoutScript.src = `https://protect-lite.qa.bestow.com/static/v1/iframe/slideout/bestow-slideout-${version}.js`;
+    slideoutScript.onerror = () => {
+      return (slideoutScript.src = `https://protect-lite.qa.bestow.com/static/v1/iframe/slideout/bestow-slideout-latest.js`);
+    };
+    slideoutScript.async = true;
+    document.body.appendChild(slideoutScript);
+
+    const modalScript = document.createElement('script');
+    modalScript.src = `https://protect-lite.qa.bestow.com/static/v1/iframe/modal/bestow-modal-${version}.js`;
+    modalScript.onerror = () => {
+      return (modalScript.src = `https://protect-lite.qa.bestow.com/static/v1/iframe/modal/bestow-modal-latest.js`);
+    };
+    modalScript.async = true;
+    document.body.appendChild(modalScript);
+  }, [version]);
 
   useEffect(() => {
     setLoggedStatus(true);
   }, [setLoggedStatus]);
-
-  useEffect(() => {
-    setLoading(false);
-  }, []);
-
-  const openBestowModal = () => {
-    window.BestowModal.setup(
-      'get-quote-modal',
-      process.env.REACT_APP_AGENT_URL,
-      currentUser,
-      true,
-    );
-  };
 
   const openBestowSlideout = () => {
     window.BestowSlideout.setup(
@@ -149,18 +179,18 @@ const Portfolio = () => {
                   </svg>
                 </button>
               </div>
-              <AccodionContainer currentUser={currentUser} loading={loading} />
+              {loaded && (
+                <AccodionContainer currentUser={currentUser} loaded={loaded} />
+              )}
             </div>
             <div
               id="right-card"
               className="w-full flex justify-between border border-slate-300 bg-white px-4 py-2"
             >
               <h5 className="font-semibold">Your Balance History</h5>
-              <button id="get-quote-modal" onClick={openBestowModal}>
-                <svg viewBox="0 0 1024 1024" className="w-6 fill-gray-400">
-                  <path d="M213.333 85.333c-35.328 0-67.413 14.379-90.496 37.504s-37.504 55.168-37.504 90.496v597.333c0 35.328 14.379 67.413 37.504 90.496s55.168 37.504 90.496 37.504h597.333c35.328 0 67.413-14.379 90.496-37.504s37.504-55.168 37.504-90.496v-597.333c0-35.328-14.379-67.413-37.504-90.496s-55.168-37.504-90.496-37.504zM213.333 170.667h597.333c11.776 0 22.4 4.736 30.165 12.501s12.501 18.389 12.501 30.165v597.333c0 11.776-4.736 22.4-12.501 30.165s-18.389 12.501-30.165 12.501h-597.333c-11.776 0-22.4-4.736-30.165-12.501s-12.501-18.389-12.501-30.165v-597.333c0-11.776 4.736-22.4 12.501-30.165s18.389-12.501 30.165-12.501zM341.333 554.667h128v128c0 23.552 19.115 42.667 42.667 42.667s42.667-19.115 42.667-42.667v-128h128c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-128v-128c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v128h-128c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"></path>
-                </svg>
-              </button>
+              <svg viewBox="0 0 1024 1024" className="w-6 fill-gray-400">
+                <path d="M213.333 85.333c-35.328 0-67.413 14.379-90.496 37.504s-37.504 55.168-37.504 90.496v597.333c0 35.328 14.379 67.413 37.504 90.496s55.168 37.504 90.496 37.504h597.333c35.328 0 67.413-14.379 90.496-37.504s37.504-55.168 37.504-90.496v-597.333c0-35.328-14.379-67.413-37.504-90.496s-55.168-37.504-90.496-37.504zM213.333 170.667h597.333c11.776 0 22.4 4.736 30.165 12.501s12.501 18.389 12.501 30.165v597.333c0 11.776-4.736 22.4-12.501 30.165s-18.389 12.501-30.165 12.501h-597.333c-11.776 0-22.4-4.736-30.165-12.501s-12.501-18.389-12.501-30.165v-597.333c0-11.776 4.736-22.4 12.501-30.165s18.389-12.501 30.165-12.501zM341.333 554.667h128v128c0 23.552 19.115 42.667 42.667 42.667s42.667-19.115 42.667-42.667v-128h128c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-128v-128c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v128h-128c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"></path>
+              </svg>
             </div>
             <div className="flex flex-col border bg-white p-4">
               <div className="flex justify-between mb-4">
