@@ -1,6 +1,6 @@
 {
   "name": "protect-lite",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "private": true,
   "scripts": {
     "prepare": "husky install",
@@ -19,7 +19,8 @@
     "build-static-v1:modal:latest": "BUILD_VERSION_V1=latest parcel build src/static/v1/iframe/modal/bestow-modal.js --dist-dir build/$NODE_ENV/static/v1/iframe/modal --no-cache",
     "build-static-v1:modal:versioned": "BUILD_VERSION_V1=$BUILD_VERSION_V1 parcel build src/static/v1/iframe/modal/bestow-modal.js --dist-dir build/$NODE_ENV/static/v1/iframe/modal --no-cache",
     "build-demo": "rimraf build/demo && parcel build src/Demos/Tomito/index.html --no-cache --dist-dir build/$NODE_ENV/demo/tomito",
-    "run-demo": "rimraf build/demo/tomito && parcel serve src/Demos/Tomito/index.html --port 4000 --dist-dir build/$NODE_EN/demo/tomito --no-cache"
+    "run-demo": "rimraf build/demo/tomito && parcel serve src/Demos/Tomito/index.html --port 4000 --dist-dir build/$NODE_EN/demo/tomito --no-cache",
+    "run-react-demo": "npm run start --prefix ./src/Demos/tomito_v2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",

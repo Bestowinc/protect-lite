@@ -17,10 +17,13 @@ const fullTestURL = `${testURL}?${Object.keys(testParams)
   .join('&')}`;
 const testElementID = 'some_id';
 
-const iframeElementID = 'bestow-modal-frame';
+const iframeElementID = 'bestow-modal-iframe';
+const modalScreenElementID = 'bestow-modal-screen';
 const modalElementID = 'bestow-modal';
 const modalNavElementID = 'bestow-modal-nav';
 const closeElementID = 'bestow-modal-close';
+const closeSlashElement1ID = 'bestow-modal-close-forward-slash';
+const closeSlashElement2ID = 'bestow-modal-close-back-slash';
 const styleElementID = 'bestow-modal-styling';
 
 document.body.innerHTML += `
@@ -70,16 +73,20 @@ console.log(document.documentElement.innerHTML);
 
 const suppliedTestElement = document.getElementById(testElementID);
 const modalElement = document.getElementById(modalElementID);
-const modalNavElement = document.getElementById(modalNavElementID);
+const modalScreenElement = document.getElementById(modalScreenElementID);
 const iframeElement = document.getElementById(iframeElementID);
 const closeElement = document.getElementById(closeElementID);
+const closeSlashElement1 = document.getElementById(closeSlashElement1ID);
+const closeSlashElement2 = document.getElementById(closeSlashElement2ID);
 const styleElement = document.getElementById(styleElementID);
 
 const suppliedExists = suppliedTestElement !== null;
 const modalExists = modalElement !== null;
-const modalNavExists = modalNavElement !== null;
+const modalScreenExists = modalScreenElement !== null;
 const iframeExists = iframeElement !== null;
 const closeExists = closeElement !== null;
+const closeSlash1Exists = closeSlashElement1 !== null;
+const closeSlash2Exists = closeSlashElement2 !== null;
 const styleExists = styleElement !== null;
 
 describe('elements exist', () => {
@@ -89,17 +96,46 @@ describe('elements exist', () => {
   test('modal element exists', () => {
     expect(modalExists).toBeTruthy();
   });
-  test('modal nav element exists', () => {
-    expect(modalNavExists).toBeTruthy();
-  });
   test('iframe element exists', () => {
     expect(iframeExists).toBeTruthy();
   });
   test('close element exists', () => {
     expect(closeExists).toBeTruthy();
   });
+  test('closeSlash1 element exists', () => {
+    expect(closeSlash1Exists).toBeTruthy();
+  });
+  test('closeSlash2 element exists', () => {
+    expect(closeSlash2Exists).toBeTruthy();
+  });
   test('style element exists', () => {
     expect(styleExists).toBeTruthy();
+  });
+});
+
+describeIf(modalScreenExists)('modal screen tests', () => {
+  afterAll(() => {
+    if (closeExists) {
+      closeElement.click();
+    }
+  });
+
+  test('modal screen element has correct id', () => {
+    expect(modalScreenElement.id).toBe(modalScreenElementID);
+  });
+  test('modal screen element has correct class name', () => {
+    expect(modalScreenElement.className).toBe(modalScreenElementID);
+  });
+  test('modal screen element is not displayed on load', () => {
+    expect(modalScreenElement.style.display).toBe('none');
+  });
+  test('modal screen element is displayed when supplied element is clicked', () => {
+    suppliedTestElement.click();
+    expect(modalScreenElement.style.display).toBe('block');
+  });
+  test('modal screen element is hidden when closed', () => {
+    closeElement.click();
+    expect(modalScreenElement.style.display).toBe('none');
   });
 });
 
@@ -114,10 +150,7 @@ describeIf(modalExists)('modal tests', () => {
     expect(modalElement.id).toBe(modalElementID);
   });
   test('modal element has correct class name', () => {
-    expect(modalElement.className).toBe('bestow-modal');
-  });
-  test('modal element is not displayed on load', () => {
-    expect(modalElement.style.display).toBe('none');
+    expect(modalElement.className).toBe(modalElementID);
   });
   test('modal element is correct height', () => {
     expect(modalElement.style.height).toBe('90%');
@@ -128,18 +161,10 @@ describeIf(modalExists)('modal tests', () => {
   test('modal element is correct right', () => {
     expect(modalElement.style.right).toBe('5%');
   });
-  test('modal element is displayed when supplied element is clicked', () => {
-    suppliedTestElement.click();
-    expect(modalElement.style.display).toBe('block');
-  });
   test('setup is not ran again on subsequent clicks of the supplied element', () => {
     const setupSpy = jest.spyOn(window.BestowModal, 'setup');
     suppliedTestElement.click();
     expect(setupSpy).not.toBeCalled();
-  });
-  test('modal element is hidden when closed', () => {
-    closeElement.click();
-    expect(modalElement.style.display).toBe('none');
   });
 });
 
@@ -164,8 +189,7 @@ describeIf(iframeExists)('iframe tests', () => {
   test('iframe element has correct sandbox attribute', () => {
     const srcAttribute = iframeElement.getAttribute('sandbox');
     expect(srcAttribute).toBe(
-      'allow-scripts allow-same-origin allow-forms ' +
-        'allow-popups allow-downloads',
+      'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads',
     );
   });
 });
@@ -181,12 +205,64 @@ describeIf(closeExists)('close tests', () => {
     expect(closeElement.id).toBe(closeElementID);
   });
   test('close element has correct class name', () => {
-    expect(closeElement.className).toBe('bestow-modal-close');
+    expect(closeElement.className).toBe(closeElementID);
   });
-  test('close element has close icon', () => {
-    const closeIcon = closeElement.querySelector('.bestow-modal-close-span');
-    expect(closeIcon).toBeTruthy();
-    expect(closeIcon.textContent).toBe('X');
+  test('close forward slash element has correct id', () => {
+    expect(closeSlashElement1.id).toBe(closeSlashElement1ID);
+  });
+  test('close forward slash element correct class name', () => {
+    expect(closeSlashElement1.className).toBe(closeSlashElement1ID);
+  });
+  test('close back slash element has correct id', () => {
+    expect(closeSlashElement2.id).toBe(closeSlashElement2ID);
+  });
+  test('close back slash element has correct class name', () => {
+    expect(closeSlashElement2.className).toBe(closeSlashElement2ID);
+  });
+});
+
+describe('dom elements reused tests', () => {
+  iframeElement.classList.add('reuse-test');
+  test('reuse setup is successful', () => {
+    let err;
+    try {
+      window.BestowModal.setup(testElementID, testURL, testParams, false, 90);
+    } catch (e) {
+      err = e;
+    }
+
+    expect(err).toBeFalsy();
+  });
+  test('iframe has been reused', () => {
+    expect(iframeElement.classList.contains('reuse-test')).toBeTruthy;
+  });
+});
+
+describe('navbar is rendered when meets criteria', () => {
+  Object.defineProperty(window, 'innerWidth', {
+    writable: true,
+    configurable: true,
+    value: 530,
+  });
+  window.dispatchEvent(new Event('resize'));
+
+  test('Resizing window width', () => {
+    expect(window.innerWidth).toBe(530);
+  });
+  test('Reloading modal successful', () => {
+    let err;
+    try {
+      window.BestowModal.setup(testElementID, testURL, testParams, false, 90);
+    } catch (e) {
+      err = e;
+    }
+
+    expect(err).toBeFalsy();
+  });
+  test('navbar exists', () => {
+    const modalNavExists = document.getElementById(modalNavElementID) !== null;
+
+    expect(modalNavExists).toBeTruthy();
   });
 });
 

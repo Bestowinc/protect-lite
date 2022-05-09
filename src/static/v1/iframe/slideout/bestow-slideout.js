@@ -2,19 +2,19 @@
 // See https://parceljs.org/features/bundle-inlining/
 const styling = require('bundle-text:./styles.css');
 
-const openGutter = () => () => {
-  const gutter = document.getElementById('bestow-slideout-gutter');
+const openSlideout = () => () => {
+  const slideout = document.getElementById('bestow-slideout-screen');
 
-  gutter.style.display = 'block';
+  slideout.style.display = 'block';
 
   return false;
 };
 
-const closeGutter = () => () => {
-  const gutter = document.getElementById('bestow-slideout-gutter');
+const closeSlideout = () => () => {
+  const slideout = document.getElementById('bestow-slideout-screen');
 
   /* Disable slide out visuals */
-  gutter.style.display = 'none';
+  slideout.style.display = 'none';
 };
 
 function generateParamsUrl(url, params) {
@@ -38,7 +38,7 @@ function setupBestow(elementSelector, url, params, open, _anchorLeft = false) {
     );
   }
 
-  hostElem.onclick = openGutter(url);
+  hostElem.onclick = openSlideout(url);
 
   /*  
     Check to see if params passed in is not null and is an object and if so
@@ -56,34 +56,48 @@ function setupBestow(elementSelector, url, params, open, _anchorLeft = false) {
     fullUrl = url;
   }
 
+  /* check to see if bestow-slideout-iframe already exists, and if so then update src with fullUrl */
+  const existingIframe = document.querySelector('#bestow-slideout-iframe');
+  if (existingIframe) {
+    existingIframe.src = fullUrl;
+    return;
+  }
+
   const styleSheet = document.createElement('style');
   styleSheet.textContent = styling;
   styleSheet.id = `bestow-slideout-styling`;
   document.body.appendChild(styleSheet);
 
-  const gutterElem = document.createElement('div');
-  gutterElem.id = 'bestow-slideout-gutter';
-  gutterElem.classList.add('bestow-slideout-gutter');
-  gutterElem.style.display = 'none';
+  const slideoutElem = document.createElement('div');
+  slideoutElem.id = 'bestow-slideout';
+  slideoutElem.classList.add('bestow-slideout');
 
-  if (_anchorLeft) {
-    gutterElem.style.left = 0;
-  }
+  const screenElem = document.createElement('div');
+  screenElem.id = 'bestow-slideout-screen';
+  screenElem.classList.add('bestow-slideout-screen');
+  screenElem.style.display = 'none';
 
-  const navElem = document.createElement('div');
-  navElem.id = 'bestow-slideout-nav';
-  navElem.classList.add('bestow-slideout-nav');
+  const backSlashElem = document.createElement('div');
+  backSlashElem.id = 'bestow-slideout-close-back-slash';
+  backSlashElem.classList.add('bestow-slideout-close-back-slash');
 
-  const closeSpan = document.createElement('span');
-  closeSpan.textContent = 'X';
-  closeSpan.classList.add('bestow-slideout-close-span');
+  const forwardSlashElem = document.createElement('div');
+  forwardSlashElem.id = 'bestow-slideout-close-forward-slash';
+  forwardSlashElem.classList.add('bestow-slideout-close-forward-slash');
+  forwardSlashElem.appendChild(backSlashElem);
 
   const closeElem = document.createElement('div');
   closeElem.id = 'bestow-slideout-close';
   closeElem.classList.add('bestow-slideout-close');
-  closeElem.appendChild(closeSpan);
-  closeElem.onclick = closeGutter();
-  gutterElem.appendChild(closeElem);
+  closeElem.appendChild(forwardSlashElem);
+  closeElem.onclick = closeSlideout();
+
+  if (_anchorLeft) {
+    slideoutElem.style.left = 0;
+    closeElem.style.float = 'right';
+    closeElem.style.marginRight = '-50px';
+    closeElem.style.marginLeft = '0px';
+  }
 
   const frameElem = document.createElement('iframe');
   frameElem.id = 'bestow-slideout-iframe';
@@ -93,12 +107,36 @@ function setupBestow(elementSelector, url, params, open, _anchorLeft = false) {
     'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads',
   );
   frameElem.src = fullUrl;
-  gutterElem.appendChild(navElem);
-  gutterElem.appendChild(frameElem);
-  document.body.appendChild(gutterElem);
+
+  // Check if screen width is less than 530 and if so add a Nav Bar
+  // and include the Close Element within it.
+  if (window.screen.width <= 430) {
+    // Create nav bar
+    const navElem = document.createElement('div');
+    navElem.id = 'bestow-slideout-nav';
+    navElem.classList.add('bestow-slideout-nav');
+
+    // Remove styling that makes the Close Element float
+    closeElem.style.marginRight = '0px';
+    closeElem.style.marginLeft = '0px';
+    closeElem.style.float = 'right';
+
+    // Attach Close Element to Nav Bar
+    navElem.appendChild(closeElem);
+
+    // Attach Nav Bar to Slideout Element
+    slideoutElem.appendChild(navElem);
+  } else {
+    // Just attach the Close Element to Modal
+    slideoutElem.appendChild(closeElem);
+  }
+
+  slideoutElem.appendChild(frameElem);
+  screenElem.appendChild(slideoutElem);
+  document.body.appendChild(screenElem);
 
   if (open) {
-    openGutter()();
+    openSlideout()();
   }
 }
 
