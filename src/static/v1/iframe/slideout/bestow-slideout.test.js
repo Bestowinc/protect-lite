@@ -18,8 +18,12 @@ const fullTestURL = `${testURL}?${Object.keys(testParams)
 const testElementID = 'some_id';
 
 const iframeElementID = 'bestow-slideout-iframe';
-const gutterElementID = 'bestow-slideout-gutter';
+const slideoutScreenElementID = 'bestow-slideout-screen';
+const slideoutElementID = 'bestow-slideout';
 const closeElementID = 'bestow-slideout-close';
+const slideoutNavElementID = 'bestow-slideout-nav';
+const closeSlashElement1ID = 'bestow-slideout-close-forward-slash';
+const closeSlashElement2ID = 'bestow-slideout-close-back-slash';
 const styleElementID = 'bestow-slideout-styling';
 
 document.body.innerHTML += `
@@ -30,7 +34,7 @@ document.body.innerHTML += `
 
 let setupError;
 try {
-  window.BestowSlideout.setup(testElementID, testURL, testParams, true, false);
+  window.BestowSlideout.setup(testElementID, testURL, testParams, false, false);
 } catch (e) {
   setupError = e;
 }
@@ -51,7 +55,7 @@ describe('test setup', () => {
   test('error when supplied params is not an object', () => {
     let err;
     try {
-      window.BestowSlideout.setup(testElementID, testURL, `test`, true, false);
+      window.BestowSlideout.setup(testElementID, testURL, `test`, false, false);
     } catch (e) {
       err = e;
     }
@@ -68,23 +72,29 @@ describe('test setup', () => {
 console.log(document.documentElement.innerHTML);
 
 const suppliedTestElement = document.getElementById(testElementID);
-const gutterElement = document.getElementById(gutterElementID);
+const slideoutElement = document.getElementById(slideoutElementID);
+const slideoutScreenElement = document.getElementById(slideoutScreenElementID);
 const iframeElement = document.getElementById(iframeElementID);
 const closeElement = document.getElementById(closeElementID);
+const closeSlashElement1 = document.getElementById(closeSlashElement1ID);
+const closeSlashElement2 = document.getElementById(closeSlashElement2ID);
 const styleElement = document.getElementById(styleElementID);
 
 const suppliedExists = suppliedTestElement !== null;
-const gutterExists = gutterElement !== null;
+const slideoutExists = slideoutElement !== null;
+const slideoutScreenExists = slideoutScreenElement !== null;
 const iframeExists = iframeElement !== null;
 const closeExists = closeElement !== null;
+const closeSlash1Exists = closeSlashElement1 !== null;
+const closeSlash2Exists = closeSlashElement2 !== null;
 const styleExists = styleElement !== null;
 
 describe('elements exist', () => {
   test('supplied test element exists', () => {
     expect(suppliedExists).toBeTruthy();
   });
-  test('gutter element exists', () => {
-    expect(gutterExists).toBeTruthy();
+  test('slideout element exists', () => {
+    expect(slideoutExists).toBeTruthy();
   });
   test('iframe element exists', () => {
     expect(iframeExists).toBeTruthy();
@@ -92,42 +102,57 @@ describe('elements exist', () => {
   test('close element exists', () => {
     expect(closeExists).toBeTruthy();
   });
+  test('closeSlash1 element exists', () => {
+    expect(closeSlash1Exists).toBeTruthy();
+  });
+  test('closeSlash2 element exists', () => {
+    expect(closeSlash2Exists).toBeTruthy();
+  });
   test('style element exists', () => {
     expect(styleExists).toBeTruthy();
   });
 });
 
-describeIf(gutterExists)('gutter tests', () => {
+describeIf(slideoutScreenExists)('slideout screen tests', () => {
   afterAll(() => {
     if (closeExists) {
       closeElement.click();
     }
   });
 
-  test('gutter element has correct id', () => {
-    expect(gutterElement.id).toBe(gutterElementID);
+  test('slideout screen element has correct id', () => {
+    expect(slideoutScreenElement.id).toBe(slideoutScreenElementID);
   });
-  test('gutter element has correct class name', () => {
-    expect(gutterElement.className).toBe('bestow-slideout-gutter');
+  test('slideout screen element has correct class name', () => {
+    expect(slideoutScreenElement.className).toBe(slideoutScreenElementID);
   });
-  test('gutter element is displayed when open is true on setup', () => {
-    expect(gutterElement.style.display).toBe('block');
+  test('slideout screen element is not displayed on load', () => {
+    expect(slideoutScreenElement.style.display).toBe('none');
   });
-  test('gutter element is anchored to the right', () => {
-    expect(gutterElement.style.left).toBe('');
-  });
-  test('gutter element is displayed when supplied element is clicked', () => {
+  test('slideout screen element is displayed when supplied element is clicked', () => {
     suppliedTestElement.click();
-    expect(gutterElement.style.display).toBe('block');
+    expect(slideoutScreenElement.style.display).toBe('block');
+  });
+  test('slideout screen element is hidden when closed', () => {
+    closeElement.click();
+    expect(slideoutScreenElement.style.display).toBe('none');
+  });
+});
+
+describeIf(slideoutExists)('slideout tests', () => {
+  test('screen element has correct id', () => {
+    expect(slideoutElement.id).toBe(slideoutElementID);
+  });
+  test('slideout element has correct class name', () => {
+    expect(slideoutElement.className).toBe(slideoutElementID);
+  });
+  test('slideout element is anchored to the right', () => {
+    expect(slideoutElement.style.left).toBe('');
   });
   test('setup is not ran again on subsequent clicks of the supplied element', () => {
     const setupSpy = jest.spyOn(window.BestowSlideout, 'setup');
     suppliedTestElement.click();
     expect(setupSpy).not.toBeCalled();
-  });
-  test('gutter element is hidden when closed', () => {
-    closeElement.click();
-    expect(gutterElement.style.display).toBe('none');
   });
 });
 
@@ -168,12 +193,19 @@ describeIf(closeExists)('close tests', () => {
     expect(closeElement.id).toBe(closeElementID);
   });
   test('close element has correct class name', () => {
-    expect(closeElement.className).toBe('bestow-slideout-close');
+    expect(closeElement.className).toBe(closeElementID);
   });
-  test('close element has close icon', () => {
-    const closeIcon = closeElement.querySelector('.bestow-slideout-close-span');
-    expect(closeIcon).toBeTruthy();
-    expect(closeIcon.textContent).toBe('X');
+  test('close forward slash element has correct id', () => {
+    expect(closeSlashElement1.id).toBe(closeSlashElement1ID);
+  });
+  test('close forward slash element has correct class name', () => {
+    expect(closeSlashElement1.className).toBe(closeSlashElement1ID);
+  });
+  test('close back slash element has correct id', () => {
+    expect(closeSlashElement2.id).toBe(closeSlashElement2ID);
+  });
+  test('close back slash element has correct class name', () => {
+    expect(closeSlashElement2.className).toBe(closeSlashElement2ID);
   });
 });
 
@@ -197,6 +229,41 @@ describe('dom elements reused tests', () => {
   });
   test('iframe has been reused', () => {
     expect(iframeElement.classList.contains('reuse-test')).toBeTruthy;
+  });
+});
+
+describe('navbar is rendered when meets criteria', () => {
+  Object.defineProperty(window, 'innerWidth', {
+    writable: true,
+    configurable: true,
+    value: 430,
+  });
+  window.dispatchEvent(new Event('resize'));
+
+  test('Resizing window width', () => {
+    expect(window.innerWidth).toBe(430);
+  });
+  test('Reloading modal successful', () => {
+    let err;
+    try {
+      window.BestowSlideout.setup(
+        testElementID,
+        testURL,
+        testParams,
+        true,
+        false,
+      );
+    } catch (e) {
+      err = e;
+    }
+
+    expect(err).toBeFalsy();
+  });
+  test('navbar exists', () => {
+    const slideoutNavExists =
+      document.getElementById(slideoutNavElementID) !== null;
+
+    expect(slideoutNavExists).toBeTruthy();
   });
 });
 
