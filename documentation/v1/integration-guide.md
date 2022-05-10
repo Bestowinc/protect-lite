@@ -101,7 +101,7 @@ parent webpage. Clicking the close icon within the embedded component will close
 
 ### Demo
 
-A demonstration of the slideout component can be seen by visiting https://protect-lite.bestowlabs.com/portfolio.html 
+A demonstration of the slideout component can be seen by visiting https://protect-lite.bestowlabs.com/portfolio 
 and clicking the `Get a Quote` link within the Bestow banner.
 
 ### Setup Overview
@@ -198,6 +198,53 @@ and works well on all required devices.
 
 <br/>
 
+### Major Frameworks intergration (React)
+
+While the Slideout component is plug and play, there are a few steps to be completed to optimize it for popular javascript frameworks, such as [React](https://github.com/facebook/create-react-app).
+
+Utilize the method that works best for loading scripts into your application, using a popular library such as [react-helmet](https://github.com/nfl/react-helmet) or a custom loader function like the example provided below at the top of your parent page:
+
+<br/>
+
+```javascript
+  useEffect(() => {
+    const slideoutScript = document.createElement('script');
+    slideoutScript.src = `https://protect-lite.bestow.com/static/v1/iframe/slideout/bestow-slideout-latest.js`;
+    slideoutScript.async = true;
+    document.body.appendChild(slideoutScript);
+  }, []);
+```
+
+<br/>
+
+In the example above, we utilize a popular React hook called: useEffect, so that the script is loaded at the time of page load. 
+
+<br/>
+
+
+```javascript
+ const openBestowSlideout = () => {
+    window.BestowSlideout.setup(
+      'get-quote-slideout',
+      process.env.REACT_APP_AGENT_URL,
+      currentUser,
+      true,
+    );
+  };
+  return(
+    <button
+      id="get-quote-slideout"
+      onClick={openBestowSlideout}
+    >
+      Get a Quote
+    </button>
+  )
+```
+
+<br/>
+
+In the above example we assign `openBestowSlideout`, to the BestowSlideout setup function so that we can assign an onClick event to the `<button id="get-quote-modal" onClick={openBestowSlideout}>`. Doing so causes the BestowSlideout setup function to invoke when the button is clicked, allowing the iframe to handle creating the iframe DOM element and handling logic. We have created the `currentUser` variable used in this example. As stated earlier in this guide, this parameter is an optional object that will prefill information into the iframe. The best way for React to track the changes and re-render the iframe with updated information is to set this object to a trackable state object. We also pass an ENV variable `process.env.REACT_APP_AGENT_URL` in the function to handle the required Agent URL. Coming from a `.env` file that manages "secrets."
+
 ## Accordion
 
 This component provides the ability to iframe the Bestow application within a section of an HTML accordion.
@@ -207,7 +254,7 @@ parent webpage. Clicking the close icon within the embedded component will colla
 
 ### Demo
 
-A demonstration of the accordion component can be seen by visiting https://protect-lite.bestowlabs.com/portfolio.html
+A demonstration of the accordion component can be seen by visiting https://protect-lite.bestowlabs.com/portfolio
 and clicking the "+" icon within the Bestow banner.
 
 ### Setup Overview
@@ -296,6 +343,53 @@ and works well on all required devices.
 
 <br/>
 
+### Major Frameworks intergration (React)
+
+While the accordion component is plug and play, there are a few steps to be completed to optimize it for popular javascript frameworks, such as [React](https://github.com/facebook/create-react-app).
+
+Utilize the method that works best for loading scripts into your application, using a popular library such as [react-helmet](https://github.com/nfl/react-helmet) or a custom loader function like the example provided below at the top of your parent page:
+
+<br/>
+
+```javascript
+  useEffect(() => {
+    const accordionScript = document.createElement('script');
+    accordionScript.src = `https://protect-lite.bestow.com/static/v1/iframe/accordion/bestow-accordion-latest.js`;
+    accordionScript.async = true;
+    accordionScript.addEventListener('load', () => setLoaded(true));
+    document.body.appendChild(accordionScript);
+  }, []);
+```
+<br/>
+
+In the example above, we utilize a popular React hook called: useEffect, so that the script is loaded at the time of page load. We are also utilizing state to track when the script is fully loaded by using `setLoaded(true)` so that react triggers a re-render in order to replace the `<div id="life-insurance-accordion-content">` and display the new accordion component instead.
+
+For React to track the DOM changes, our examples recommend wrapping the accordion content in a separate React component and passing it a `loaded` state variable prop that we previously set while loading the script. Because of this, the component can re-render when its props change and the accordion has replaced the DOM element.
+
+```javascript
+const AccordionContainer = ({ currentUser, loaded }) => {
+  useEffect(() => {
+    window.BestowAccordion?.setup(
+      'life-insurance-accordion-content',
+      'life-insurance-button',
+      process.env.REACT_APP_AGENT_URL,
+      currentUser,
+    );
+  }, [currentUser, loaded]);
+
+  return (
+    <div
+      id="life-insurance-accordion-content"
+      className="bg-white"
+      style={{ height: '500px' }}
+    ></div>
+  );
+};
+```
+<br/>
+
+We again utilize the useEffect hook to run the `BestowAccordion` setup function and display the updated accordion component anytime the React component is updated. We are also passing in a currentUser argument, as an example, for any prefilled information you would like to pass to the iframe. Passing in this information also let's React re-render if new, optional, prefill information is passed to the React component. We have created the `currentUser` variable used in this example. As stated earlier in this guide, this parameter is an optional object that will prefill information into the iframe. The best way for React to track the changes and re-render the iframe with updated information is to set this object to a trackable state object. We also pass an ENV variable `process.env.REACT_APP_AGENT_URL` in the function to handle the required Agent URL. Coming from a `.env` file that manages "secrets."
+
 ## Modal
 
 This component embeds the Bestow application in an iframe in the center of the screen.
@@ -305,7 +399,7 @@ parent webpage. Clicking the close icon within the embedded component will close
 
 ### Demo
 
-A demonstration of the modal component can be seen by visiting https://protect-lite.bestowlabs.com/portfolio.html
+A demonstration of the modal component can be seen by visiting https://protect-lite.bestowlabs.com/portfolio
 and clicking the `Life Insurance` link at the bottom of the page.
 
 ### Setup Overview
@@ -379,6 +473,8 @@ The code below provides an example of how the modal component can be integrated 
   <a id="get-quote-modal" href="#" onclick='openBestowModal(this.id)' rel="noreferrer noopener">Get a Quote</a>
 </body>
 ```
+<br/>
+
 
 ### Position and Size
 
@@ -399,5 +495,52 @@ throughout the Bestow application process.
 
 Additionally, if a mobile version of your website exists, check to make sure the Bestow content is fully scrollable
 and works well on all required devices.
+
+<br/>
+
+### Major Frameworks intergration (React)
+
+While the Modal component is plug and play, there are a few steps to be completed to optimize it for popular javascript frameworks, such as [React](https://github.com/facebook/create-react-app).
+
+Utilize the method that works best for loading scripts into your application, using a popular library such as [react-helmet](https://github.com/nfl/react-helmet) or a custom loader function like the example provided below at the top of your parent page:
+
+<br/>
+
+
+```javascript
+  useEffect(() => {
+    const modalScript = document.createElement('script');
+    modalScript.src = `https://protect-lite.bestow.com/static/v1/iframe/accordion/bestow-modal-latest.js`;
+    modalScript.async = true;
+    document.body.appendChild(modalScript);
+  }, []);
+```
+
+<br/>
+
+In the example above, we utilize a popular React hook called: useEffect, so that the script is loaded at the time of page load. 
+
+<br/>
+
+
+```javascript
+const openBestowModal = () => {
+    window.BestowModal?.setup(
+      'get-quote-modal',
+      process.env.REACT_APP_AGENT_URL,
+      currentUser,
+      true,
+    );
+  };
+  return(
+    <button id="get-quote-modal" onClick={openBestowModal}>
+      <li className="py-0.5">Life Insurance</li>
+    </button>
+  )
+```
+
+<br/>
+
+In the above example we assign `openBestowModal`, to the BestowModal setup function so that we can assign an onClick event to the `<button id="get-quote-modal" onClick={openBestowModal}>`. Doing so causes the BestowModal setup function to invoke when the button is clicked, allowing the iframe to handle creating the iframe DOM element and handling logic. We have created the `currentUser` variable used in this example. As stated earlier in this guide, this parameter is an optional object that will prefill information into the iframe. The best way for React to track the changes and re-render the iframe with updated information is to set this object to a trackable state object. We also pass an ENV variable `process.env.REACT_APP_AGENT_URL` in the function to handle the required Agent URL. Coming from a `.env` file that manages "secrets."
 
 <br/>
