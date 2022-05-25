@@ -1,80 +1,82 @@
-# Protect Lite
+<p align="center">
+  <img src="https://raw.githubusercontent.com/slatedocs/img/main/logo-slate.png" alt="Slate: API Documentation Generator" width="226">
+  <br>
+  <a href="https://github.com/slatedocs/slate/actions?query=workflow%3ABuild+branch%3Amain"><img src="https://github.com/slatedocs/slate/workflows/Build/badge.svg?branch=main" alt="Build Status"></a>
+  <a href="https://hub.docker.com/r/slatedocs/slate"><img src="https://img.shields.io/docker/v/slatedocs/slate?sort=semver" alt="Docker Version" /></a>
+</p>
 
-Partners can now embed Bestow’s application directly within their own website. Providing access to Bestow’s term 
-life insurance offering without ever routing customers off their platform to bestow.com.
+<p align="center">Slate helps you create beautiful, intelligent, responsive API documentation.</p>
 
-A couple lines of code can add a life insurance entrypoint to the partner’s platform. This brings the user to
-Bestow’s digital application, displayed as an iframe on the partner’s site or mobile app. The iframe
-implementation implies Bestow is still hosting the front-end, so they can make changes to add new functionality
-anytime as well as maintain insights to user behavior on the application itself to prevent against fraud
-(e.g. fullstory monitoring). Approved customers can bind and then return to the partner platform.
+<p align="center"><img src="https://raw.githubusercontent.com/slatedocs/img/main/screenshot-slate.png" width=700 alt="Screenshot of Example Documentation created with Slate"></p>
 
-With the new iframe solution from Bestow, partners can take advantage of adding an instant-issue term life offering 
-to their platform in just a matter of days.
+<p align="center"><em>The example above was created with Slate. Check it out at <a href="https://slatedocs.github.io/slate">slatedocs.github.io/slate</a>.</em></p>
 
-## Releases
+Features
+------------
 
-Visit the link below to view current and previous releases, including links to the javascript files for each of the
-components in the integration guide.
+* **Clean, intuitive design** — With Slate, the description of your API is on the left side of your documentation, and all the code examples are on the right side. Inspired by [Stripe's](https://stripe.com/docs/api) and [PayPal's](https://developer.paypal.com/webapps/developer/docs/api/) API docs. Slate is responsive, so it looks great on tablets, phones, and even in print.
 
-[Releases](https://github.com/Bestowinc/protect-lite/releases)
+* **Everything on a single page** — Gone are the days when your users had to search through a million pages to find what they wanted. Slate puts the entire documentation on a single page. We haven't sacrificed linkability, though. As you scroll, your browser's hash will update to the nearest header, so linking to a particular point in the documentation is still natural and easy.
 
-## Partner Integration
+* **Slate is just Markdown** — When you write docs with Slate, you're just writing Markdown, which makes it simple to edit and understand. Everything is written in Markdown — even the code samples are just Markdown code blocks.
 
-Visit the link below to view technical guidance for partner integration.
+* **Write code samples in multiple languages** — If your API has bindings in multiple programming languages, you can easily put in tabs to switch between them. In your document, you'll distinguish different languages by specifying the language name at the top of each code block, just like with GitHub Flavored Markdown.
 
-[Integration Guide](documentation/v1/integration-guide.md)
+* **Out-of-the-box syntax highlighting** for [over 100 languages](https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers), no configuration required.
 
-## Demo
+* **Automatic, smoothly scrolling table of contents** on the far left of the page. As you scroll, it displays your current position in the document. It's fast, too. We're using Slate at TripIt to build documentation for our new API, where our table of contents has over 180 entries. We've made sure that the performance remains excellent, even for larger documents.
 
-A demo website was created for partners to see how Protect Lite works. A playground to show how the
-Bestow application can be embedded into a dummy parent site.
+* **Let your users update your documentation for you** — By default, your Slate-generated documentation is hosted in a public GitHub repository. Not only does this mean you get free hosting for your docs with GitHub Pages, but it also makes it simple for other developers to make pull requests to your docs if they find typos or other problems. Of course, if you don't want to use GitHub, you're also welcome to host your docs elsewhere.
 
-It utilizes javascript setup files to demonstrate easy integration. (See 
-[Components](documentation/v1/integration-guide.md#components-overview))
+* **RTL Support** Full right-to-left layout for RTL languages such as Arabic, Persian (Farsi), Hebrew etc.
 
-The demo site is built with [Parcel](https://parceljs.org/).
+Getting started with Slate is super easy! Simply press the green "use this template" button above and follow the instructions below. Or, if you'd like to check out what Slate is capable of, take a look at the [sample docs](https://slatedocs.github.io/slate/).
 
-### Environments
+Getting Started with Slate
+------------------------------
 
-| Environment | URL                                         |
-|-------------|---------------------------------------------|
-| Production  | https://protect-lite.bestowlabs.com         |
-| Staging     | https://protect-lite.staging.bestowlabs.com |
-| UAT         | https://protect-lite.uat.bestowlabs.com     |
-| QA          | https://protect-lite.qa.bestowlabs.com      |
+To get started with Slate, please check out the [Getting Started](https://github.com/slatedocs/slate/wiki#getting-started)
+section in our [wiki](https://github.com/slatedocs/slate/wiki).
 
-PostHTML is utilized to inject variables into HTML based on the node environment at build time. This allows html to be
-transformed with values based node environments. e.g. Agent urls, bestow environment urls, etc.
+We support running Slate in three different ways:
+* [Natively](https://github.com/slatedocs/slate/wiki/Using-Slate-Natively)
+* [Using Vagrant](https://github.com/slatedocs/slate/wiki/Using-Slate-in-Vagrant)
+* [Using Docker](https://github.com/slatedocs/slate/wiki/Using-Slate-in-Docker)
 
-The environment utilized is controlled by setting the `NODE_ENV` environment variable at build time.
+Companies Using Slate
+---------------------------------
 
-For example, `NODE_ENV=qa npm run build-demo` will inject variables from the `.env.qa` file into the demos html.
+* [NASA](https://api.nasa.gov)
+* [Sony](http://developers.cimediacloud.com)
+* [Best Buy](https://bestbuyapis.github.io/api-documentation/)
+* [Travis-CI](https://docs.travis-ci.com/api/)
+* [Greenhouse](https://developers.greenhouse.io/harvest.html)
+* [WooCommerce](http://woocommerce.github.io/woocommerce-rest-api-docs/)
+* [Dwolla](https://docs.dwolla.com/)
+* [Clearbit](https://clearbit.com/docs)
+* [Coinbase](https://developers.coinbase.com/api)
+* [Parrot Drones](http://developer.parrot.com/docs/bebop/)
+* [CoinAPI](https://docs.coinapi.io/)
 
-See [Parcel environment variables](https://en.parceljs.org/env.html),
-[PostHTML expressions](https://github.com/posthtml/posthtml-expressions)
+You can view more in [the list on the wiki](https://github.com/slatedocs/slate/wiki/Slate-in-the-Wild).
 
-### Running Locally
+Questions? Need Help? Found a bug?
+--------------------
 
-* Run `npm run run-demo`
-* Open http://localhost:4000
-* Enter a fake username/password and click the `Login` button.
-* Under the Bestow banner, click the `Get a Quote` link to open application in an iFrame.
+If you've got questions about setup, deploying, special feature implementation in your fork, or just want to chat with the developer, please feel free to [start a thread in our Discussions tab](https://github.com/slatedocs/slate/discussions)!
 
-## Development Setup
+Found a bug with upstream Slate? Go ahead and [submit an issue](https://github.com/slatedocs/slate/issues). And, of course, feel free to submit pull requests with bug fixes or changes to the `dev` branch.
 
-In order to run/develop locally, npm must be installed. 
+Contributors
+--------------------
 
-Then run the following command from the project root directory to install all required packages.
-* `npm install`
+Slate was built by [Robert Lord](https://lord.io) while at [TripIt](https://www.tripit.com/). The project is now maintained by [Matthew Peveler](https://github.com/MasterOdin) and [Mike Ralphson](https://github.com/MikeRalphson).
 
-## Tools Used
+Thanks to the following people who have submitted major pull requests:
 
-| Tool                                         | Purpose                                                                                       |
-|----------------------------------------------|-----------------------------------------------------------------------------------------------|
-| [Parcel](https://parceljs.org/)              | Building the libraries and demo. (Compiled with [Babel](https://babeljs.io) under the covers) |
-| [Jest](https://jestjs.io/)                   | Unit testing javascript code. Ran in CircleCi pipeline and as a pre-push git hook.            |
-| [ESLint](https://eslint.org/)                | Linting javascript code. Ran as a pre-commit git hook.                                        |
-| [Prettier](https://prettier.io/)             | Code formatter. Ran as a pre-commit git hook.                                                 |
-| [Husky](https://typicode.github.io/husky/#/) | Configure git hooks.                                                                          |
-| [PostHTML](https://posthtml.org/#/)          | Transform HTML based on node environment.                                                     |
+- [@chrissrogers](https://github.com/chrissrogers)
+- [@bootstraponline](https://github.com/bootstraponline)
+- [@realityking](https://github.com/realityking)
+- [@cvkef](https://github.com/cvkef)
+
+Also, thanks to [Sauce Labs](http://saucelabs.com) for sponsoring the development of the responsive styles.
