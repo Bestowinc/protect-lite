@@ -1,0 +1,17 @@
+.radio, .checkbox {
+  cursor: pointer;
+  display: inline-block;
+  line-height: 1.25;
+  position: relative; }
+  .radio input, .checkbox input {
+    cursor: pointer; }
+  .radio:hover, .checkbox:hover {
+    color: #363636; }
+  .radio[disabled], .checkbox[disabled], fieldset[disabled] .radio, fieldset[disabled] .checkbox,
+  .radio input[disabled],
+  .checkbox input[disabled] {
+    color: #7a7a7a;
+    cursor: not-allowed; }
+
+.radio + .radio {
+  margin-left: 0.5em; }
