@@ -5,11 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta
-            name="description"
-            content="ProtectLite index for Bestow"
-        >
-    <title>ProtectLite</title>
+    <title>API Documentation</title>
 
     <style media="screen">
       .highlight table td { padding: 5px; }
@@ -286,38 +282,22 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-284eafcb.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all-b12a2749.js"></script>
+    <link href="../stylesheets/screen-284eafcb.css" rel="stylesheet" media="screen" />
+    <link href="../stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
+      <script src="../javascripts/all_nosearch-18c3ed8e.js"></script>
 
-    <script>
-      $(function() { setupCodeCopy(); });
-    </script>
   </head>
 
-  <body class="index" data-languages="[&quot;javascript&quot;]">
+  <body class="includes includes_components" data-languages="[]">
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="images/navbar-cad8cdcb.png" alt="" />
+        <img src="../images/navbar-cad8cdcb.png" alt="" />
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo-03520e12.png" class="logo" alt="" />
-        <div class="lang-selector">
-              <a href="#" data-language-name="javascript">javascript</a>
-        </div>
-        <div class="search">
-          <input type="text" class="search" id="input-search" placeholder="Search">
-        </div>
-        <ul class="search-results"></ul>
+      <img src="../images/logo-03520e12.png" class="logo" alt="" />
       <ul id="toc" class="toc-list-h1">
-          <li>
-            <a href="#integration-guide" class="toc-h1 toc-link" data-title="Integration Guide">Integration Guide</a>
-          </li>
-          <li>
-            <a href="#prerequisites" class="toc-h1 toc-link" data-title="Prerequisites">Prerequisites</a>
-          </li>
           <li>
             <a href="#components-overview" class="toc-h1 toc-link" data-title="Components Overview">Components Overview</a>
               <ul class="toc-list-h2">
@@ -332,45 +312,12 @@
                   </li>
               </ul>
           </li>
-          <li>
-            <a href="#browser-support" class="toc-h1 toc-link" data-title="Browser Support">Browser Support</a>
-          </li>
-          <li>
-            <a href="#widgets" class="toc-h1 toc-link" data-title="Widgets">Widgets</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#quote" class="toc-h2 toc-link" data-title="Quote">Quote</a>
-                  </li>
-                  <li>
-                    <a href="#enrollment" class="toc-h2 toc-link" data-title="Enrollment">Enrollment</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#releases" class="toc-h1 toc-link" data-title="Releases">Releases</a>
-          </li>
       </ul>
-        <ul class="toc-footer">
-            <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
-        </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <aside class="warning"> This guide is a work in progress and subject to change.</aside>
-<h1 id='integration-guide'>Integration Guide</h1>
-<p>The Bestow application can be embedded inside your own hosted website. This document contains guidelines
-and examples of how this can be achieved.</p>
-
-<h1 id='prerequisites'>Prerequisites</h1>
-
-<p>In order to properly embed the Bestow application you must have a valid agent URL.</p>
-
-<aside class="warning"> If you need an agent URL, contact your partner management representative to complete your setup with the agent
-operations team. </aside>
-
-<h1 id='components-overview'>Components Overview</h1>
-
+        <h1 id='components-overview'>Components Overview</h1>
 <p>The ability to embed the Bestow application into your website comes in several flavors. They can be combined
 depending on the desired user experience.</p>
 
@@ -820,143 +767,8 @@ and works well on all required devices.</p>
 
 <p><br/></p>
 
-<h1 id='browser-support'>Browser Support</h1>
-
-<p>The Bestow application will work with the following browsers. Correct functionality may work in other browsers 
-but is not supported or guaranteed.</p>
-
-<ul>
-<li>Chrome</li>
-<li>Firefox</li>
-<li>Safari</li>
-<li>Microsoft Edge</li>
-</ul>
-
-<h1 id='widgets'>Widgets</h1>
-
-<p><br/></p>
-
-<h3 id='quote'>Quote</h3>
-
-<p><strong>Creating a Quote</strong></p>
-
-<p>Every insurance policy begins with a quote. You can think of quotes as templates that eventually turn into policies if a user decides to buy. Quotes are used to indicate the terms of the policy and the price (premium) associated with it.</p>
-
-<p>When calculating policy prices, we take many attributes into consideration, such as the user&#39;s age, gender, height, weight and status. You’ll need to include this information when creating a quote through the API.</p>
-
-<p><strong>Url:</strong> https://agent-quote.bestow.com/<agentId></p>
-
-<p><strong>Parameters</strong></p>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Required</th>
-<th style="text-align: left">Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>date_of_birth</td>
-<td>no</td>
-<td style="text-align: left">Prefill <code>Birthdate</code> field. Total height in inches</td>
-</tr>
-<tr>
-<td>gender</td>
-<td>no</td>
-<td style="text-align: left">Prefill <code>Gender</code> field. &quot;male&quot; or &quot;female&quot;</td>
-</tr>
-<tr>
-<td>height</td>
-<td>no</td>
-<td style="text-align: left">Prefill <code>Height</code> field. Total height in inches</td>
-</tr>
-<tr>
-<td>tobacco</td>
-<td>no</td>
-<td style="text-align: left">Prefill <code>Tobacco</code> field. &quot;yes&quot; or &quot;no&quot;</td>
-</tr>
-<tr>
-<td>weight</td>
-<td>no</td>
-<td style="text-align: left">Prefill <code>Weight</code> field. Total weight in lbs</td>
-</tr>
-<tr>
-<td>zip</td>
-<td>no</td>
-<td style="text-align: left">Prefill <code>Zip Code</code> field. 5 digit zipcode value</td>
-</tr>
-</tbody></table>
-
-<p><br/></p>
-
-<h3 id='enrollment'>Enrollment</h3>
-
-<p><strong>Creating an Enrollment</strong></p>
-
-<p>Enrollment is the application process of purchasing a policy. An application is a collection of data about a customer that is used to determine whether we would like to sell them a life insurance policy. It is a request to be considered for an insurance policy. A customer <strong><em>applies</em></strong> for a policy. Just because they apply does not mean they will be issued a policy.</p>
-
-<p>Applications are created when a customer creates an account and ends upon an underwriting decision.</p>
-
-<p><strong>Url:</strong> https://enroll.bestow.com/</p>
-
-<p><strong>Parameters</strong></p>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Required</th>
-<th style="text-align: left">Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>date_of_birth</td>
-<td>no</td>
-<td style="text-align: left">Prefill <code>Birthdate</code> field. Total height in inches</td>
-</tr>
-<tr>
-<td>gender</td>
-<td>no</td>
-<td style="text-align: left">Prefill <code>Gender</code> field. &quot;male&quot; or &quot;female&quot;</td>
-</tr>
-<tr>
-<td>height</td>
-<td>no</td>
-<td style="text-align: left">Prefill <code>Height</code> field. Total height in inches</td>
-</tr>
-<tr>
-<td>tobacco</td>
-<td>no</td>
-<td style="text-align: left">Prefill <code>Tobacco</code> field. &quot;yes&quot; or &quot;no&quot;</td>
-</tr>
-<tr>
-<td>weight</td>
-<td>no</td>
-<td style="text-align: left">Prefill <code>Weight</code> field. Total weight in lbs</td>
-</tr>
-<tr>
-<td>zip</td>
-<td>no</td>
-<td style="text-align: left">Prefill <code>Zip Code</code> field. 5 digit zipcode value</td>
-</tr>
-<tr>
-<td>quoteid</td>
-<td>no</td>
-<td style="text-align: left">Pass in previous quote id. <em>date_of_birth, gender, height, tobacco, weight and zip will be prefilled with previous information provided during quote.</em></td>
-</tr>
-</tbody></table>
-
-<h1 id='releases'>Releases</h1>
-
-<p>Visit the link below to view current and previous releases, including links to the javascript files for each of the 
-components in this guide.</p>
-
-<p><a href="https://github.com/Bestowinc/protect-lite/releases">Releases</a></p>
-
       </div>
       <div class="dark-box">
-          <div class="lang-selector">
-                <a href="#" data-language-name="javascript">javascript</a>
-          </div>
       </div>
     </div>
   </body>
