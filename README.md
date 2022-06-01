@@ -1,82 +1,157 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/slatedocs/img/main/logo-slate.png" alt="Slate: API Documentation Generator" width="226">
-  <br>
-  <a href="https://github.com/slatedocs/slate/actions?query=workflow%3ABuild+branch%3Amain"><img src="https://github.com/slatedocs/slate/workflows/Build/badge.svg?branch=main" alt="Build Status"></a>
-  <a href="https://hub.docker.com/r/slatedocs/slate"><img src="https://img.shields.io/docker/v/slatedocs/slate?sort=semver" alt="Docker Version" /></a>
-</p>
+# Welcome to Bestow's Protect Lite Docs!
 
-<p align="center">Slate helps you create beautiful, intelligent, responsive API documentation.</p>
+This site was developed to make a beautiful standardized documentation.
 
-<p align="center"><img src="https://raw.githubusercontent.com/slatedocs/img/main/screenshot-slate.png" width=700 alt="Screenshot of Example Documentation created with Slate"></p>
+ProtectLite is accessable throught the Developer Portal!
+Live Developer Portal: https://developer.bestow.com/
+Live ProtectLite Docs: https://bestowinc.github.io/protect-lite
 
-<p align="center"><em>The example above was created with Slate. Check it out at <a href="https://slatedocs.github.io/slate">slatedocs.github.io/slate</a>.</em></p>
+This page uses: https://github.com/slatedocs/slate
 
-Features
-------------
+- [Welcome to Bestow's Protect Lite Docs!](#welcome-to-bestows-protect-lite-docs)
+  - [Setup](#setup)
+    - [Getting Set Up](#getting-set-up)
+    - [Running Protect Lite Docs](#running-protect-lite-docs)
+    - [Production mode](#production-mode)
+  - [Adding new sections](#adding-new-sections)
+  - [Publishing](#publishing)
+  - [Dependencies](#dependencies)
 
-* **Clean, intuitive design** — With Slate, the description of your API is on the left side of your documentation, and all the code examples are on the right side. Inspired by [Stripe's](https://stripe.com/docs/api) and [PayPal's](https://developer.paypal.com/webapps/developer/docs/api/) API docs. Slate is responsive, so it looks great on tablets, phones, and even in print.
+## Setup
 
-* **Everything on a single page** — Gone are the days when your users had to search through a million pages to find what they wanted. Slate puts the entire documentation on a single page. We haven't sacrificed linkability, though. As you scroll, your browser's hash will update to the nearest header, so linking to a particular point in the documentation is still natural and easy.
+### Getting Set Up
 
-* **Slate is just Markdown** — When you write docs with Slate, you're just writing Markdown, which makes it simple to edit and understand. Everything is written in Markdown — even the code samples are just Markdown code blocks.
+1. Clone this repository and branch. `https://github.com/Bestowinc/developer-portal/tree/SlateDocs` 
+2. `git clone git@github.com:Bestowinc/developer-portal.git -b SlateDocs`
+* `NOTE: If the branch do not exist that means we've move it to main, if so, ignore -b SlateDocs`
+3. `cd developer-portal` 
+4. Install ruby gems for slate:
+```shell
+# either run this to run locally
+bundle install
+```
 
-* **Write code samples in multiple languages** — If your API has bindings in multiple programming languages, you can easily put in tabs to switch between them. In your document, you'll distinguish different languages by specifying the language name at the top of each code block, just like with GitHub Flavored Markdown.
+Note: if the above fails on installing nokogiri and using macOS see
+[here](https://github.com/sparklemotion/nokogiri.org/blob/master/docs/tutorials/installing_nokogiri.md#macos)
+for some helpful tips on things that might help.
 
-* **Out-of-the-box syntax highlighting** for [over 100 languages](https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers), no configuration required.
 
-* **Automatic, smoothly scrolling table of contents** on the far left of the page. As you scroll, it displays your current position in the document. It's fast, too. We're using Slate at TripIt to build documentation for our new API, where our table of contents has over 180 entries. We've made sure that the performance remains excellent, even for larger documents.
+## Running ProtectLite Docs
 
-* **Let your users update your documentation for you** — By default, your Slate-generated documentation is hosted in a public GitHub repository. Not only does this mean you get free hosting for your docs with GitHub Pages, but it also makes it simple for other developers to make pull requests to your docs if they find typos or other problems. Of course, if you don't want to use GitHub, you're also welcome to host your docs elsewhere.
+You can run in two ways, either as a server process for development, or just build html files.
 
-* **RTL Support** Full right-to-left layout for RTL languages such as Arabic, Persian (Farsi), Hebrew etc.
+To do the first option, run:
 
-Getting started with Slate is super easy! Simply press the green "use this template" button above and follow the instructions below. Or, if you'd like to check out what Slate is capable of, take a look at the [sample docs](https://slatedocs.github.io/slate/).
+```bash
+bundle exec middleman server
+```
 
-Getting Started with Slate
-------------------------------
+and you should see your docs at http://localhost:4567. Whoa! That was fast!
 
-To get started with Slate, please check out the [Getting Started](https://github.com/slatedocs/slate/wiki#getting-started)
-section in our [wiki](https://github.com/slatedocs/slate/wiki).
+The second option (building html files), run:
 
-We support running Slate in three different ways:
-* [Natively](https://github.com/slatedocs/slate/wiki/Using-Slate-Natively)
-* [Using Vagrant](https://github.com/slatedocs/slate/wiki/Using-Slate-in-Vagrant)
-* [Using Docker](https://github.com/slatedocs/slate/wiki/Using-Slate-in-Docker)
+```bash
+bundle exec middleman build
+```
 
-Companies Using Slate
----------------------------------
+Middleman config: http://localhost:4567/__middleman/config/
 
-* [NASA](https://api.nasa.gov)
-* [Sony](http://developers.cimediacloud.com)
-* [Best Buy](https://bestbuyapis.github.io/api-documentation/)
-* [Travis-CI](https://docs.travis-ci.com/api/)
-* [Greenhouse](https://developers.greenhouse.io/harvest.html)
-* [WooCommerce](http://woocommerce.github.io/woocommerce-rest-api-docs/)
-* [Dwolla](https://docs.dwolla.com/)
-* [Clearbit](https://clearbit.com/docs)
-* [Coinbase](https://developers.coinbase.com/api)
-* [Parrot Drones](http://developer.parrot.com/docs/bebop/)
-* [CoinAPI](https://docs.coinapi.io/)
 
-You can view more in [the list on the wiki](https://github.com/slatedocs/slate/wiki/Slate-in-the-Wild).
+## Adding new sections
 
-Questions? Need Help? Found a bug?
---------------------
+All sections regarding ProtectLite live in the `incluces` folder. 
+Simply create a new `md file`:
+  * For example: `example.md` 
+  * Fill it with the information you need
+  * Add it to: `index.html.md.erb`
+    * <%= partial "includes/quote-api/example" %> 
 
-If you've got questions about setup, deploying, special feature implementation in your fork, or just want to chat with the developer, please feel free to [start a thread in our Discussions tab](https://github.com/slatedocs/slate/discussions)!
+Thats it! ^_^
 
-Found a bug with upstream Slate? Go ahead and [submit an issue](https://github.com/slatedocs/slate/issues). And, of course, feel free to submit pull requests with bug fixes or changes to the `dev` branch.
+## Publishing
+Save your changes.
+ 1. Send your changes to: https://github.com/Bestowinc/protect-lite/tree/SlateDocs
+ 2. PR to SlateDocs and wait for it to be approved.
+ 3. Merge the changes and update as needed. 
 
-Contributors
---------------------
+In order to ACTUALLY publish your page, you need to generate the html build in order to do so: 
+(If you are waiting for other changes on SlateDocs, don't do this yet.)
+ 1. Determinate your publishing branch.
+ 2. Add it to: `deploy.sh` line `74`.
+  * ```new_deploy_branch=release-branch``` 
+  * change `release-branch` to your publishing branch
+ 3. Run `./deploy.sh`    
+ 4. Done! Create a PR to ´gh-pages´ https://github.com/Bestowinc/protect-lite/tree/gh-pages
 
-Slate was built by [Robert Lord](https://lord.io) while at [TripIt](https://www.tripit.com/). The project is now maintained by [Matthew Peveler](https://github.com/MasterOdin) and [Mike Ralphson](https://github.com/MikeRalphson).
 
-Thanks to the following people who have submitted major pull requests:
+## Dependencies
 
-- [@chrissrogers](https://github.com/chrissrogers)
-- [@bootstraponline](https://github.com/bootstraponline)
-- [@realityking](https://github.com/realityking)
-- [@cvkef](https://github.com/cvkef)
+Minimally, you will need the following:
 
-Also, thanks to [Sauce Labs](http://saucelabs.com) for sponsoring the development of the responsive styles.
+* [Ruby](https://www.ruby-lang.org/en/) >= 2.5
+* [Bundler](https://bundler.io/)
+* [NodeJS](https://nodejs.org/en/)
+* [Git](https://git-scm.com/)
+
+Please note, only Linux and macOS are officially supported at this time. While slate should work on Windows, it is unsupported.
+
+See below for installation instructions for different OSes / distros.
+
+### Installing Dependencies on Linux
+
+Install Ruby, NodeJS, and tools for compiling native ruby gems:
+
+**On Ubuntu 18.04+**
+
+```bash
+sudo apt install ruby ruby-dev build-essential libffi-dev zlib1g-dev liblzma-dev nodejs patch
+```
+
+**On Fedora 31+**
+
+```bash
+sudo dnf install @development-tools redhat-rpm-config ruby ruby-devel libffi-devel zlib-devel xz-devel patch nodejs
+```
+
+
+Then, update RubyGems and install bundler:
+
+```bash
+sudo gem update --system
+sudo gem install bundler
+```
+
+### Installing Dependencies on macOS
+
+First, install [homebrew](https://brew.sh/), then install xcode command line tools:
+
+```bash
+xcode-select --install
+```
+
+Agree to the Xcode license:
+
+```bash
+sudo xcodebuild -license
+```
+
+Install nodejs runtime:
+
+```bash
+brew install node
+```
+
+Update RubyGems and install bundler:
+
+```bash
+gem update --system
+gem install bundler
+```
+
+### Other Potential Dependencies
+
+1. Check if you have access to Bestow's design
+   system ([Check here the repo](https://github.com/Bestowinc/design-system))
+   * If you do not have access to it check: ([Instructions on how to set up .npmrc](https://bestowinc.atlassian.net/wiki/spaces/BT/pages/2579595461/Setting+up+.npmrc)) 
+   * FYI: PAT is a Personal Access Token
+

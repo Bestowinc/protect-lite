@@ -71,6 +71,7 @@ parse_args() {
   # Source directory & target branch.
   deploy_directory=build
   deploy_branch=gh-pages
+  new_deploy_branch=release-branch
 
   #if no user identity is already set in the current git environment, use this:
   default_username=${GIT_DEPLOY_USERNAME:-deploy.sh}
@@ -166,7 +167,8 @@ commit+push() {
 
   disable_expanded_output
   #--quiet is important here to avoid outputting the repo URL, which may contain a secret token
-  git push --quiet $repo $deploy_branch
+  git checkout -b $new_deploy_branch
+  git push --quiet -u $repo $new_deploy_branch
   enable_expanded_output
 }
 
