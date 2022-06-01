@@ -3,7 +3,9 @@
 This site was developed to make a beautiful standardized documentation.
 
 ProtectLite is accessable throught the Developer Portal!
+
 Live Developer Portal: https://developer.bestow.com/
+
 Live ProtectLite Docs: https://bestowinc.github.io/protect-lite
 
 This page uses: https://github.com/slatedocs/slate
@@ -21,10 +23,10 @@ This page uses: https://github.com/slatedocs/slate
 
 ### Getting Set Up
 
-1. Clone this repository and branch. `https://github.com/Bestowinc/developer-portal/tree/SlateDocs` 
-2. `git clone git@github.com:Bestowinc/developer-portal.git -b SlateDocs`
+1. Clone this repository and branch. `https://github.com/Bestowinc/protect-lite/tree/SlateDocs` 
+2. `git clone git@github.com:Bestowinc/protect-lite.git -b SlateDocs`
 * `NOTE: If the branch do not exist that means we've move it to main, if so, ignore -b SlateDocs`
-3. `cd developer-portal` 
+3. `cd protect-lite` 
 4. Install ruby gems for slate:
 ```shell
 # either run this to run locally
