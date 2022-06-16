@@ -290,53 +290,9 @@
     <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-b12a2749.js"></script>
 
-
     <script>
       $(function() { setupCodeCopy(); });
     </script>
-    <script type="module" src='https://protect-lite.bestow.com/static/v1/iframe/slideout/bestow-slideout-latest.js'></script>
-    <script type="module" src='https://protect-lite.bestow.com/static/v1/iframe/accordion/bestow-accordion-latest.js'></script>
-    <script type="module" src='https://protect-lite.bestow.com/static/v1/iframe/modal/bestow-modal-latest.js'></script>
-    <script>
-      const bestowAppUrl = 'https://agent-quote.qa.bestow.com/e4e833b3';
-
-      const quoteParams = {
-        gender: 'female',
-        height: '69',
-        weight: 120,
-        tobacco: 'no',
-        date_of_birth: '1998-01-01',
-        zip: '77386'
-      };
-
-      function openBestowSlideout(elementSelector) {
-        console.log('SLIDEOUT')
-        window.BestowSlideout.setup(elementSelector, bestowAppUrl, quoteParams, true, false);
-      }
-
-      function openBestowModal(elementSelector) {
-        console.log("MODAL", elementSelector, bestowAppUrl, quoteParams)
-        window.BestowModal.setup(elementSelector, bestowAppUrl, quoteParams, true);
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-       window.BestowAccordion.setup("life-insurance-accordion-content", "life-insurance-button", bestowAppUrl, quoteParams);
-      });
-    </script>
-    <style>
-      .bestow-slideout-screen {
-        z-index: 1000 !important;
-      }
-      .bestow-modal-screen {
-        z-index: 1000 !important;
-      }
-      .life-insurance-accordion-content {
-        height: 600px;
-        width: 50%;
-        border-bottom: grey 3px solid;
-        border-top: grey 3px solid;
-      }
-    </style>
   </head>
 
   <body class="index" data-languages="[&quot;javascript&quot;]">
@@ -347,7 +303,7 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo-0f116a89.png" class="logo" alt="" />
+      <img src="images/logo-03520e12.png" class="logo" alt="" />
         <div class="lang-selector">
               <a href="#" data-language-name="javascript">javascript</a>
         </div>
@@ -365,9 +321,6 @@
           <li>
             <a href="#components-overview" class="toc-h1 toc-link" data-title="Components Overview">Components Overview</a>
               <ul class="toc-list-h2">
-                  <li>
-                    <a href="#live-examples" class="toc-h2 toc-link" data-title="Live Examples">Live Examples</a>
-                  </li>
                   <li>
                     <a href="#slideout" class="toc-h2 toc-link" data-title="Slideout">Slideout</a>
                   </li>
@@ -430,15 +383,6 @@ and reducing your time to market. All components are written in plain vanilla ja
 <li><a href="#accordion">Accordion</a></li>
 <li><a href="#modal">Modal</a></li>
 </ul>
-
-<h3 id='live-examples'>Live Examples</h3>
-
-<p><button id="get-quote-slideout" href="#" onclick='openBestowSlideout(this.id)' rel="noreferrer noopener">Using a Slideout</button></p>
-
-<p><button id="life-insurance-button" class="life-insurance-button">Using an Accordion</button>
-<div id="life-insurance-accordion-content" class="life-insurance-accordion-content"></div></p>
-
-<p><button id="get-quote-modal" href="#" onclick='openBestowModal(this.id)' rel="noreferrer noopener">Using a Modal</button></p>
 
 <h2 id='slideout'>Slideout</h2>
 
