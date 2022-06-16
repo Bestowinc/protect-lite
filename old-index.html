@@ -290,9 +290,51 @@
     <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-b12a2749.js"></script>
 
+
     <script>
       $(function() { setupCodeCopy(); });
     </script>
+    <script type="module" src='https://protect-lite.bestow.com/static/v1/iframe/slideout/bestow-slideout-latest.js'></script>
+    <script type="module" src='https://protect-lite.bestow.com/static/v1/iframe/accordion/bestow-accordion-latest.js'></script>
+    <script type="module" src='https://protect-lite.bestow.com/static/v1/iframe/modal/bestow-modal-latest.js'></script>
+    <script>
+      const bestowAppUrl = 'https://agent-quote.qa.bestow.com/e4e833b3';
+
+      const quoteParams = {
+        gender: 'female',
+        height: '69',
+        weight: 120,
+        tobacco: 'no',
+        date_of_birth: '1998-01-01',
+        zip: '77386'
+      };
+
+      function openBestowSlideout(elementSelector) {
+        window.BestowSlideout.setup(elementSelector, bestowAppUrl, quoteParams, true, false);
+      }
+
+      function openBestowModal(elementSelector) {
+        window.BestowModal.setup(elementSelector, bestowAppUrl, quoteParams, true);
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+       window.BestowAccordion.setup("life-insurance-accordion-content", "life-insurance-button", bestowAppUrl, quoteParams);
+      });
+    </script>
+    <style>
+      .bestow-slideout-screen {
+        z-index: 1000 !important;
+      }
+      .bestow-modal-screen {
+        z-index: 1000 !important;
+      }
+      .life-insurance-accordion-content {
+        height: 600px;
+        width: 50%;
+        border-bottom: grey 3px solid;
+        border-top: grey 3px solid;
+      }
+    </style>
   </head>
 
   <body class="old-index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
@@ -303,7 +345,7 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo-03520e12.png" class="logo" alt="" />
+      <img src="images/logo-0f116a89.png" class="logo" alt="" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="ruby">ruby</a>
