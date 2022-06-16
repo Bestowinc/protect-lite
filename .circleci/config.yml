@@ -9,6 +9,9 @@ build-versions:
 x-filter-all-branches: &all-branches
   branches:
     only: /.*/
+    ignore:
+        - SlateDocs
+        - gh-pages
   tags:
     ignore: /.*/
 
@@ -50,10 +53,6 @@ restore-dependencies: &restore-dependencies
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   prep:
-    branches:
-      ignore:
-        - SlateDocs
-        - gh-pages
     docker:
       - image: circleci/node:16
     steps:
