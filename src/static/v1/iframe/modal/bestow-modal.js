@@ -2,18 +2,6 @@
 // See https://parceljs.org/features/bundle-inlining/
 const styling = require('bundle-text:./styles.css');
 
-const Sentry = require('@sentry/browser');
-
-// Importing @sentry/tracing patches the global hub for tracing to work.
-const SentryTracing = require('@sentry/tracing');
-
-Sentry.init({
-  dsn: 'https://c8ba5f624f73456db0ed40b7373df213@o114118.ingest.sentry.io/6400059',
-  release: 'protect-lite@1.1.5',
-  integrations: [new SentryTracing.BrowserTracing()],
-  tracesSampleRate: 1.0,
-});
-
 const openModal = () => () => {
   const modal = document.getElementById('bestow-modal-screen');
 
