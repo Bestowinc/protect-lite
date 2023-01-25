@@ -254,7 +254,10 @@ workflows:
           domain: protect-lite.qa.bestow.com
           bucket: protect-lite.qa.bestow.com
           env: qa
-          context: gcp-policy-platform-qa
+          context: 
+            - gcp-policy-platform-qa
+            - gcr-read-write
+            - cloudflare
           requires:
             - build-static-qa
           filters: *develop-only
@@ -263,7 +266,10 @@ workflows:
           domain: protect-lite.qa.bestowlabs.com
           bucket: protect-lite.qa.bestowlabs.com
           env: qa
-          context: gcp-policy-platform-qa
+          context: 
+            - gcp-policy-platform-qa
+            - gcr-read-write
+            - cloudflare
           requires:
             - build-demo-qa
           filters: *develop-only
@@ -299,7 +305,10 @@ workflows:
           domain: protect-lite.staging.bestow.com
           bucket: protect-lite.staging.bestow.com
           env: staging
-          context: gcp-policy-platform-staging
+          context: 
+            - gcp-policy-platform-staging
+            - gcr-read-write
+            - cloudflare
           requires:
             - build-static-staging
           filters: *staging-only
@@ -308,7 +317,10 @@ workflows:
           domain: protect-lite.uat.bestow.com
           bucket: protect-lite.uat.bestow.com
           env: uat
-          context: gcp-policy-platform-uat
+          context: 
+            - gcp-policy-platform-uat
+            - gcr-read-write
+            - cloudflare
           requires:
             - build-static-uat
           filters: *staging-only
@@ -316,7 +328,10 @@ workflows:
           name: deploy-demo-staging
           domain: protect-lite.staging.bestowlabs.com
           bucket: protect-lite.staging.bestowlabs.com
-          context: gcp-policy-platform-staging
+          context: 
+            - gcp-policy-platform-staging
+            - gcr-read-write
+            - cloudflare
           env: staging
           requires:
             - build-demo-staging
@@ -326,7 +341,10 @@ workflows:
           domain: protect-lite.uat.bestowlabs.com
           bucket: protect-lite.uat.bestowlabs.com
           env: uat
-          context: gcp-policy-platform-uat
+          context: 
+            - gcp-policy-platform-uat
+            - gcr-read-write
+            - cloudflare
           requires:
             - build-demo-uat
           filters: *staging-only
@@ -349,7 +367,10 @@ workflows:
           domain: protect-lite.bestow.com
           bucket: protect-lite.bestow.com
           env: production
-          context: gcp-policy-platform-prod
+          context: 
+            - gcp-policy-platform-prod
+            - gcr-read-write
+            - cloudflare
           requires:
             - build-static-prod
           filters: *main-only
@@ -357,7 +378,10 @@ workflows:
           name: deploy-demo-prod
           domain: protect-lite.bestowlabs.com
           bucket: protect-lite.bestowlabs.com
-          context: gcp-policy-platform-prod
+          context: 
+            - gcp-policy-platform-prod
+            - gcr-read-write
+            - cloudflare
           env: production
           requires:
             - build-demo-prod
